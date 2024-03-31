@@ -3,19 +3,18 @@ import 'package:embecta/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 class ShiftDetailsWidget extends StatefulWidget {
   const ShiftDetailsWidget({Key? key}) : super(key: key);
 
   @override
-  _ShiftDetailsWidgetState createState() =>
-      _ShiftDetailsWidgetState();
+  _ShiftDetailsWidgetState createState() => _ShiftDetailsWidgetState();
 }
 
-class _ShiftDetailsWidgetState
-    extends State<ShiftDetailsWidget> with AutomaticKeepAliveClientMixin<ShiftDetailsWidget>{
-
-  List<String> _selectShift = ['A','B','C','D'];
+class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
+    with AutomaticKeepAliveClientMixin<ShiftDetailsWidget> {
+  List<String> _selectShift = ['A', 'B', 'C', 'D'];
   String _shift = '';
   String _machineId = '';
   String _addMaterial = '';
@@ -23,21 +22,52 @@ class _ShiftDetailsWidgetState
   String _packageSpec = '';
   String _addDesc = '';
 
+  DateTime selectedDate = DateTime.now();
 
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+      final DateFormat formatter = DateFormat('yyyy-MM-dd');
+      final String formatted = formatter.format(picked);
+      _datePickerTFController = TextEditingController.fromValue(
+        TextEditingValue(
+          text: formatted.toString(),
+          selection: TextSelection.collapsed(
+            offset: formatted.toString().length,
+          ),
+        ),
+      );
+    }
+  }
+
+  TextEditingController _datePickerTFController = new TextEditingController();
+  TextEditingController _materialController = new TextEditingController();
+  TextEditingController _batchNumberController = new TextEditingController();
+  TextEditingController _machineIDController = new TextEditingController();
+  TextEditingController _packageSpecController = new TextEditingController();
+  TextEditingController _descriptionController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     super.build(context);
     // TODO: implement build
-    return
-        SingleChildScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
-          child:Column(
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              Padding(padding: EdgeInsets.all(20),child: Row(
-                mainAxisSize:MainAxisSize.max,
+    return SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
@@ -47,8 +77,7 @@ class _ShiftDetailsWidgetState
                       style: TextStyle(
                           fontSize: Constants.fontSize_18,
                           fontFamily: Constants.fontFamily,
-                          fontWeight: FontWeight.w700
-                      ),
+                          fontWeight: FontWeight.w700),
                     ),
                   ),
                   Container(
@@ -58,322 +87,371 @@ class _ShiftDetailsWidgetState
                       style: TextStyle(
                           fontSize: Constants.fontSize_18,
                           fontFamily: Constants.fontFamily,
-                          fontWeight: FontWeight.w700
-                      ),
+                          fontWeight: FontWeight.w700),
                     ),
                   )
                 ],
-
-              ),),
-
-
-              Padding(padding: EdgeInsets.all(20),child: Row(
-                children: [
-                  Expanded(child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Select Shift',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontSize: Constants.fontSize_14,
-                            fontFamily: Constants.fontFamily,
-                            fontWeight: FontWeight.w700
+              ),
+            ),
+            Padding(
+                padding: EdgeInsets.all(20),
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Select Shift',
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                              fontSize: Constants.fontSize_14,
+                              fontFamily: Constants.fontFamily,
+                              fontWeight: FontWeight.w700),
                         ),
-                      ),
-                      SizedBox(height: 10,),
-                      DropdownSearch<String>(
-                        items: _selectShift,
-                        popupProps: PopupProps.menu(
-                          constraints: BoxConstraints(
-                            minHeight: 50,
-                            maxHeight: 200
+                        SizedBox(
+                          height: 10,
+                        ),
+                        DropdownSearch<String>(
+                          items: _selectShift,
+                          popupProps: PopupProps.menu(
+                            constraints:
+                                BoxConstraints(minHeight: 50, maxHeight: 200),
                           ),
+                          dropdownButtonProps: DropdownButtonProps(
+                              constraints: BoxConstraints(minHeight: 50),
+                              icon: Icon(
+                                Icons.arrow_drop_down,
+                                color: Colors.black,
+                                size: 15,
+                              )),
+                        )
+                      ],
+                    )),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Select Date',
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                              fontSize: Constants.fontSize_14,
+                              fontFamily: Constants.fontFamily,
+                              fontWeight: FontWeight.w700),
                         ),
-                        dropdownButtonProps: DropdownButtonProps(
-                          constraints: BoxConstraints(minHeight: 50),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        // Container(
+                        //   padding: EdgeInsets.only(top: 10,bottom: 10,left: 10,right: 10),
+                        //   decoration: BoxDecoration(
+                        //       borderRadius: BorderRadius.all(
+                        //         Radius.circular(10),
+                        //       ),
+                        //     border: Border.all(color: Colors.black)
 
-                          icon:Icon(
-                            Icons.arrow_drop_down,
-                            color: Colors.black,
-                            size: 15,
-                          )
-                        ),
-                      )
-                    ],
-                  )),
-                  SizedBox(width: 10,),
-                  Expanded(child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Select Date',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontSize: Constants.fontSize_14,
-                            fontFamily: Constants.fontFamily,
-                            fontWeight: FontWeight.w700
-                        ),
-                      ),
-                      SizedBox(height: 10,),
-                      Container(
-                        padding: EdgeInsets.only(top: 10,bottom: 10,left: 10,right: 10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                          border: Border.all(color: Colors.black)
-
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(child:
-                              Text(
-                                '12-03-2025'
+                        //   ),
+                        //   child: Row(
+                        //     children: [
+                        //       Expanded(child:
+                        //         Text(
+                        //           '12-03-2025'
+                        //         ),
+                        //       ),
+                        //       Icon(Icons.date_range_rounded)
+                        //     ],
+                        //   ),
+                        // )
+                        Container(
+                          child: TextField(
+                            controller: _datePickerTFController,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              suffixIcon: GestureDetector(
+                                onTap: () {
+                                  _selectDate(context);
+                                },
+                                child: Icon(
+                                  Icons.calendar_month,
+                                ),
                               ),
                             ),
-                            Icon(Icons.date_range_rounded)
-                          ],
+                          ),
                         ),
-                      )
-                      /*Container(
+                        /*Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(
                               Radius.circular(10),
                             )),
                         child: */
-                      //),
-
-                    ],
-                  )),
-                  SizedBox(width: 10,),
-                  Expanded(child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Add Material',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontSize: Constants.fontSize_14,
-                            fontFamily: Constants.fontFamily,
-                            fontWeight: FontWeight.w700
-                        ),
-                      ),
-                      SizedBox(height: 10,),
-
-                      TextField(
-                        style: Theme.of(context).textTheme.subtitle2,
-                        keyboardType: TextInputType.number,
-                        textInputAction: TextInputAction.next,
-                        controller: TextEditingController()..text,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              )),
-                        ),
-                        onChanged: (value) {
-                        },
-                      )
-
-                    ],
-                  )),
-                  SizedBox(width: 10,),
-                  Expanded(child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Add Batch Number',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontSize: Constants.fontSize_14,
-                            fontFamily: Constants.fontFamily,
-                            fontWeight: FontWeight.w700
-                        ),
-                      ),
-                      SizedBox(height: 10,),
-                      TextField(
-                        style: Theme.of(context).textTheme.subtitle2,
-                        keyboardType: TextInputType.number,
-                        textInputAction: TextInputAction.next,
-                        controller: TextEditingController()..text = _addMaterial,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              )),
-                        ),
-                        onChanged: (value) {
-                          _addMaterial = value;
-                        },
-                      )
-                    ],
-                  ))
-                ],
-              )),
-              Padding(padding: EdgeInsets.all(20),child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(flex:1,child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Machine ID',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontSize: Constants.fontSize_14,
-                            fontFamily: Constants.fontFamily,
-                            fontWeight: FontWeight.w700
-                        ),
-                      ),
-                      SizedBox(height: 10,),
-                      TextField(
-                        style: Theme.of(context).textTheme.subtitle2,
-                        keyboardType: TextInputType.number,
-                        textInputAction: TextInputAction.next,
-                        controller: TextEditingController()..text = _machineId,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              )),
-                        ),
-                        onChanged: (value) {
-                            _machineId = value;
-                        },
-                      )
-                    ],
-                  )),
-                  SizedBox(width: 10,),
-                  Expanded(flex:2,child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Package Specifications',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontSize: Constants.fontSize_14,
-                            fontFamily: Constants.fontFamily,
-                            fontWeight: FontWeight.w700
-                        ),
-                      ),
-                      SizedBox(height: 10,),
-                      TextField(
-                        style: Theme.of(context).textTheme.subtitle2,
-                        keyboardType: TextInputType.number,
-                        textInputAction: TextInputAction.next,
-                        controller: TextEditingController()..text = _packageSpec,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              )),
-                        ),
-                        onChanged: (value) {
-                          _packageSpec = value;
-                        },
-                      )
-
-                    ],
-                  )),
-                  Container(width: 200,),
-                  Visibility(child: Expanded(flex:1,child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Machine ID',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontSize: Constants.fontSize_14,
-                            fontFamily: Constants.fontFamily,
-                            fontWeight: FontWeight.w700
-                        ),
-                      ),
-                      SizedBox(height: 10,),
-                      TextField(
-                        style: Theme.of(context).textTheme.subtitle2,
-                        keyboardType: TextInputType.number,
-                        textInputAction: TextInputAction.next,
-                        controller: TextEditingController()..text = _machineId,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              )),
-                        ),
-                        onChanged: (value) {
-                          _machineId = value;
-                        },
-                      )
-                    ],
-                  )),
-                    visible: false,
-                  )
-                ],
-              )),
-    Padding(padding: EdgeInsets.all(20),child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Add Description',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                        fontSize: Constants.fontSize_14,
-                        fontFamily: Constants.fontFamily,
-                        fontWeight: FontWeight.w700
+                        //),
+                      ],
+                    )),
+                    SizedBox(
+                      width: 10,
                     ),
-                  ),
-                  SizedBox(height: 10,),
-                  Container(
-                    padding: EdgeInsets.only(left: 20,top: 10,right: 20,bottom: 10),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black38
-                      ),
-                      borderRadius: BorderRadius.circular(10)
+                    Expanded(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Add Material',
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                              fontSize: Constants.fontSize_14,
+                              fontFamily: Constants.fontFamily,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          style: Theme.of(context).textTheme.subtitle2,
+                          keyboardType: TextInputType.number,
+                          textInputAction: TextInputAction.next,
+                          controller: _materialController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            )),
+                          ),
+                          onChanged: (value) {
+                            
+                          },
+                          validator: (value){
+                            final currentLength = value!.length;
+                            if(!(currentLength<7&&currentLength>10)){
+                              return "";
+                            }
+                            return null;
+                          },
+                        )
+                      ],
+                    )),
+                    SizedBox(
+                      width: 10,
                     ),
-                  child:TextField(
-                    style: Theme.of(context).textTheme.subtitle2,
-                    keyboardType: TextInputType.text,
-                    textInputAction: TextInputAction.next,
-                    controller: TextEditingController()..text = _addDesc,
-                    decoration: InputDecoration(
-                      constraints: BoxConstraints(
-                        minHeight: 200,
-                      ),
-                      border: InputBorder.none,
+                    Expanded(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Add Batch Number',
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                              fontSize: Constants.fontSize_14,
+                              fontFamily: Constants.fontFamily,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextField(
+                          style: Theme.of(context).textTheme.subtitle2,
+                          keyboardType: TextInputType.number,
+                          textInputAction: TextInputAction.next,
+                          controller: TextEditingController()
+                            ..text = _addMaterial,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            )),
+                          ),
+                          onChanged: (value) {
+                            _addMaterial = value;
+                          },
+                        )
+                      ],
+                    ))
+                  ],
+                )),
+            Padding(
+                padding: EdgeInsets.all(20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Machine ID',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  fontSize: Constants.fontSize_14,
+                                  fontFamily: Constants.fontFamily,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            TextField(
+                              style: Theme.of(context).textTheme.subtitle2,
+                              keyboardType: TextInputType.number,
+                              textInputAction: TextInputAction.next,
+                              controller: TextEditingController()
+                                ..text = _machineId,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                )),
+                              ),
+                              onChanged: (value) {
+                                _machineId = value;
+                              },
+                            )
+                          ],
+                        )),
+                    SizedBox(
+                      width: 10,
                     ),
-                    onChanged: (value) {
-                      _addDesc = value;
-                    },
-                  ))
-                ],
-              ))
-            ],
-        )
-        );
+                    Expanded(
+                        flex: 2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Package Specifications',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  fontSize: Constants.fontSize_14,
+                                  fontFamily: Constants.fontFamily,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            TextField(
+                              style: Theme.of(context).textTheme.subtitle2,
+                              keyboardType: TextInputType.number,
+                              textInputAction: TextInputAction.next,
+                              controller: TextEditingController()
+                                ..text = _packageSpec,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                )),
+                              ),
+                              onChanged: (value) {
+                                _packageSpec = value;
+                              },
+                            )
+                          ],
+                        )),
+                    Container(
+                      width: 200,
+                    ),
+                    Visibility(
+                      child: Expanded(
+                          flex: 1,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Machine ID',
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    fontSize: Constants.fontSize_14,
+                                    fontFamily: Constants.fontFamily,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              TextField(
+                                style: Theme.of(context).textTheme.subtitle2,
+                                keyboardType: TextInputType.number,
+                                textInputAction: TextInputAction.next,
+                                controller: TextEditingController()
+                                  ..text = _machineId,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  )),
+                                ),
+                                onChanged: (value) {
+                                  _machineId = value;
+                                },
+                              )
+                            ],
+                          )),
+                      visible: false,
+                    )
+                  ],
+                )),
+            Padding(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Add Description',
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                          fontSize: Constants.fontSize_14,
+                          fontFamily: Constants.fontFamily,
+                          fontWeight: FontWeight.w700),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                        padding: EdgeInsets.only(
+                            left: 20, top: 10, right: 20, bottom: 10),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black38),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: TextField(
+                          style: Theme.of(context).textTheme.subtitle2,
+                          keyboardType: TextInputType.text,
+                          textInputAction: TextInputAction.next,
+                          controller: TextEditingController()..text = _addDesc,
+                          decoration: InputDecoration(
+                            constraints: BoxConstraints(
+                              minHeight: 200,
+                            ),
+                            border: InputBorder.none,
+                          ),
+                          onChanged: (value) {
+                            _addDesc = value;
+                          },
+                        ))
+                  ],
+                ))
+          ],
+        ));
   }
 
   Widget _customDropDownText(BuildContext context, String? name, String? type) {
     return Container(
       child: Text(
         name.toString(),
-        style: TextStyle(
-            fontSize: 14,
-            color:
-            Colors.black),
+        style: TextStyle(fontSize: 14, color: Colors.black),
       ),
     );
   }
+
   Widget _customDropDownText2(BuildContext context, String? name, bool type) {
     return Padding(
       padding: EdgeInsets.all(15),
       child: Container(
         child: Text(
           name.toString(),
-          style: TextStyle(
-              fontSize: 14,
-              color: Colors.black),
+          style: TextStyle(fontSize: 14, color: Colors.black),
         ),
       ),
     );
@@ -382,5 +460,4 @@ class _ShiftDetailsWidgetState
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
-
 }

@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     _controller = TabController(length: 6, vsync: this, initialIndex: 0);
-    _controller?.index = 5;
+    _controller?.index = 3;
     final DateFormat formatter = DateFormat('yMMMMEEEEd');
     _currentDT = formatter.format(currentDateAndTime);
     super.initState();
@@ -385,7 +385,7 @@ class _HomePageState extends State<HomePage>
                               fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          'Inspection',
+                          'Guidelines',
                           textAlign: TextAlign.end,
                           style: TextStyle(
                               fontFamily: Constants.fontFamily,

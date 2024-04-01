@@ -15,6 +15,7 @@ class ShiftDetailsWidget extends StatefulWidget {
 class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
     with AutomaticKeepAliveClientMixin<ShiftDetailsWidget> {
   List<String> _selectShift = ['A', 'B', 'C', 'D'];
+  List<String> _selectMachineId = ['NG', 'NJ', 'NK', 'NT','NW','NZ'];
   String _shift = '';
   String _machineId = '';
   String _addMaterial = '';
@@ -50,11 +51,25 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
   TextEditingController _datePickerTFController = new TextEditingController();
   TextEditingController _materialController = new TextEditingController();
   TextEditingController _batchNumberController = new TextEditingController();
-  TextEditingController _machineIDController = new TextEditingController();
   TextEditingController _packageSpecController = new TextEditingController();
   TextEditingController _descriptionController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final _border = OutlineInputBorder(
+        borderRadius: BorderRadius.all(
+      Radius.circular(
+        10.0,
+      ),
+    ));
+    final _errorBorder = OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.red,
+        ),
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            10.0,
+          ),
+        ));
     super.build(context);
     // TODO: implement build
     return SingleChildScrollView(
@@ -218,19 +233,18 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                           keyboardType: TextInputType.number,
                           textInputAction: TextInputAction.next,
                           controller: _materialController,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          maxLength: 10,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            )),
+                            border: _border,
+                            errorBorder: _errorBorder,
+                            counterText: "",
                           ),
-                          onChanged: (value) {
-                            
-                          },
-                          validator: (value){
+                          onChanged: (value) {},
+                          validator: (value) {
                             final currentLength = value!.length;
-                            if(!(currentLength<7&&currentLength>10)){
-                              return "";
+                            if (!(currentLength >= 7 && currentLength <= 10)) {
+                              return "Enter character must be between 7 and 10.";
                             }
                             return null;
                           },
@@ -255,20 +269,27 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                         SizedBox(
                           height: 10,
                         ),
-                        TextField(
+                        TextFormField(
                           style: Theme.of(context).textTheme.subtitle2,
                           keyboardType: TextInputType.number,
                           textInputAction: TextInputAction.next,
-                          controller: TextEditingController()
-                            ..text = _addMaterial,
+                          controller: _batchNumberController,
+                           maxLength: 10,
+                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            )),
+                            border: _border,
+                            errorBorder: _errorBorder,
+                            counterText: "",
                           ),
                           onChanged: (value) {
                             _addMaterial = value;
+                          },
+                           validator: (value) {
+                            final currentLength = value!.length;
+                            if (!(currentLength >= 7)) {
+                              return "Enter character must be 7 along.";
+                            }
+                            return null;
                           },
                         )
                       ],
@@ -296,22 +317,20 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                             SizedBox(
                               height: 10,
                             ),
-                            TextField(
-                              style: Theme.of(context).textTheme.subtitle2,
-                              keyboardType: TextInputType.number,
-                              textInputAction: TextInputAction.next,
-                              controller: TextEditingController()
-                                ..text = _machineId,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                )),
-                              ),
-                              onChanged: (value) {
-                                _machineId = value;
-                              },
-                            )
+                            DropdownSearch<String>(
+                          items: _selectMachineId,
+                          popupProps: PopupProps.menu(
+                            constraints:
+                                BoxConstraints(minHeight: 50, maxHeight: 200),
+                          ),
+                          dropdownButtonProps: DropdownButtonProps(
+                              constraints: BoxConstraints(minHeight: 50),
+                              icon: Icon(
+                                Icons.arrow_drop_down,
+                                color: Colors.black,
+                                size: 15,
+                              )),
+                        )
                           ],
                         )),
                     SizedBox(
@@ -333,21 +352,28 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                             SizedBox(
                               height: 10,
                             ),
-                            TextField(
+                            TextFormField(
                               style: Theme.of(context).textTheme.subtitle2,
                               keyboardType: TextInputType.number,
                               textInputAction: TextInputAction.next,
-                              controller: TextEditingController()
-                                ..text = _packageSpec,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                )),
-                              ),
+                              controller:_packageSpecController,
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                                maxLength: 10,
+                          decoration: InputDecoration(
+                            border: _border,
+                            errorBorder: _errorBorder,
+                            counterText: "",
+                          ),
                               onChanged: (value) {
                                 _packageSpec = value;
                               },
+                           validator: (value) {
+                            final currentLength = value!.length;
+                            if (!(currentLength >= 7 )) {
+                              return "Enter character must be 7 along.";
+                            }
+                            return null;
+                          },
                             )
                           ],
                         )),

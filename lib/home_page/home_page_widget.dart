@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:embecta/comments/comments_widget.dart';
+import 'package:embecta/inspection/inspection_widget.dart';
 import 'package:embecta/machine_adjustment/machine_adjustment_widget.dart';
 import 'package:embecta/material_indicator.dart';
 import 'package:embecta/quality_check/quality_check_widget.dart';
@@ -29,8 +30,8 @@ class _HomePageState extends State<HomePage>
 
   @override
   void initState() {
-    _controller = TabController(length: 5, vsync: this, initialIndex: 0);
-    _controller?.index = 3;
+    _controller = TabController(length: 6, vsync: this, initialIndex: 0);
+    _controller?.index = 5;
     final DateFormat formatter = DateFormat('yMMMMEEEEd');
     _currentDT = formatter.format(currentDateAndTime);
     super.initState();
@@ -94,7 +95,7 @@ class _HomePageState extends State<HomePage>
                                 width: 5.0,
                               ),
                               Text(
-                                "Check out",
+                                "Clock Out",
                                 style: GoogleFonts.roboto(
                                   color: Colors.white,
                                   fontSize: 14.0,
@@ -125,7 +126,7 @@ class _HomePageState extends State<HomePage>
                 10.0,
               ),
               padding: EdgeInsets.all(16.0),
-              height: _deviceSize.height * 0.07,
+              height: _deviceSize.height * 0.14,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(
@@ -245,7 +246,7 @@ class _HomePageState extends State<HomePage>
                     ],
                     if (!isCheckIn)
                       SizedBox(
-                        height: _deviceSize.height * 0.04,
+                        height: _deviceSize.height * 0.07,
                         width: _deviceSize.width * 0.12,
                         child: ElevatedButton(
                             onPressed: () {
@@ -265,9 +266,9 @@ class _HomePageState extends State<HomePage>
                                   MaterialStateProperty.resolveWith(
                                 (states) {
                                   // If the button is pressed, return green, otherwise blue
-                                  if (states.contains(MaterialState.pressed)) {
-                                    return Colors.blue;
-                                  }
+                                  // if (states.contains(MaterialState.pressed)) {
+                                  //   return Colors.blue;
+                                  // }
                                   return Colors.blue;
                                 },
                               ),
@@ -383,6 +384,16 @@ class _HomePageState extends State<HomePage>
                               fontSize: Constants.tabsize,
                               fontWeight: FontWeight.w600),
                         ),
+                        Text(
+                          'Inspection',
+                          textAlign: TextAlign.end,
+                          style: TextStyle(
+                              fontFamily: Constants.fontFamily,
+                              color:
+                                  selectedTab == 5 ? Colors.blue : Colors.black,
+                              fontSize: Constants.tabsize,
+                              fontWeight: FontWeight.w600),
+                        ),
                       ],
 
                       onTap: (value) {
@@ -408,6 +419,9 @@ class _HomePageState extends State<HomePage>
                         Container(
                             height: MediaQuery.of(context).size.height - 50,
                             child: CommentsWidget()),
+                        Container(
+                            height: MediaQuery.of(context).size.height - 50,
+                            child: InspectionWidget()),
                         /*Container(height: MediaQuery.of(context).size.height-50,child: ShiftDetailsWidget()),
                   Container(height: MediaQuery.of(context).size.height-50,child: ShiftDetailsWidget()),
                   Container(height: MediaQuery.of(context).size.height-50,child: ShiftDetailsWidget()),

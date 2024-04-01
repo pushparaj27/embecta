@@ -21,7 +21,7 @@ class _InspectionWidgetState extends State<InspectionWidget> {
       margin: EdgeInsets.all(
         16.0,
       ),
-      child: Column(
+      child: SingleChildScrollView(child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -88,7 +88,7 @@ class _InspectionWidgetState extends State<InspectionWidget> {
           BulletListItem(
               "Label is in correct location with no wraparound the end or bottom of case, free from damage and completely readable")
         ],
-      ),
+      ),)
     ));
   }
 }

@@ -3,6 +3,7 @@ import 'package:embecta/comments/comments_widget.dart';
 import 'package:embecta/inspection/inspection_widget.dart';
 import 'package:embecta/machine_adjustment/machine_adjustment_widget.dart';
 import 'package:embecta/material_indicator.dart';
+import 'package:embecta/models/home_page_model.dart';
 import 'package:embecta/quality_check/quality_check_widget.dart';
 import 'package:embecta/shift_details/shift_details_widget.dart';
 import 'package:embecta/udi/udi_widget.dart';
@@ -27,6 +28,7 @@ class _HomePageState extends State<HomePage>
   DateTime currentDateAndTime = DateTime.now();
   String _currentDT = "";
   bool isCheckIn = false;
+  HomePageModel homePageModel = HomePageModel();
 
   @override
   void initState() {
@@ -69,7 +71,9 @@ class _HomePageState extends State<HomePage>
                       height: _deviceSize.height * 0.04,
                       width: _deviceSize.width * 0.15,
                       child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            print("valueeee ${homePageModel.HSDescription}");
+                          },
                           style: ButtonStyle(
                             shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
@@ -406,7 +410,10 @@ class _HomePageState extends State<HomePage>
                       child: TabBarView(controller: _controller, children: [
                         Container(
                             height: MediaQuery.of(context).size.height - 50,
-                            child: ShiftDetailsWidget()),
+                            child: ShiftDetailsWidget(
+                              appData: homePageModel,
+                              //callback:(value){},
+                            )),
                         Container(
                             height: MediaQuery.of(context).size.height - 50,
                             child: MachineAdjustmentWidget()),

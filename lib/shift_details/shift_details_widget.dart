@@ -256,6 +256,7 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                             border: _border,
                             errorBorder: _errorBorder,
                             counterText: "",
+                            errorMaxLines: 3
                           ),
                           onChanged: (value) {
                             widget.appData.HSMaterial = value;
@@ -290,8 +291,10 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                           height: 10,
                         ),
                         TextFormField(
+
                           style: Theme.of(context).textTheme.subtitle2,
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
                           textInputAction: TextInputAction.next,
                           controller: _batchNumberController,
                           maxLength: 10,
@@ -303,6 +306,8 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                             border: _border,
                             errorBorder: _errorBorder,
                             counterText: "",
+                              errorMaxLines: 3
+
                           ),
                           onChanged: (value) {
                             _addMaterial = value;
@@ -389,6 +394,7 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                                 border: _border,
                                 errorBorder: _errorBorder,
                                 counterText: "",
+                                  errorMaxLines: 3
                               ),
                               onChanged: (value) {
                                 _packageSpec = value;

@@ -14,7 +14,7 @@ class ShiftDetailsWidget extends StatefulWidget {
 
 class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
     with AutomaticKeepAliveClientMixin<ShiftDetailsWidget> {
-  List<String> _selectShift = ['A', 'B', 'C', 'D'];
+  List<String> _selectShift = ['A', 'B', 'C', 'D','1','2','3'];
   List<String> _selectMachineId = ['NG', 'NJ', 'NK', 'NT','NW','NZ'];
   String _shift = '';
   String _machineId = '';
@@ -111,9 +111,11 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
             Padding(
                 padding: EdgeInsets.all(20),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -148,7 +150,8 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                     ),
                     Expanded(
                         child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Select Date',
@@ -182,6 +185,7 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                         //   ),
                         // )
                         Container(
+                          height: 50,
                           child: TextField(
                             controller: _datePickerTFController,
                             decoration: InputDecoration(
@@ -215,7 +219,8 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                     ),
                     Expanded(
                         child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Add Material',
@@ -230,11 +235,13 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                         ),
                         TextFormField(
                           style: Theme.of(context).textTheme.subtitle2,
-                          keyboardType: TextInputType.number,
                           textInputAction: TextInputAction.next,
                           controller: _materialController,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           maxLength: 10,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'^[a-zA-Z0-9]+$')),
+                          ],
                           decoration: InputDecoration(
                             border: _border,
                             errorBorder: _errorBorder,
@@ -256,6 +263,7 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                     ),
                     Expanded(
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -276,6 +284,9 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                           controller: _batchNumberController,
                            maxLength: 10,
                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'^[0-9]+$')),
+                          ],
                           decoration: InputDecoration(
                             border: _border,
                             errorBorder: _errorBorder,
@@ -300,6 +311,7 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                 padding: EdgeInsets.all(20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
                         flex: 1,
@@ -425,7 +437,7 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Add Description',
+                      'Add Material Description',
                       textAlign: TextAlign.start,
                       style: TextStyle(
                           fontSize: Constants.fontSize_14,

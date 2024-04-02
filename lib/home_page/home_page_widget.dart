@@ -59,15 +59,15 @@ class _HomePageState extends State<HomePage>
               child: Row(
                 children: [
                   SizedBox(
-                    height: 50,
                     width: 120,
+
                     child: Image.asset("assets/images/embecta.png"),
                   ),
                   Spacer(),
                   if (isCheckIn)
                     SizedBox(
-                      height: _deviceSize.height * 0.04,
-                      width: _deviceSize.width * 0.15,
+                      /*height: _deviceSize.height * 0.04,
+                      width: _deviceSize.width * 0.15,*/
                       child: ElevatedButton(
                           onPressed: () {},
                           style: ButtonStyle(
@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage>
                 10.0,
               ),
               padding: EdgeInsets.all(16.0),
-              height: _deviceSize.height * 0.14,
+              //height: _deviceSize.height * 0.14,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(
@@ -136,8 +136,7 @@ class _HomePageState extends State<HomePage>
                 ),
               ),
               child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       children: [
@@ -163,91 +162,92 @@ class _HomePageState extends State<HomePage>
                         ),
                       ],
                     ),
-                    const Spacer(),
+                    //const Spacer(),
                     if (isCheckIn) ...[
-                      SizedBox(
-                        height: _deviceSize.height * 0.04,
-                        width: _deviceSize.width * 0.12,
-                        child: ElevatedButton(
-                            onPressed: () {},
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    10.0,
+                      Row(children: [
+                        SizedBox(
+                          /*height: _deviceSize.height * 0.04,
+                        width: _deviceSize.width * 0.12,*/
+                          child: ElevatedButton(
+                              onPressed: () {},
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10.0,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              backgroundColor:
-                                  MaterialStateProperty.resolveWith(
-                                (states) {
-                                  return _purpleColor.withOpacity(0.6);
-                                },
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Cancel",
-                                  style: GoogleFonts.roboto(
-                                    color: Colors.white,
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ],
-                            )),
-                      ),
-                      SizedBox(
-                        width: 10.0,
-                      ),
-                      SizedBox(
-                        height: _deviceSize.height * 0.04,
-                        width: _deviceSize.width * 0.15,
-                        child: ElevatedButton(
-                            onPressed: () {},
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    10.0,
-                                  ),
+                                backgroundColor:
+                                MaterialStateProperty.resolveWith(
+                                      (states) {
+                                    return _purpleColor.withOpacity(0.6);
+                                  },
                                 ),
                               ),
-                              backgroundColor:
-                                  MaterialStateProperty.resolveWith(
-                                (states) {
-                                  return _purpleColor;
-                                },
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Save as Draft",
-                                  style: GoogleFonts.roboto(
-                                    color: Colors.white,
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w400,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Cancel",
+                                    style: GoogleFonts.roboto(
+                                      color: Colors.white,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        ),
+                        SizedBox(width: 5,),
+                        SizedBox(
+                          /*height: _deviceSize.height * 0.04,
+                        width: _deviceSize.width * 0.15,*/
+                          child: ElevatedButton(
+                              onPressed: () {},
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10.0,
+                                    ),
                                   ),
                                 ),
-                              ],
-                            )),
-                      ),
-                      const SizedBox(
+                                backgroundColor:
+                                MaterialStateProperty.resolveWith(
+                                      (states) {
+                                    return _purpleColor;
+                                  },
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Save as Draft",
+                                    style: GoogleFonts.roboto(
+                                      color: Colors.white,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        ),
+                        SizedBox(width: 5,),
+                        Icon(
+                          Icons.more_vert,
+                          color: _purpleColor,
+                        )
+                      ],),
+                      /*const SizedBox(
                         width: 10,
-                      ),
-                      Icon(
-                        Icons.more_vert,
-                        color: _purpleColor,
-                      )
+                      ),*/
+
                     ],
                     if (!isCheckIn)
                       SizedBox(
-                        height: _deviceSize.height * 0.07,
-                        width: _deviceSize.width * 0.12,
+
                         child: ElevatedButton(
                             onPressed: () {
                               setState(() {
@@ -294,7 +294,7 @@ class _HomePageState extends State<HomePage>
             ),
             Expanded(
               child: Container(
-                margin: EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 10.0),
+                margin: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(
@@ -415,7 +415,7 @@ class _HomePageState extends State<HomePage>
                             child: UDIWidget()),
                         Container(
                             height: MediaQuery.of(context).size.height - 50,
-                            child: QualityCheckWidget()),
+                            child: QualityCheckWidget(controller: _controller,)),
                         Container(
                             height: MediaQuery.of(context).size.height - 50,
                             child: CommentsWidget()),

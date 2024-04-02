@@ -112,7 +112,7 @@ class _CommentsWidgetState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Add Description',
+                              'QN notification number',
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                   fontSize: Constants.fontSize_14,
@@ -138,7 +138,7 @@ class _CommentsWidgetState
                                       keyboardType: TextInputType.text,
                                       textInputAction: TextInputAction.next,
                                       decoration: InputDecoration(
-                                        hintText: 'Enter Description',
+                                        hintText: 'Enter QN notification number',
                                         constraints: BoxConstraints(
                                           minHeight: 200,
                                         ),

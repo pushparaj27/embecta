@@ -1198,7 +1198,10 @@ class _QualityCheckWidgetState
                     TextButton(
                       onPressed: ()
                 {
-                  widget.controller?.index = 5;
+                  setState(() {
+                    widget.controller?.index = 4;
+                  });
+
                   Navigator.pop(
                       alertDialogContext);
                 } ,

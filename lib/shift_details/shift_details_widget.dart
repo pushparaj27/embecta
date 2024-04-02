@@ -5,8 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
+import '../models/home_page_model.dart';
+
 class ShiftDetailsWidget extends StatefulWidget {
-  const ShiftDetailsWidget({Key? key}) : super(key: key);
+  HomePageModel appData;
+  ShiftDetailsWidget({
+    Key? key,
+    required this.appData,
+  }) : super(key: key);
 
   @override
   _ShiftDetailsWidgetState createState() => _ShiftDetailsWidgetState();
@@ -37,6 +43,7 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
       });
       final DateFormat formatter = DateFormat('yyyy-MM-dd');
       final String formatted = formatter.format(picked);
+      widget.appData.HSDate = formatted.toString();
       _datePickerTFController = TextEditingController.fromValue(
         TextEditingValue(
           text: formatted.toString(),
@@ -130,6 +137,9 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                           height: 10,
                         ),
                         DropdownSearch<String>(
+                          onChanged: (value) {
+                            widget.appData.HSShift = value ?? "";
+                          },
                           items: _selectShift,
                           popupProps: PopupProps.menu(
                             constraints:
@@ -247,11 +257,13 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                             errorBorder: _errorBorder,
                             counterText: "",
                           ),
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            widget.appData.HSMaterial = value;
+                          },
                           validator: (value) {
                             final currentLength = value!.length;
                             if (!(currentLength >= 7 && currentLength <= 10)) {
-                              return "Enter character must be between 7 and 10.";
+                              return "The input must be between 7 and 10 characters long.";
                             }
                             return null;
                           },
@@ -282,8 +294,8 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                           keyboardType: TextInputType.number,
                           textInputAction: TextInputAction.next,
                           controller: _batchNumberController,
-                           maxLength: 10,
-                           autovalidateMode: AutovalidateMode.onUserInteraction,
+                          maxLength: 10,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(RegExp(r'^[0-9]+$')),
                           ],
@@ -294,11 +306,12 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                           ),
                           onChanged: (value) {
                             _addMaterial = value;
+                            widget.appData.HSBatchNumber = value;
                           },
-                           validator: (value) {
+                          validator: (value) {
                             final currentLength = value!.length;
                             if (!(currentLength >= 7)) {
-                              return "Enter character must be 7 along.";
+                              return "The input must be at least 7 characters long.";
                             }
                             return null;
                           },
@@ -330,19 +343,19 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                               height: 10,
                             ),
                             DropdownSearch<String>(
-                          items: _selectMachineId,
-                          popupProps: PopupProps.menu(
-                            constraints:
-                                BoxConstraints(minHeight: 50, maxHeight: 200),
-                          ),
-                          dropdownButtonProps: DropdownButtonProps(
-                              constraints: BoxConstraints(minHeight: 50),
-                              icon: Icon(
-                                Icons.arrow_drop_down,
-                                color: Colors.black,
-                                size: 15,
-                              )),
-                        )
+                              items: _selectMachineId,
+                              popupProps: PopupProps.menu(
+                                constraints: BoxConstraints(
+                                    minHeight: 50, maxHeight: 200),
+                              ),
+                              dropdownButtonProps: DropdownButtonProps(
+                                  constraints: BoxConstraints(minHeight: 50),
+                                  icon: Icon(
+                                    Icons.arrow_drop_down,
+                                    color: Colors.black,
+                                    size: 15,
+                                  )),
+                            )
                           ],
                         )),
                     SizedBox(
@@ -368,24 +381,26 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                               style: Theme.of(context).textTheme.subtitle2,
                               keyboardType: TextInputType.number,
                               textInputAction: TextInputAction.next,
-                              controller:_packageSpecController,
-                              autovalidateMode: AutovalidateMode.onUserInteraction,
-                                maxLength: 10,
-                          decoration: InputDecoration(
-                            border: _border,
-                            errorBorder: _errorBorder,
-                            counterText: "",
-                          ),
+                              controller: _packageSpecController,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              maxLength: 10,
+                              decoration: InputDecoration(
+                                border: _border,
+                                errorBorder: _errorBorder,
+                                counterText: "",
+                              ),
                               onChanged: (value) {
                                 _packageSpec = value;
+                                widget.appData.HSPackageSpec = value;
                               },
-                           validator: (value) {
-                            final currentLength = value!.length;
-                            if (!(currentLength >= 7 )) {
-                              return "Enter character must be 7 along.";
-                            }
-                            return null;
-                          },
+                              validator: (value) {
+                                final currentLength = value!.length;
+                                if (!(currentLength >= 7)) {
+                                  return "The input must be between 6 and 7 characters long.";
+                                }
+                                return null;
+                              },
                             )
                           ],
                         )),
@@ -423,6 +438,7 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                                 ),
                                 onChanged: (value) {
                                   _machineId = value;
+                                  widget.appData.HSMachineId = value;
                                 },
                               )
                             ],
@@ -466,6 +482,7 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                           ),
                           onChanged: (value) {
                             _addDesc = value;
+                            widget.appData.HSDescription = value;
                           },
                         ))
                   ],

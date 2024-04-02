@@ -1,5 +1,6 @@
 import 'package:embecta/face_id/face_id_widget.dart';
 import 'package:embecta/home_page/home_page_widget.dart';
+import 'package:embecta/home_page/pin_widget.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const FaceIdWidget(),
     );
   }
 }

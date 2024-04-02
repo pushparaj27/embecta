@@ -1,12 +1,15 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:embecta/comments/comments_widget.dart';
+import 'package:embecta/face_id/face_id_widget.dart';
 import 'package:embecta/inspection/inspection_widget.dart';
 import 'package:embecta/machine_adjustment/machine_adjustment_widget.dart';
 import 'package:embecta/material_indicator.dart';
+import 'package:embecta/models/home_page_model.dart';
 import 'package:embecta/quality_check/quality_check_widget.dart';
 import 'package:embecta/shift_details/shift_details_widget.dart';
 import 'package:embecta/udi/udi_widget.dart';
 import 'package:embecta/utils/constants.dart';
+import 'package:embecta/utils/custom_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,16 +25,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   TabController? _controller;
-  int selectedTab = 3;
+  int selectedTab = 0;
   String userName = "Peter";
   DateTime currentDateAndTime = DateTime.now();
   String _currentDT = "";
-  bool isCheckIn = false;
+  bool isCheckIn = true;
+  HomePageModel homePageModel = HomePageModel();
 
   @override
   void initState() {
     _controller = TabController(length: 6, vsync: this, initialIndex: 0);
-    _controller?.index = 3;
+    _controller?.index = 0;
     final DateFormat formatter = DateFormat('yMMMMEEEEd');
     _currentDT = formatter.format(currentDateAndTime);
     super.initState();
@@ -69,7 +73,16 @@ class _HomePageState extends State<HomePage>
                       /*height: _deviceSize.height * 0.04,
                       width: _deviceSize.width * 0.15,*/
                       child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            print("valueeee ${homePageModel.HSDescription}");
+                            Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
+                              builder: (context) {
+                                return FaceIdWidget(
+                                );
+                              },
+                            ));
+                          },
                           style: ButtonStyle(
                             shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
@@ -235,6 +248,43 @@ class _HomePageState extends State<HomePage>
                               )),
                         ),
                         SizedBox(width: 5,),
+                        SizedBox(
+                          /*height: _deviceSize.height * 0.04,
+                        width: _deviceSize.width * 0.15,*/
+                          child: ElevatedButton(
+                              onPressed: () {
+                                CustomFunctions().showAlertDialog(context, 'PDF will be generated shortly',true);
+                              },
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10.0,
+                                    ),
+                                  ),
+                                ),
+                                backgroundColor:
+                                MaterialStateProperty.resolveWith(
+                                      (states) {
+                                    return _purpleColor;
+                                  },
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Submit",
+                                    style: GoogleFonts.roboto(
+                                      color: Colors.white,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        ),
+                        SizedBox(width: 5,),
                         Icon(
                           Icons.more_vert,
                           color: _purpleColor,
@@ -340,7 +390,7 @@ class _HomePageState extends State<HomePage>
                           style: TextStyle(
                               fontFamily: Constants.fontFamily,
                               color:
-                                  selectedTab == 0 ? Colors.blue : Colors.black,
+                                  Colors.black,
                               fontSize: Constants.tabsize,
                               fontWeight: FontWeight.w600),
                         ),
@@ -350,7 +400,7 @@ class _HomePageState extends State<HomePage>
                           style: TextStyle(
                               fontFamily: Constants.fontFamily,
                               color:
-                                  selectedTab == 1 ? Colors.blue : Colors.black,
+                                  Colors.black,
                               fontSize: Constants.tabsize,
                               fontWeight: FontWeight.w600),
                         ),
@@ -360,7 +410,7 @@ class _HomePageState extends State<HomePage>
                           style: TextStyle(
                               fontFamily: Constants.fontFamily,
                               color:
-                                  selectedTab == 2 ? Colors.blue : Colors.black,
+                                  Colors.black,
                               fontSize: Constants.tabsize,
                               fontWeight: FontWeight.w600),
                         ),
@@ -370,7 +420,7 @@ class _HomePageState extends State<HomePage>
                           style: TextStyle(
                               fontFamily: Constants.fontFamily,
                               color:
-                                  selectedTab == 3 ? Colors.blue : Colors.black,
+                                  Colors.black,
                               fontSize: Constants.tabsize,
                               fontWeight: FontWeight.w600),
                         ),
@@ -380,7 +430,7 @@ class _HomePageState extends State<HomePage>
                           style: TextStyle(
                               fontFamily: Constants.fontFamily,
                               color:
-                                  selectedTab == 4 ? Colors.blue : Colors.black,
+                                  Colors.black,
                               fontSize: Constants.tabsize,
                               fontWeight: FontWeight.w600),
                         ),
@@ -390,7 +440,7 @@ class _HomePageState extends State<HomePage>
                           style: TextStyle(
                               fontFamily: Constants.fontFamily,
                               color:
-                                  selectedTab == 5 ? Colors.blue : Colors.black,
+                                  Colors.black,
                               fontSize: Constants.tabsize,
                               fontWeight: FontWeight.w600),
                         ),
@@ -398,7 +448,7 @@ class _HomePageState extends State<HomePage>
 
                       onTap: (value) {
                         setState(() {
-                          selectedTab = value;
+                            homePageModel.selectedTab = value;
                         });
                       },
                     ),
@@ -406,7 +456,10 @@ class _HomePageState extends State<HomePage>
                       child: TabBarView(controller: _controller, children: [
                         Container(
                             height: MediaQuery.of(context).size.height - 50,
-                            child: ShiftDetailsWidget()),
+                            child: ShiftDetailsWidget(
+                              appData: homePageModel,
+                              //callback:(value){},
+                            )),
                         Container(
                             height: MediaQuery.of(context).size.height - 50,
                             child: MachineAdjustmentWidget()),
@@ -415,7 +468,7 @@ class _HomePageState extends State<HomePage>
                             child: UDIWidget()),
                         Container(
                             height: MediaQuery.of(context).size.height - 50,
-                            child: QualityCheckWidget(controller: _controller,)),
+                            child: QualityCheckWidget(controller: _controller,homePageModel: homePageModel,)),
                         Container(
                             height: MediaQuery.of(context).size.height - 50,
                             child: CommentsWidget()),

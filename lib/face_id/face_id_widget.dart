@@ -7,6 +7,8 @@
 import 'dart:async';
 
 import 'package:embecta/home_page/home_page_widget.dart';
+import 'package:embecta/home_page/pin_widget.dart';
+import 'package:embecta/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
@@ -34,7 +36,7 @@ class _FaceIdWidgetState extends State<FaceIdWidget> {
               ? _SupportState.supported
               : _SupportState.unsupported),
         );
-    if (_supportState == _SupportState.supported){
+    if (_supportState == _SupportState.supported) {
       _checkBiometrics();
     }
   }
@@ -106,7 +108,6 @@ class _FaceIdWidgetState extends State<FaceIdWidget> {
   }
 
   Future<void> _authenticateWithBiometrics() async {
-    
     // if(_canCheckBiometrics!){
     //   print("test _canCheckBiometrics");
     // }
@@ -141,8 +142,9 @@ class _FaceIdWidgetState extends State<FaceIdWidget> {
     }
 
     final String message = authenticated ? 'Authorized' : 'Not Authorized';
-    if(authenticated){
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+    if (authenticated) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomePage()));
     }
     setState(() {
       _authorized = message;
@@ -158,40 +160,51 @@ class _FaceIdWidgetState extends State<FaceIdWidget> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: ListView(
-          padding: const EdgeInsets.only(top: 30),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            Column(
+            SizedBox(
+              width: 200,
+
+              child: Image.asset("assets/images/embecta.png"),
+            ),
+            SizedBox(height: 20,),
+            Text('Enter 4 Digit Login PIN',style: TextStyle(fontSize: Constants.fontSize_16),),
+            SizedBox(height: 10,),
+            PinWidget(),
+            SizedBox(height: 50,),
+            Align(alignment: Alignment.bottomCenter,child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-            
-              //  ElevatedButton(
-              //           onPressed: _authenticate,
-              //           child: const Row(
-              //             mainAxisSize: MainAxisSize.min,
-              //             children: <Widget>[
-              //               Text('Authenticate'),
-              //               Icon(Icons.perm_device_information),
-              //             ],
-              //           ),
-              //         ),
-                      ElevatedButton(
-                        onPressed: _authenticateWithBiometrics,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Text(_isAuthenticating
-                                ? 'Cancel'
-                                : 'Authenticate: biometrics only'),
-                            const Icon(Icons.fingerprint),
-                          ],
-                        ),
-                      ),
+                //  ElevatedButton(
+                //           onPressed: _authenticate,
+                //           child: const Row(
+                //             mainAxisSize: MainAxisSize.min,
+                //             children: <Widget>[
+                //               Text('Authenticate'),
+                //               Icon(Icons.perm_device_information),
+                //             ],
+                //           ),
+                //         ),
+                ElevatedButton(
+                  onPressed: _authenticateWithBiometrics,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(_isAuthenticating
+                          ? 'Cancel'
+                          : 'Unlock with fingerprint or Face ID'),
+                      const Icon(Icons.fingerprint),
+                    ],
+                  ),
+                ),
               ],
+            ),),
+            const SizedBox(
+              height: 10,
             ),
+
           ],
         ),
       ),

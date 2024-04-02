@@ -1,12 +1,16 @@
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:embecta/models/home_page_model.dart';
 import 'package:embecta/quality_check/quality_check_model.dart';
+import 'package:embecta/utils/constants.dart';
 import 'package:embecta/utils/custom_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+
 class QualityCheckWidget extends StatefulWidget {
-  const QualityCheckWidget({Key? key,this.controller}) : super(key: key);
+  const QualityCheckWidget({Key? key,this.controller,this.homePageModel}) : super(key: key);
   final TabController? controller;
+  final HomePageModel? homePageModel;
 
   @override
   _QualityCheckWidgetState createState() =>
@@ -23,6 +27,7 @@ class _QualityCheckWidgetState
   @override
   void initState() {
     _qualityCheckModel = QualityCheckModel();
+    _qualityCheckModel!.initTextController();
     super.initState();
   }
 
@@ -33,7 +38,6 @@ class _QualityCheckWidgetState
         physics: AlwaysScrollableScrollPhysics(),
         child:Padding(padding: EdgeInsets.all(20),child: Column(
             children: [
-
               Padding(padding: EdgeInsets.all(20),child: Row(
                   mainAxisSize:MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -84,19 +88,19 @@ class _QualityCheckWidgetState
                                                     ]),
                                                 Table(border: TableBorder.all(), children: [
                                                   TableRow(children: [
-                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10),
+                                                    Center(child: Container(alignment: Alignment.center,height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0),
                                                         child:textView(context,'Every 1/2 hour'))
                                                     )),
                                                   ]),
                                                 ]),
-                                                TableCell(child: Align(alignment: Alignment.center,child: Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10),
+                                                TableCell(child: Align(alignment: Alignment.center,child: Center(child: Container(alignment: Alignment.center,height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0),
                                                   child:textView(context,'Every 2 hours'),))
                                                 )),verticalAlignment: TableCellVerticalAlignment.middle,),
 
-                                                /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),),
-                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),)*/
                                               ]),
@@ -104,7 +108,7 @@ class _QualityCheckWidgetState
                                       ]),
                                     ]
                                     ),
-                                    TableCell(child: Align(alignment: Alignment.center,child: Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                    TableCell(child: Align(alignment: Alignment.center,child: Center(child: Container(alignment: Alignment.center,height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                       child:textView(context,'Every 4 hours'),))
                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),
                                     Table(children:[
@@ -138,10 +142,10 @@ class _QualityCheckWidgetState
                                                     ]),
 
 
-                                                /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),),
-                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),)*/
                                               ]),
@@ -212,34 +216,34 @@ class _QualityCheckWidgetState
                                                 ]),
                                                 Table(border: TableBorder.all(), children: [
                                                   TableRow(children: [
-                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                         child:dropDown(context,'halfDrop1'))
                                                     )),
                                                   ]),
                                                   TableRow(children: [
-                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                         child:dropDown(context,'halfDrop2'))
                                                     )),
                                                   ]),
                                                   TableRow(children: [
-                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                         child:dropDown(context,'halfDrop3'))
                                                     )),
                                                   ]),
                                                   TableRow(children: [
-                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                         child:dropDown(context,'halfDrop4'))
                                                     )),
                                                   ]),
                                                 ]),
-                                                TableCell(child: Align(alignment: Alignment.center,child: Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                TableCell(child: Align(alignment: Alignment.center,child: Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                   child:dropDown(context,'twohoursDrop1'),))
                                                 )),verticalAlignment: TableCellVerticalAlignment.middle,),
 
-                                                /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),),
-                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),)*/
                                               ]),
@@ -305,41 +309,41 @@ class _QualityCheckWidgetState
                                                     ]),
                                                 Table(border: TableBorder.all(), children: [
                                                   TableRow(children: [
-                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                         child:dropDown(context,'halfDrop5'))
                                                     )),
                                                   ]),
                                                   TableRow(children: [
-                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                         child:dropDown(context,'halfDrop6'))
                                                     )),
                                                   ]),
                                                   TableRow(children: [
-                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                         child:dropDown(context,'halfDrop7'))
                                                     )),
                                                   ]),
                                                   TableRow(children: [
-                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                         child:dropDown(context,'halfDrop8'))
                                                     )),
                                                   ]),
                                                 ]),
-                                                TableCell(child: Align(alignment: Alignment.center,child: Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                TableCell(child: Align(alignment: Alignment.center,child: Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                   child:dropDown(context,'twohoursDrop2'),))
                                                 )),verticalAlignment: TableCellVerticalAlignment.middle,),
 
-                                                /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),),
-                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),)*/
                                               ]),
                                             ]),
                                       ]),]
                                     ),
-                                    TableCell(child: Align(alignment: Alignment.center,child: Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                    TableCell(child: Align(alignment: Alignment.center,child: Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                       child:dropDown(context,'fourHoursDrop1'),))
                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),
                                     Table(children:[
@@ -399,10 +403,10 @@ class _QualityCheckWidgetState
                                                     )
                                                   ]),
                                                 ]),
-                                                /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),),
-                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),)*/
                                               ]),
@@ -467,10 +471,10 @@ class _QualityCheckWidgetState
                                                       ]),
                                                     ]),
 
-                                                /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),),
-                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),)*/
                                               ]),
@@ -541,34 +545,34 @@ class _QualityCheckWidgetState
                                                   ]),
                                               Table(border: TableBorder.all(), children: [
                                                 TableRow(children: [
-                                                  Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                  Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'halfDrop9'))
                                                   )),
                                                 ]),
                                                 TableRow(children: [
-                                                  Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                  Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'halfDrop10'))
                                                   )),
                                                 ]),
                                                 TableRow(children: [
-                                                  Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                  Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'halfDrop11'))
                                                   )),
                                                 ]),
                                                 TableRow(children: [
-                                                  Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                  Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'halfDrop12'))
                                                   )),
                                                 ]),
                                               ]),
-                                              TableCell(child: Align(alignment: Alignment.center,child: Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                              TableCell(child: Align(alignment: Alignment.center,child: Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                 child:dropDown(context,'twohoursDrop3'),))
                                               )),verticalAlignment: TableCellVerticalAlignment.middle,),
 
-                                              /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                              /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),),
-                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),)*/
                                             ]),
@@ -634,41 +638,41 @@ class _QualityCheckWidgetState
                                                     ]),
                                                 Table(border: TableBorder.all(), children: [
                                                   TableRow(children: [
-                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                         child:dropDown(context,'halfDrop13'))
                                                     )),
                                                   ]
                                                   ),
                                                   TableRow(children: [
-                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                         child:dropDown(context,'halfDrop14'))
                                                     )),
                                                   ]),
                                                   TableRow(children: [
-                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                         child:dropDown(context,'halfDrop15'))
                                                     )),
                                                   ]),
                                                   TableRow(children: [
-                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                         child:dropDown(context,'halfDrop16'))
                                                     )),
                                                   ]),
                                                 ]),
-                                                TableCell(child: Align(alignment: Alignment.center,child: Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                TableCell(child: Align(alignment: Alignment.center,child: Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                   child:dropDown(context,'twohoursDrop4'),))
                                                 )),verticalAlignment: TableCellVerticalAlignment.middle,),
-                                                /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),),
-                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),)*/
                                               ]),
                                             ]),
                                       ]),]
                                     ),
-                                    TableCell(child: Align(alignment: Alignment.center,child: Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                    TableCell(child: Align(alignment: Alignment.center,child: Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                       child:dropDown(context,'fourHoursDrop2'),))
                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),
                                     Table(children:[TableRow(children:[
@@ -731,10 +735,10 @@ class _QualityCheckWidgetState
                                                   ]),
 
 
-                                              /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                              /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),),
-                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),)*/
                                             ]),
@@ -798,10 +802,10 @@ class _QualityCheckWidgetState
                                                         )
                                                       ]),
                                                     ]),
-                                                /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),),
-                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),)*/
                                               ]),
@@ -872,34 +876,34 @@ class _QualityCheckWidgetState
                                                   ]),
                                               Table(border: TableBorder.all(), children: [
                                                 TableRow(children: [
-                                                  Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                  Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'halfDrop17'))
                                                   )),
                                                 ]),
                                                 TableRow(children: [
-                                                  Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                  Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'halfDrop18'))
                                                   )),
                                                 ]),
                                                 TableRow(children: [
-                                                  Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                  Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'halfDrop19'))
                                                   )),
                                                 ]),
                                                 TableRow(children: [
-                                                  Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                  Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'halfDrop20'))
                                                   )),
                                                 ]),
                                               ]),
-                                              TableCell(child: Align(alignment: Alignment.center,child: Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                              TableCell(child: Align(alignment: Alignment.center,child: Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                 child:dropDown(context,'twohoursDrop5'),))
                                               )),verticalAlignment: TableCellVerticalAlignment.middle,),
 
-                                              /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                              /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),),
-                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),)*/
                                             ]),
@@ -965,41 +969,41 @@ class _QualityCheckWidgetState
                                                     ]),
                                                 Table(border: TableBorder.all(), children: [
                                                   TableRow(children: [
-                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                         child:dropDown(context,'halfDrop21'))
                                                     )),
                                                   ]),
                                                   TableRow(children: [
-                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                         child:dropDown(context,'halfDrop22'))
                                                     )),
                                                   ]),
                                                   TableRow(children: [
-                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                         child:dropDown(context,'halfDrop23'))
                                                     )),
                                                   ]),
                                                   TableRow(children: [
-                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                         child:dropDown(context,'halfDrop24'))
                                                     )),
                                                   ]),
                                                 ]),
-                                                TableCell(child: Align(alignment: Alignment.center,child: Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                TableCell(child: Align(alignment: Alignment.center,child: Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                   child:dropDown(context,'twohoursDrop6'),))
                                                 )),verticalAlignment: TableCellVerticalAlignment.middle,),
 
-                                                /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),),
-                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),)*/
                                               ]),
                                             ]),
                                       ]),]
                                     ),
-                                    TableCell(child: Align(alignment: Alignment.center,child: Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                    TableCell(child: Align(alignment: Alignment.center,child: Center(child: Container(height: 55,child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                       child:dropDown(context,'fourHoursDrop3'),))
                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),
                                     Table(children:[TableRow(children:[
@@ -1061,10 +1065,10 @@ class _QualityCheckWidgetState
                                                     ]),
                                                   ]),
 
-                                              /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                              /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),),
-                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),)*/
                                             ]),
@@ -1129,10 +1133,10 @@ class _QualityCheckWidgetState
                                                       ]),
                                                     ]),
 
-                                                /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                /*Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),),
-                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 10),
+                                                    Expanded(child: TableCell(child: Align(alignment: Alignment.center,child: Center(child: Padding(padding: EdgeInsets.symmetric(horizontal:0,vertical: 0),
                                                       child:dropDown(context,'8.30'),)
                                                     )),verticalAlignment: TableCellVerticalAlignment.middle,),)*/
                                               ]),
@@ -1165,21 +1169,23 @@ class _QualityCheckWidgetState
         ),
       ),
       dropdownDecoratorProps: DropDownDecoratorProps(
-          textAlign: TextAlign.start,
-          textAlignVertical: TextAlignVertical.center,
+          textAlign: TextAlign.center,
           baseStyle: TextStyle(
+            fontSize: Constants.fontSize_14,
               color: _qualityCheckModel?.getDrop(dropDown) == 'Pass'?Colors.green:_qualityCheckModel?.getDrop(dropDown) == 'Fail'?
               Colors.red:Colors.black
           ),
           dropdownSearchDecoration: InputDecoration(
             filled: true,
-            fillColor: Color(0xffE8E8E8),
+            labelStyle: TextStyle(fontSize: Constants.fontSize_12),
+            fillColor: Color(0xffFFFFFF),
             hintText: 'Select',
             border: InputBorder.none,
           )
       ),
       dropdownButtonProps: DropdownButtonProps(
-        constraints: BoxConstraints(minHeight: 52),
+        //constraints: BoxConstraints(minHeight: 55),
+        alignment: Alignment.center,
         icon:Icon(
           Icons.arrow_drop_down,
           color: Colors.black,
@@ -1197,14 +1203,14 @@ class _QualityCheckWidgetState
                   actions: [
                     TextButton(
                       onPressed: ()
-                {
-                  setState(() {
-                    widget.controller?.index = 4;
-                  });
-
-                  Navigator.pop(
-                      alertDialogContext);
-                } ,
+                      {
+                        setState(() {
+                          widget.controller?.index = 4;
+                          widget.homePageModel!.selectedTab = 4;
+                        });
+                        Navigator.pop(
+                            alertDialogContext);
+                      },
                       child: Text('Ok'),
                     ),
                   ],
@@ -1236,8 +1242,29 @@ class _QualityCheckWidgetState
           ),
           onTap: (){
             if(textField.contains('timeTF')){
-              textField.substring(6,textField.length);
-              _qualityCheckModel!.selectTextEditor(textField).text = CustomFunctions().clockInTime();
+
+              String textTF = textField.substring(6,textField.length);
+              print('casdasdasd $textTF');
+              print('casdasdasd $textField');
+              print('casdasdasd ${_qualityCheckModel!.selectTextEditor('timeTF1')!.text.toString()}');
+
+              if(_qualityCheckModel!.selectTextEditor('timeTF1')!.text.toString() != ''){
+                int no = int.parse(textTF);
+                print('adasssssssss2 ${_qualityCheckModel!.selectTextEditor('timeTF'+(no-1).toString())!.text.toString()}');
+
+                if(no>1){
+                  if(_qualityCheckModel!.selectTextEditor('timeTF'+(no-1).toString())!.text.toString() != ''){
+                    print('adasssssssss ${_qualityCheckModel!.selectTextEditor('timeTF'+(no-1).toString())!.text.toString()}');
+                    _qualityCheckModel!.selectTextEditor(textField)!.text = CustomFunctions().getHalfandHour(_qualityCheckModel!.selectTextEditor('timeTF'+(no-1).toString())!.text.toString());
+                  }
+                }
+
+              }
+              else{
+                if(textField == 'timeTF1'){
+                  _qualityCheckModel!.selectTextEditor('timeTF1')!.text = CustomFunctions().clockInTime();
+                }
+              }
               setState(() {
 
               });
@@ -1250,7 +1277,7 @@ class _QualityCheckWidgetState
   }
 
   Widget textView(BuildContext context,String text){
-    return Padding(padding: EdgeInsets.all(10),child: Text(text));
+    return Padding(padding: EdgeInsets.all(10),child: Text(text,style:TextStyle(fontWeight: FontWeight.w800)));
   }
 
 

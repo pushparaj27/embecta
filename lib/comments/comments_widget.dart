@@ -134,6 +134,7 @@ class _CommentsWidgetState
                                     ),
                                     child:TextField(
 
+                                      enabled: _checkValue?false:true,
                                       style: Theme.of(context).textTheme.subtitle2,
                                       keyboardType: TextInputType.text,
                                       textInputAction: TextInputAction.next,
@@ -181,6 +182,7 @@ class _CommentsWidgetState
                                         borderRadius: BorderRadius.circular(10)
                                     ),
                                     child:TextField(
+                                      enabled: _checkValue?false:true,
                                       style: Theme.of(context).textTheme.subtitle2,
                                       keyboardType: TextInputType.text,
                                       textInputAction: TextInputAction.next,

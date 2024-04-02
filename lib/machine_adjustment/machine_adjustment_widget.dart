@@ -480,6 +480,7 @@ class _MachineAdjustmentWidgetState
                           DropdownSearch<String>(
 
 
+
                             enabled: machineAdjustmentModel.checkBox?false:true,
                             items: _result,
                             selectedItem: machineAdjustmentModel.firstResult,
@@ -492,7 +493,8 @@ class _MachineAdjustmentWidgetState
                             dropdownDecoratorProps: DropDownDecoratorProps(
                                 baseStyle: TextStyle(
                                     color: machineAdjustmentModel.firstResult == 'Pass'?Colors.green:machineAdjustmentModel.firstResult == 'Fail'?
-                                          Colors.red:Colors.black
+                                          Colors.red:Colors.black,
+                                  overflow: TextOverflow.ellipsis
                                 ),
                                 dropdownSearchDecoration: InputDecoration(
                                   border: OutlineInputBorder(
@@ -576,7 +578,8 @@ class _MachineAdjustmentWidgetState
                             dropdownDecoratorProps: DropDownDecoratorProps(
                                 baseStyle: TextStyle(
                                     color:  machineAdjustmentModel.secondResult == 'Pass'?Colors.green:machineAdjustmentModel.secondResult == 'Fail'?
-                                    Colors.red:Colors.black
+                                    Colors.red:Colors.black,
+                                    overflow: TextOverflow.ellipsis
                                 ),
                                 dropdownSearchDecoration: InputDecoration(
                                   border: OutlineInputBorder(
@@ -650,7 +653,8 @@ class _MachineAdjustmentWidgetState
                             dropdownDecoratorProps: DropDownDecoratorProps(
                                 baseStyle: TextStyle(
                                     color: machineAdjustmentModel.thirdResult == 'Pass'?Colors.green:machineAdjustmentModel.thirdResult == 'Fail'?
-                                    Colors.red:Colors.black
+                                    Colors.red:Colors.black,
+                                    overflow: TextOverflow.ellipsis
                                 ),
                                 dropdownSearchDecoration: InputDecoration(
                                   border: OutlineInputBorder(

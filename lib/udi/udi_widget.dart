@@ -36,6 +36,7 @@ class _UDIWidgetState
               Padding(padding: EdgeInsets.symmetric(horizontal: 20,vertical: 30),child: Row(
                   mainAxisSize:MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(child: Container(
                         decoration: BoxDecoration(
@@ -72,12 +73,14 @@ class _UDIWidgetState
 
                                 Padding(padding: EdgeInsets.only(left: 0,top: 5,bottom: 5),
                                   child:
-                                  TextField(
+                                  TextFormField(
                                     style: Theme.of(context).textTheme.subtitle2,
                                     keyboardType: TextInputType.number,
                                     textInputAction: TextInputAction.next,
                                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                     controller: TextEditingController()..text = _printerSpeed1,
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
@@ -86,6 +89,16 @@ class _UDIWidgetState
                                     ),
                                     onChanged: (val) {
                                       _printerSpeed1 = val;
+                                    },
+                                    validator: (value) {
+                                      if(value!=''){
+                                        final currentLength = int.parse(value!);
+                                        if (!(currentLength >= 80 && currentLength <= 200)) {
+                                          return "Enter numbers between 80 and 200.";
+                                        }
+                                      }
+
+                                      return null;
                                     },
                                   ),),
                                 Row(
@@ -148,12 +161,13 @@ class _UDIWidgetState
 
                                   Padding(padding: EdgeInsets.only(left: 0,top: 5,bottom: 5),
                                     child:
-                                    TextField(
+                                    TextFormField(
                                       style: Theme.of(context).textTheme.subtitle2,
                                       keyboardType: TextInputType.number,
                                       textInputAction: TextInputAction.next,
                                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                       controller: TextEditingController()..text = _printerDelay1,
+                                      autovalidateMode: AutovalidateMode.onUserInteraction,
                                       decoration: InputDecoration(
                                         border: OutlineInputBorder(
                                             borderRadius: BorderRadius.all(
@@ -162,6 +176,16 @@ class _UDIWidgetState
                                       ),
                                       onChanged: (val) {
                                         _printerDelay1 = val;
+                                      },
+                                      validator: (value) {
+                                        if(value!=''){
+                                          final currentLength = int.parse(value!);
+                                          if (!(currentLength >= 15 && currentLength <= 25)) {
+                                            return "Enter numbers between 15 and 25.";
+                                          }
+                                        }
+
+                                        return null;
                                       },
                                     ),),
                                   Row(
@@ -252,11 +276,12 @@ class _UDIWidgetState
 
                                 Padding(padding: EdgeInsets.only(left: 0,top: 5,bottom: 5),
                                   child:
-                                  TextField(
+                                  TextFormField(
                                     style: Theme.of(context).textTheme.subtitle2,
                                     keyboardType: TextInputType.number,
                                     textInputAction: TextInputAction.next,
                                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
                                     controller: TextEditingController()..text = _printerSpeed2,
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
@@ -266,6 +291,16 @@ class _UDIWidgetState
                                     ),
                                     onChanged: (val) {
                                       _printerSpeed2 = val;
+                                    },
+                                    validator: (value) {
+                                      if(value!=''){
+                                        final currentLength = int.parse(value!);
+                                        if (!(currentLength >= 80 && currentLength <= 200)) {
+                                          return "Enter numbers between 80 and 200.";
+                                        }
+                                      }
+
+                                      return null;
                                     },
                                   ),),
                                 Row(
@@ -328,7 +363,8 @@ class _UDIWidgetState
 
                                   Padding(padding: EdgeInsets.only(left: 0,top: 5,bottom: 5),
                                     child:
-                                    TextField(
+                                    TextFormField(
+                                      autovalidateMode: AutovalidateMode.onUserInteraction,
                                       style: Theme.of(context).textTheme.subtitle2,
                                       keyboardType: TextInputType.number,
                                       textInputAction: TextInputAction.next,
@@ -342,6 +378,16 @@ class _UDIWidgetState
                                       ),
                                       onChanged: (val) {
                                         _printerDelay2 = val;
+                                      },
+                                      validator: (value) {
+                                        if(value!=''){
+                                          final currentLength = int.parse(value!);
+                                          if (!(currentLength >= 15 && currentLength <= 25)) {
+                                            return "Enter numbers between 15 and 25.";
+                                          }
+                                        }
+
+                                        return null;
                                       },
                                     ),),
                                   Row(
@@ -432,7 +478,8 @@ class _UDIWidgetState
 
                                 Padding(padding: EdgeInsets.only(left: 0,top: 5,bottom: 5),
                                   child:
-                                  TextField(
+                                  TextFormField(
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
                                     style: Theme.of(context).textTheme.subtitle2,
                                     keyboardType: TextInputType.number,
                                     textInputAction: TextInputAction.next,
@@ -447,6 +494,16 @@ class _UDIWidgetState
                                     onChanged: (val) {
                                       _printerSpeed3 = val;
                                     },
+                                      validator: (value) {
+                                        if(value!=''){
+                                          final currentLength = int.parse(value!);
+                                          if (!(currentLength >= 80 && currentLength <= 200)) {
+                                            return "Enter numbers between 80 and 200.";
+                                          }
+                                        }
+
+                                        return null;
+                                      }
                                   ),),
                                 Row(
                                   children: [
@@ -508,7 +565,8 @@ class _UDIWidgetState
 
                                 Padding(padding: EdgeInsets.only(left: 0,top: 5,bottom: 5),
                                   child:
-                                  TextField(
+                                  TextFormField(
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
                                     style: Theme.of(context).textTheme.subtitle2,
                                     keyboardType: TextInputType.number,
                                     textInputAction: TextInputAction.next,
@@ -523,6 +581,16 @@ class _UDIWidgetState
                                     onChanged: (val) {
                                       _printerDelay3 = val;
                                     },
+                                      validator: (value) {
+                                        if(value!=''){
+                                          final currentLength = int.parse(value!);
+                                          if (!(currentLength >= 15 && currentLength <= 25)) {
+                                            return "Enter numbers between 15 and 25.";
+                                          }
+                                        }
+
+                                        return null;
+                                      }
                                   ),),
                                 Row(
                                   children: [

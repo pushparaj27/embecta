@@ -1,12 +1,15 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:embecta/comments/comments_widget.dart';
+import 'package:embecta/face_id/face_id_widget.dart';
 import 'package:embecta/inspection/inspection_widget.dart';
 import 'package:embecta/machine_adjustment/machine_adjustment_widget.dart';
 import 'package:embecta/material_indicator.dart';
+import 'package:embecta/models/home_page_model.dart';
 import 'package:embecta/quality_check/quality_check_widget.dart';
 import 'package:embecta/shift_details/shift_details_widget.dart';
 import 'package:embecta/udi/udi_widget.dart';
 import 'package:embecta/utils/constants.dart';
+import 'package:embecta/utils/custom_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,16 +25,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   TabController? _controller;
-  int selectedTab = 3;
+  int selectedTab = 0;
   String userName = "Peter";
   DateTime currentDateAndTime = DateTime.now();
   String _currentDT = "";
-  bool isCheckIn = false;
+  bool isCheckIn = true;
+  HomePageModel homePageModel = HomePageModel();
 
   @override
   void initState() {
     _controller = TabController(length: 6, vsync: this, initialIndex: 0);
-    _controller?.index = 3;
+    _controller?.index = 0;
     final DateFormat formatter = DateFormat('yMMMMEEEEd');
     _currentDT = formatter.format(currentDateAndTime);
     super.initState();
@@ -59,17 +63,26 @@ class _HomePageState extends State<HomePage>
               child: Row(
                 children: [
                   SizedBox(
-                    height: 50,
                     width: 120,
+
                     child: Image.asset("assets/images/embecta.png"),
                   ),
                   Spacer(),
                   if (isCheckIn)
                     SizedBox(
-                      height: _deviceSize.height * 0.04,
-                      width: _deviceSize.width * 0.15,
+                      /*height: _deviceSize.height * 0.04,
+                      width: _deviceSize.width * 0.15,*/
                       child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            print("valueeee ${homePageModel.HSDescription}");
+                            Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
+                              builder: (context) {
+                                return FaceIdWidget(
+                                );
+                              },
+                            ));
+                          },
                           style: ButtonStyle(
                             shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
@@ -126,7 +139,7 @@ class _HomePageState extends State<HomePage>
                 10.0,
               ),
               padding: EdgeInsets.all(16.0),
-              height: _deviceSize.height * 0.14,
+              //height: _deviceSize.height * 0.14,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(
@@ -136,8 +149,7 @@ class _HomePageState extends State<HomePage>
                 ),
               ),
               child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       children: [
@@ -163,91 +175,129 @@ class _HomePageState extends State<HomePage>
                         ),
                       ],
                     ),
-                    const Spacer(),
+                    //const Spacer(),
                     if (isCheckIn) ...[
-                      SizedBox(
-                        height: _deviceSize.height * 0.04,
-                        width: _deviceSize.width * 0.12,
-                        child: ElevatedButton(
-                            onPressed: () {},
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    10.0,
+                      Row(children: [
+                        SizedBox(
+                          /*height: _deviceSize.height * 0.04,
+                        width: _deviceSize.width * 0.12,*/
+                          child: ElevatedButton(
+                              onPressed: () {},
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10.0,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              backgroundColor:
-                                  MaterialStateProperty.resolveWith(
-                                (states) {
-                                  return _purpleColor.withOpacity(0.6);
-                                },
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Cancel",
-                                  style: GoogleFonts.roboto(
-                                    color: Colors.white,
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ],
-                            )),
-                      ),
-                      SizedBox(
-                        width: 10.0,
-                      ),
-                      SizedBox(
-                        height: _deviceSize.height * 0.04,
-                        width: _deviceSize.width * 0.15,
-                        child: ElevatedButton(
-                            onPressed: () {},
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    10.0,
-                                  ),
+                                backgroundColor:
+                                MaterialStateProperty.resolveWith(
+                                      (states) {
+                                    return _purpleColor.withOpacity(0.6);
+                                  },
                                 ),
                               ),
-                              backgroundColor:
-                                  MaterialStateProperty.resolveWith(
-                                (states) {
-                                  return _purpleColor;
-                                },
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Save as Draft",
-                                  style: GoogleFonts.roboto(
-                                    color: Colors.white,
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w400,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Cancel",
+                                    style: GoogleFonts.roboto(
+                                      color: Colors.white,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        ),
+                        SizedBox(width: 5,),
+                        SizedBox(
+                          /*height: _deviceSize.height * 0.04,
+                        width: _deviceSize.width * 0.15,*/
+                          child: ElevatedButton(
+                              onPressed: () {},
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10.0,
+                                    ),
                                   ),
                                 ),
-                              ],
-                            )),
-                      ),
-                      const SizedBox(
+                                backgroundColor:
+                                MaterialStateProperty.resolveWith(
+                                      (states) {
+                                    return _purpleColor;
+                                  },
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Save as Draft",
+                                    style: GoogleFonts.roboto(
+                                      color: Colors.white,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        ),
+                        SizedBox(width: 5,),
+                        SizedBox(
+                          /*height: _deviceSize.height * 0.04,
+                        width: _deviceSize.width * 0.15,*/
+                          child: ElevatedButton(
+                              onPressed: () {
+                                CustomFunctions().showAlertDialog(context, 'PDF will be generated shortly',true);
+                              },
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10.0,
+                                    ),
+                                  ),
+                                ),
+                                backgroundColor:
+                                MaterialStateProperty.resolveWith(
+                                      (states) {
+                                    return _purpleColor;
+                                  },
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Submit",
+                                    style: GoogleFonts.roboto(
+                                      color: Colors.white,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        ),
+                        SizedBox(width: 5,),
+                        Icon(
+                          Icons.more_vert,
+                          color: _purpleColor,
+                        )
+                      ],),
+                      /*const SizedBox(
                         width: 10,
-                      ),
-                      Icon(
-                        Icons.more_vert,
-                        color: _purpleColor,
-                      )
+                      ),*/
+
                     ],
                     if (!isCheckIn)
                       SizedBox(
-                        height: _deviceSize.height * 0.07,
-                        width: _deviceSize.width * 0.12,
+
                         child: ElevatedButton(
                             onPressed: () {
                               setState(() {
@@ -294,7 +344,7 @@ class _HomePageState extends State<HomePage>
             ),
             Expanded(
               child: Container(
-                margin: EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 10.0),
+                margin: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(
@@ -340,7 +390,7 @@ class _HomePageState extends State<HomePage>
                           style: TextStyle(
                               fontFamily: Constants.fontFamily,
                               color:
-                                  selectedTab == 0 ? Colors.blue : Colors.black,
+                                  Colors.black,
                               fontSize: Constants.tabsize,
                               fontWeight: FontWeight.w600),
                         ),
@@ -350,7 +400,7 @@ class _HomePageState extends State<HomePage>
                           style: TextStyle(
                               fontFamily: Constants.fontFamily,
                               color:
-                                  selectedTab == 1 ? Colors.blue : Colors.black,
+                                  Colors.black,
                               fontSize: Constants.tabsize,
                               fontWeight: FontWeight.w600),
                         ),
@@ -360,7 +410,7 @@ class _HomePageState extends State<HomePage>
                           style: TextStyle(
                               fontFamily: Constants.fontFamily,
                               color:
-                                  selectedTab == 2 ? Colors.blue : Colors.black,
+                                  Colors.black,
                               fontSize: Constants.tabsize,
                               fontWeight: FontWeight.w600),
                         ),
@@ -370,7 +420,7 @@ class _HomePageState extends State<HomePage>
                           style: TextStyle(
                               fontFamily: Constants.fontFamily,
                               color:
-                                  selectedTab == 3 ? Colors.blue : Colors.black,
+                                  Colors.black,
                               fontSize: Constants.tabsize,
                               fontWeight: FontWeight.w600),
                         ),
@@ -380,7 +430,7 @@ class _HomePageState extends State<HomePage>
                           style: TextStyle(
                               fontFamily: Constants.fontFamily,
                               color:
-                                  selectedTab == 4 ? Colors.blue : Colors.black,
+                                  Colors.black,
                               fontSize: Constants.tabsize,
                               fontWeight: FontWeight.w600),
                         ),
@@ -390,7 +440,7 @@ class _HomePageState extends State<HomePage>
                           style: TextStyle(
                               fontFamily: Constants.fontFamily,
                               color:
-                                  selectedTab == 5 ? Colors.blue : Colors.black,
+                                  Colors.black,
                               fontSize: Constants.tabsize,
                               fontWeight: FontWeight.w600),
                         ),
@@ -398,7 +448,7 @@ class _HomePageState extends State<HomePage>
 
                       onTap: (value) {
                         setState(() {
-                          selectedTab = value;
+                            homePageModel.selectedTab = value;
                         });
                       },
                     ),
@@ -406,7 +456,10 @@ class _HomePageState extends State<HomePage>
                       child: TabBarView(controller: _controller, children: [
                         Container(
                             height: MediaQuery.of(context).size.height - 50,
-                            child: ShiftDetailsWidget()),
+                            child: ShiftDetailsWidget(
+                              appData: homePageModel,
+                              //callback:(value){},
+                            )),
                         Container(
                             height: MediaQuery.of(context).size.height - 50,
                             child: MachineAdjustmentWidget()),
@@ -415,7 +468,7 @@ class _HomePageState extends State<HomePage>
                             child: UDIWidget()),
                         Container(
                             height: MediaQuery.of(context).size.height - 50,
-                            child: QualityCheckWidget()),
+                            child: QualityCheckWidget(controller: _controller,homePageModel: homePageModel,)),
                         Container(
                             height: MediaQuery.of(context).size.height - 50,
                             child: CommentsWidget()),

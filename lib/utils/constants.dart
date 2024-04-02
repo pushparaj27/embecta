@@ -1,5 +1,5 @@
 class Constants{
-  static double tabsize = 18.0;
+  static double tabsize = 14.0;
   static double fontSize_20 = 20.0;
   static double fontSize_18 = 18.0;
   static double fontSize_16 = 16.0;

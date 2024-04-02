@@ -1,5 +1,6 @@
 import 'package:embecta/face_id/face_id_widget.dart';
 import 'package:embecta/home_page/home_page_widget.dart';
+import 'package:embecta/home_page/pin_widget.dart';
 import 'package:flutter/material.dart';
 
 void main() {

@@ -86,6 +86,7 @@ class _UDIWidgetState
                                           borderRadius: BorderRadius.all(
                                             Radius.circular(5),
                                           )),
+                                        errorMaxLines: 3
                                     ),
                                     onChanged: (val) {
                                       _printerSpeed1 = val;
@@ -97,7 +98,6 @@ class _UDIWidgetState
                                           return "Enter numbers between 80 and 200.";
                                         }
                                       }
-
                                       return null;
                                     },
                                   ),),
@@ -173,6 +173,8 @@ class _UDIWidgetState
                                             borderRadius: BorderRadius.all(
                                               Radius.circular(5),
                                             )),
+                                          errorMaxLines: 3
+
                                       ),
                                       onChanged: (val) {
                                         _printerDelay1 = val;
@@ -288,6 +290,8 @@ class _UDIWidgetState
                                           borderRadius: BorderRadius.all(
                                             Radius.circular(5),
                                           )),
+                                        errorMaxLines: 3
+
                                     ),
                                     onChanged: (val) {
                                       _printerSpeed2 = val;
@@ -375,6 +379,8 @@ class _UDIWidgetState
                                             borderRadius: BorderRadius.all(
                                               Radius.circular(5),
                                             )),
+                                          errorMaxLines: 3
+
                                       ),
                                       onChanged: (val) {
                                         _printerDelay2 = val;
@@ -490,6 +496,8 @@ class _UDIWidgetState
                                           borderRadius: BorderRadius.all(
                                             Radius.circular(5),
                                           )),
+                                        errorMaxLines: 3
+
                                     ),
                                     onChanged: (val) {
                                       _printerSpeed3 = val;
@@ -577,6 +585,8 @@ class _UDIWidgetState
                                           borderRadius: BorderRadius.all(
                                             Radius.circular(5),
                                           )),
+                                        errorMaxLines: 3
+
                                     ),
                                     onChanged: (val) {
                                       _printerDelay3 = val;

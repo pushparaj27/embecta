@@ -1485,7 +1485,7 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
     return 
     DropdownSearch<String>(
       items: _result,
-      selectedItem: !ffourhrs?'':
+      selectedItem: !ffourhrs&&dropDown.toString().toLowerCase()!='fourhoursdrop1'?'':
       _qualityCheckModel?.getDrop(dropDown),
       popupProps: const PopupProps.menu(
         constraints: BoxConstraints(minHeight: 50, maxHeight: 200),
@@ -1510,7 +1510,6 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
       dropdownButtonProps: DropdownButtonProps(
         //constraints: BoxConstraints(minHeight: 55),
         alignment: Alignment.center,
-
         icon: Icon(
           Icons.arrow_drop_down,
           color: Colors.black,

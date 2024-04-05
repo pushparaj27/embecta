@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'user_model.dart';
 
 import '../models/home_page_model.dart';
 
@@ -20,14 +21,17 @@ class ShiftDetailsWidget extends StatefulWidget {
 
 class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
     with AutomaticKeepAliveClientMixin<ShiftDetailsWidget> {
-  List<String> _selectShift = ['A', 'B', 'C', 'D','1','2','3'];
-  List<String> _selectMachineId = ['NG', 'NJ', 'NK', 'NT','NW','NZ'];
+  final _popupCustomValidationKey = GlobalKey<DropdownSearchState<String>>();
+  List<String> _selectShift = ['A', 'B', 'C', 'D', '1', '2', '3'];
+  List<String> _selectMachineId = ['NG', 'NJ', 'NK', 'NT', 'NW', 'NZ'];
   String _shift = '';
   String _machineId = '';
   String _addMaterial = '';
   String _addBatchNo = '';
   String _packageSpec = '';
   String _addDesc = '';
+  String itemSelected = '';
+  List store = [];
 
   DateTime selectedDate = DateTime.now();
 
@@ -55,6 +59,7 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
     }
   }
 
+  bool serachfield = false;
   TextEditingController _datePickerTFController = new TextEditingController();
   TextEditingController _materialController = new TextEditingController();
   TextEditingController _batchNumberController = new TextEditingController();
@@ -62,13 +67,13 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
   TextEditingController _descriptionController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final _border = OutlineInputBorder(
+    final _border = const OutlineInputBorder(
         borderRadius: BorderRadius.all(
       Radius.circular(
         10.0,
       ),
     ));
-    final _errorBorder = OutlineInputBorder(
+    final _errorBorder = const OutlineInputBorder(
         borderSide: BorderSide(
           color: Colors.red,
         ),
@@ -80,14 +85,14 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
     super.build(context);
     // TODO: implement build
     return SingleChildScrollView(
-        physics: AlwaysScrollableScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -116,13 +121,13 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
               ),
             ),
             Padding(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -133,7 +138,7 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                               fontFamily: Constants.fontFamily,
                               fontWeight: FontWeight.w700),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         DropdownSearch<String>(
@@ -141,11 +146,11 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                             widget.appData.HSShift = value ?? "";
                           },
                           items: _selectShift,
-                          popupProps: PopupProps.menu(
+                          popupProps: const PopupProps.menu(
                             constraints:
                                 BoxConstraints(minHeight: 50, maxHeight: 200),
                           ),
-                          dropdownButtonProps: DropdownButtonProps(
+                          dropdownButtonProps: const DropdownButtonProps(
                               constraints: BoxConstraints(minHeight: 50),
                               icon: Icon(
                                 Icons.arrow_drop_down,
@@ -155,13 +160,13 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                         )
                       ],
                     )),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Expanded(
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Select Date',
@@ -171,7 +176,7 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                               fontFamily: Constants.fontFamily,
                               fontWeight: FontWeight.w700),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         // Container(
@@ -208,7 +213,7 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                                 onTap: () {
                                   _selectDate(context);
                                 },
-                                child: Icon(
+                                child: const Icon(
                                   Icons.calendar_month,
                                 ),
                               ),
@@ -224,13 +229,13 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                         //),
                       ],
                     )),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Expanded(
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Add Material',
@@ -240,7 +245,7 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                               fontFamily: Constants.fontFamily,
                               fontWeight: FontWeight.w700),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         TextFormField(
@@ -250,14 +255,14 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           maxLength: 10,
                           inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp(r'^[a-zA-Z0-9]+$')),
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'^[a-zA-Z0-9]+$')),
                           ],
                           decoration: InputDecoration(
-                            border: _border,
-                            errorBorder: _errorBorder,
-                            counterText: "",
-                            errorMaxLines: 3
-                          ),
+                              border: _border,
+                              errorBorder: _errorBorder,
+                              counterText: "",
+                              errorMaxLines: 3),
                           onChanged: (value) {
                             widget.appData.HSMaterial = value;
                           },
@@ -271,12 +276,12 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                         )
                       ],
                     )),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Expanded(
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -287,11 +292,10 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                               fontFamily: Constants.fontFamily,
                               fontWeight: FontWeight.w700),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         TextFormField(
-
                           style: Theme.of(context).textTheme.subtitle2,
                           keyboardType: TextInputType.multiline,
                           maxLines: null,
@@ -300,15 +304,14 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                           maxLength: 10,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp(r'^[0-9]+$')),
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'^[0-9]+$')),
                           ],
                           decoration: InputDecoration(
-                            border: _border,
-                            errorBorder: _errorBorder,
-                            counterText: "",
-                              errorMaxLines: 3
-
-                          ),
+                              border: _border,
+                              errorBorder: _errorBorder,
+                              counterText: "",
+                              errorMaxLines: 3),
                           onChanged: (value) {
                             _addMaterial = value;
                             widget.appData.HSBatchNumber = value;
@@ -326,7 +329,7 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                   ],
                 )),
             Padding(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -344,26 +347,89 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                                   fontFamily: Constants.fontFamily,
                                   fontWeight: FontWeight.w700),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
-                            DropdownSearch<String>(
-                              items: _selectMachineId,
-                              popupProps: PopupProps.menu(
-                                constraints: BoxConstraints(
-                                    minHeight: 50, maxHeight: 200),
-                              ),
-                              dropdownButtonProps: DropdownButtonProps(
+                               DropdownSearch<String>(
+        items:_selectMachineId ,
+        popupProps: const PopupProps.menu(
+          showSearchBox: true,
+          constraints: BoxConstraints(
+                                  minHeight: 50, maxHeight: 200),
+        ),
+       dropdownButtonProps: const DropdownButtonProps(
                                   constraints: BoxConstraints(minHeight: 50),
+                                   
                                   icon: Icon(
                                     Icons.arrow_drop_down,
                                     color: Colors.black,
                                     size: 15,
                                   )),
-                            )
+        dropdownDecoratorProps: DropDownDecoratorProps(
+          textAlignVertical: TextAlignVertical.center,
+          dropdownSearchDecoration: InputDecoration(
+              border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+          )),
+        ),
+        onChanged: (value) {
+          setState(() {
+            itemSelected = value.toString();
+          });
+        },
+        selectedItem: itemSelected,
+      ),
+   
+        //                      DropdownSearch<String>(
+        //                       items: _selectMachineId,
+        //                       popupProps: const PopupProps.menu(
+        //                         showSearchBox: true,
+        //                         constraints: BoxConstraints(
+        //                             minHeight: 50, maxHeight: 200),
+        //                       ),
+        //                               onChanged: (value) {
+        //   setState(() {
+        //     itemSelected = value.toString();
+        //   });
+        // },
+        // selectedItem: itemSelected,
+        //                       filterFn: (item, filter) {
+        //                         item = _selectMachineId
+        //                             .where((element) => element
+        //                                 .toString()
+        //                                 .toLowerCase()
+        //                                 .contains(
+        //                                     filter.toString().toLowerCase()))
+        //                             .toString();
+                               
+        //                         item = filter;
+        //                         return true;
+        //                       },
+        //                       // onChanged: (value) {
+        //                       //   store = [];
+        //                       //   store = _selectMachineId
+        //                       //       .where((element) => element
+        //                       //           .toString()
+        //                       //           .toLowerCase()
+        //                       //           .contains(
+        //                       //               value.toString().toLowerCase()))
+        //                       //       .toList();
+        //                       //   setState(() {});
+        //                       //    print('filter ${store}');
+                               
+        //                       // },
+        //                       dropdownButtonProps: const DropdownButtonProps(
+        //                           constraints: BoxConstraints(minHeight: 50),
+        //                           icon: Icon(
+        //                             Icons.arrow_drop_down,
+        //                             color: Colors.black,
+        //                             size: 15,
+        //                           )),
+        //                     )
+                          
                           ],
                         )),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Expanded(
@@ -379,7 +445,7 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                                   fontFamily: Constants.fontFamily,
                                   fontWeight: FontWeight.w700),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             TextFormField(
@@ -391,11 +457,10 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                                   AutovalidateMode.onUserInteraction,
                               maxLength: 10,
                               decoration: InputDecoration(
-                                border: _border,
-                                errorBorder: _errorBorder,
-                                counterText: "",
-                                  errorMaxLines: 3
-                              ),
+                                  border: _border,
+                                  errorBorder: _errorBorder,
+                                  counterText: "",
+                                  errorMaxLines: 3),
                               onChanged: (value) {
                                 _packageSpec = value;
                                 widget.appData.HSPackageSpec = value;
@@ -427,7 +492,7 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                                     fontFamily: Constants.fontFamily,
                                     fontWeight: FontWeight.w700),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               TextField(
@@ -436,7 +501,7 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                                 textInputAction: TextInputAction.next,
                                 controller: TextEditingController()
                                   ..text = _machineId,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
                                     Radius.circular(10),
@@ -454,7 +519,7 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                   ],
                 )),
             Padding(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -466,11 +531,11 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                           fontFamily: Constants.fontFamily,
                           fontWeight: FontWeight.w700),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Container(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                             left: 20, top: 10, right: 20, bottom: 10),
                         decoration: BoxDecoration(
                             border: Border.all(color: Colors.black38),
@@ -480,7 +545,7 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                           keyboardType: TextInputType.text,
                           textInputAction: TextInputAction.next,
                           controller: TextEditingController()..text = _addDesc,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             constraints: BoxConstraints(
                               minHeight: 200,
                             ),
@@ -501,18 +566,18 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
     return Container(
       child: Text(
         name.toString(),
-        style: TextStyle(fontSize: 14, color: Colors.black),
+        style: const TextStyle(fontSize: 14, color: Colors.black),
       ),
     );
   }
 
   Widget _customDropDownText2(BuildContext context, String? name, bool type) {
     return Padding(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       child: Container(
         child: Text(
           name.toString(),
-          style: TextStyle(fontSize: 14, color: Colors.black),
+          style: const TextStyle(fontSize: 14, color: Colors.black),
         ),
       ),
     );
@@ -521,4 +586,89 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
+}
+
+class Searchfield extends StatefulWidget {
+  final List slist;
+  const Searchfield({super.key, required this.slist});
+
+  @override
+  State<Searchfield> createState() => _SearchfieldState();
+}
+
+class _SearchfieldState extends State<Searchfield> {
+  TextEditingController searchfiled = new TextEditingController();
+  List store = [];
+  @override
+  void initState() {
+    super.initState();
+    debugPrint('working');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height / 2.5,
+      width: MediaQuery.of(context).size.width / 3,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade200,
+            blurRadius: 10.0,
+            spreadRadius: 2.0,
+          ), //BoxShadow
+        ],
+      ),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
+            child: Container(
+              height: 25,
+              width: double.infinity,
+              child: TextField(
+                controller: searchfiled,
+                onChanged: (value) {
+                  store = [];
+                  store = widget.slist
+                      .where((element) => element
+                          .toString()
+                          .toLowerCase()
+                          .contains(value.toString().toLowerCase()))
+                      .toList();
+                  setState(() {});
+                },
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 16.0,
+          ),
+          Scrollbar(
+            child: Container(
+              height: (MediaQuery.of(context).size.height / 2.8) - 34,
+              width: MediaQuery.of(context).size.width / 3,
+              child: ListView.builder(
+                physics: const ClampingScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: searchfiled.text.isEmpty
+                    ? widget.slist.length
+                    : store.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                        left: 16.0, right: 16.0, bottom: 16.0),
+                    child: Text(searchfiled.text.isEmpty
+                        ? '${widget.slist[index]}'
+                        : '${store[index]}'),
+                  );
+                },
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
 }

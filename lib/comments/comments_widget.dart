@@ -233,7 +233,7 @@ class _CommentsWidgetState
                                         borderRadius: BorderRadius.circular(10)
                                     ),
                                     child:TextField(
-                                      canRequestFocus: false,
+                                      // canRequestFocus: false,
                                       style: Theme.of(context).textTheme.subtitle2,
                                       keyboardType: TextInputType.text,
                                       textInputAction: TextInputAction.next,
@@ -278,7 +278,7 @@ class _CommentsWidgetState
                                     borderRadius: BorderRadius.circular(10)
                                 ),
                                 child:TextField(
-                                  canRequestFocus: false,
+                                  // canRequestFocus: false,
                                   style: Theme.of(context).textTheme.subtitle2,
                                   keyboardType: TextInputType.text,
                                   textInputAction: TextInputAction.next,

@@ -395,7 +395,7 @@ class _HomePageState extends State<HomePage>
                               fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          'Machine Adjustment',
+                          'Machine Parameters',
                           textAlign: TextAlign.end,
                           style: TextStyle(
                               fontFamily: Constants.fontFamily,

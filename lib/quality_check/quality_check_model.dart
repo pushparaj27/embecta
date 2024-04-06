@@ -1,4 +1,5 @@
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:embecta/utils/custom_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -441,6 +442,99 @@ class QualityCheckModel {
     if(text == 'case24')
       return case24;
     return TextEditingController();
+  }
+
+  bool isEnabled(String valDrop){
+    if(getDrop('fourHoursDrop1').toString().toLowerCase().contains('machine down')){
+      if(valDrop.contains('halfDrop') || valDrop.contains('twohoursDrop')){
+        if(valDrop == ('halfDrop1') ||
+            valDrop == ('halfDrop2') ||
+            valDrop.contains('halfDrop3') ||
+            valDrop.contains('halfDrop4') ||
+            valDrop.contains('halfDrop5') ||
+            valDrop.contains('halfDrop6') ||
+            valDrop.contains('halfDrop7') ||
+            valDrop.contains('halfDrop8') ||
+            valDrop.contains('twohoursDrop1') ||
+            valDrop.contains('twohoursDrop2'))
+        {
+          return false;
+        }
+      }
+
+    }if(getDrop('fourHoursDrop2').toString().toLowerCase().contains('machine down')){
+      if(valDrop.contains('halfDrop') || valDrop.contains('twohoursDrop')){
+        if(valDrop.contains('halfDrop9') ||
+            valDrop.contains('halfDrop10') ||
+            valDrop.contains('halfDrop11') ||
+            valDrop.contains('halfDrop12') ||
+            valDrop.contains('halfDrop13') ||
+            valDrop.contains('halfDrop14') ||
+            valDrop.contains('halfDrop15') ||
+            valDrop.contains('halfDrop16') ||
+            valDrop.contains('twohoursDrop3') ||
+            valDrop.contains('twohoursDrop4'))
+        {
+          return false;
+        }
+      }
+
+    }if(getDrop('fourHoursDrop3').toString().toLowerCase().contains('machine down')){
+      if(valDrop.contains('halfDrop') || valDrop.contains('twohoursDrop')){
+        if(valDrop.contains('halfDrop17') ||
+            valDrop.contains('halfDrop18') ||
+            valDrop.contains('halfDrop19') ||
+            valDrop.contains('halfDrop20') ||
+            valDrop.contains('halfDrop21') ||
+            valDrop.contains('halfDrop22') ||
+            valDrop.contains('halfDrop23') ||
+            valDrop.contains('halfDrop24') ||
+            valDrop.contains('twohoursDrop5') ||
+            valDrop.contains('twohoursDrop6'))
+        {
+          return false;
+        }
+      }
+
+    }
+    return true;
+  }
+
+  bool canRequestFocus(String valDrop) {
+    if (getDrop('fourHoursDrop1').toString().toLowerCase().contains(
+        'machine down')) {
+      if (valDrop.contains('timeTF') || valDrop.contains('case')) {
+        for (int i = 1; i < 9; i++) {
+          if (valDrop == ('timeTF${i}') || valDrop == ('case$i')) {
+            print('adasdasdasd');
+            return false;
+          }
+        }
+      }
+    }
+    if (getDrop('fourHoursDrop2').toString().toLowerCase().contains(
+        'machine down')) {
+      if (valDrop.contains('timeTF') || valDrop.contains('case')) {
+        int val = int.parse(CustomFunctions().getNumeric(valDrop));
+        for (int i = 9; i < 17; i++) {
+          if (valDrop == ('timeTF${i}') || valDrop == ('case$i')) {
+            return false;
+          }
+        }
+      }
+    }
+    if (getDrop('fourHoursDrop3').toString().toLowerCase().contains(
+        'machine down')) {
+      if (valDrop.contains('timeTF') || valDrop.contains('case')) {
+        int val = int.parse(CustomFunctions().getNumeric(valDrop));
+        for (int i = 17; i < 25; i++) {
+          if (valDrop == ('timeTF${i}') || valDrop == ('case$i')) {
+            return false;
+          }
+        }
+      }
+    }
+    return true;
   }
 
   void setDrop(BuildContext context,String type,String value){

@@ -16,6 +16,10 @@ class CustomFunctions{
     return formattedTime;
   }
 
+  String getNumeric(String msg) {
+    return msg.replaceAll(new RegExp(r'[^0-9]'),'');
+  }
+
   String getHalfandHour(String customTime){
     //customTime = customTime.substring(0,5);
 
@@ -62,6 +66,8 @@ class CustomFunctions{
     int h = int.parse(time.split(":").first);
     int m = int.parse(time.split(":").last.split(" ").first);
     String meridium = time.split(":").last.split(" ").last.toLowerCase();
+    print(m);
+
     if (meridium == "pm") {
       if (h != 12) {
         h = h + 12;
@@ -72,7 +78,11 @@ class CustomFunctions{
         h = 00;
       }
     }
-    String newTime = "${h == 0 ? "00" : h}:${m == 0 ? "00" : m}";
+
+    if(h.toString().length == 1){
+      h = int.parse('0'+h.toString());
+    }
+    String newTime = "${h == 0 ? "00" : h.toString().length == 1?"0"+h.toString():h}:${m == 0 ? "00" : m.toString().length == 1?"0"+m.toString():m}";
     print(newTime);
 
     return newTime;

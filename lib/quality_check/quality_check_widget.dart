@@ -1482,11 +1482,13 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
   }
 
   Widget dropDown(BuildContext context, String dropDown) {
+
+    print('adasdasd ${_qualityCheckModel!.isEnabled(dropDown)}');
     return 
     DropdownSearch<String>(
       items: _result,
-      selectedItem: !ffourhrs?'':
-      _qualityCheckModel?.getDrop(dropDown),
+      enabled: _qualityCheckModel!.isEnabled(dropDown),
+      selectedItem: _qualityCheckModel?.getDrop(dropDown),
       popupProps: const PopupProps.menu(
         constraints: BoxConstraints(minHeight: 50, maxHeight: 200),
       ),
@@ -1494,8 +1496,8 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
           textAlign: TextAlign.center,
           baseStyle: TextStyle(
               fontSize: Constants.fontSize_14,
-              color: int.parse(dropDown.substring(dropDown.length - 1)) > 8
-                  //  _qualityCheckModel?.getDrop(dropDown) == 'Pass'
+              color: //int.parse(dropDown.substring(dropDown.length - 1)) > 8
+                    _qualityCheckModel?.getDrop(dropDown) == 'Pass'
                   ? Colors.green
                   : _qualityCheckModel?.getDrop(dropDown) == 'Fail'
                       ? Colors.red
@@ -1519,8 +1521,9 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
       ),
       onChanged: (val) {
         if (val!.toLowerCase() != 'machine down') {
-          if (dropDown.toString().toLowerCase().contains('fourhoursdrop1')) {
-           ffourhrs = false;
+          if (dropDown.toString().toLowerCase().contains('fourhoursdrop')) {
+            _qualityCheckModel?.setDrop(context,dropDown,val.toString());
+            ffourhrs = false;
            setState(() {
              
            });
@@ -1528,13 +1531,20 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
         
         }
         if (val.toLowerCase() == 'machine down') {
-          setState(() {
-            ffourhrs = true;
-          });
+          if (dropDown.toString().toLowerCase().contains('fourhoursdrop')) {
+            _qualityCheckModel?.setDrop(context,dropDown,val.toString());
+            setState(() {
+              ffourhrs = true;
+            });
+          }
         }
-      
-        if (ffourhrs) {
-          if (dropDown.toString().toLowerCase().contains('fourhoursdrop1')) {
+
+
+        if(dropDown.toString().toLowerCase().contains('fourhoursdrop'))
+
+        /*if (ffourhrs) {*/
+          if (dropDown.toString().toLowerCase().contains('fourhoursdrop1') &&
+              _qualityCheckModel!.getDrop(dropDown).toString().toLowerCase().contains('machine down')) {
             setState(() {
               _qualityCheckModel?.setDrop(context, 'halfDrop1', val);
               _qualityCheckModel?.setDrop(context, 'halfDrop2', val);
@@ -1548,7 +1558,8 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
               _qualityCheckModel?.setDrop(context, 'twohoursDrop2', val);
             });
           }
-          if (dropDown.toString().toLowerCase().contains('fourhoursdrop2')) {
+          if (dropDown.toString().toLowerCase().contains('fourhoursdrop2') &&
+              _qualityCheckModel!.getDrop(dropDown).toString().toLowerCase().contains('machine down')) {
             setState(() {
               _qualityCheckModel?.setDrop(context, 'halfDrop9', val);
               _qualityCheckModel?.setDrop(context, 'halfDrop10', val);
@@ -1561,8 +1572,22 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
               _qualityCheckModel?.setDrop(context, 'twohoursDrop3', val);
               _qualityCheckModel?.setDrop(context, 'twohoursDrop4', val);
             });
+          }if (dropDown.toString().toLowerCase().contains('fourhoursdrop3') &&
+              _qualityCheckModel!.getDrop(dropDown).toString().toLowerCase().contains('machine down')) {
+            setState(() {
+              _qualityCheckModel?.setDrop(context, 'halfDrop17', val);
+              _qualityCheckModel?.setDrop(context, 'halfDrop18', val);
+              _qualityCheckModel?.setDrop(context, 'halfDrop19', val);
+              _qualityCheckModel?.setDrop(context, 'halfDrop20', val);
+              _qualityCheckModel?.setDrop(context, 'halfDrop21', val);
+              _qualityCheckModel?.setDrop(context, 'halfDrop22', val);
+              _qualityCheckModel?.setDrop(context, 'halfDrop23', val);
+              _qualityCheckModel?.setDrop(context, 'halfDrop24', val);
+              _qualityCheckModel?.setDrop(context, 'twohoursDrop3', val);
+              _qualityCheckModel?.setDrop(context, 'twohoursDrop4', val);
+            });
           }
-        }
+        //}
 
         if (val == 'Fail') {
           showDialog(
@@ -1600,7 +1625,7 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
           style: Theme.of(context).textTheme.subtitle2,
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.next,
-          // canRequestFocus: textField.contains('MSTF')?true:isEnableFocus,
+          enabled: _qualityCheckModel!.canRequestFocus(textField),
           controller: _qualityCheckModel!.selectTextEditor(textField),
           decoration: InputDecoration(
             constraints: BoxConstraints(

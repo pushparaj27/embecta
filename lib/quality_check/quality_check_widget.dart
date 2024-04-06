@@ -1482,8 +1482,6 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
   }
 
   Widget dropDown(BuildContext context, String dropDown) {
-
-    print('adasdasd ${_qualityCheckModel!.isEnabled(dropDown)}');
     return 
     DropdownSearch<String>(
       items: _result,
@@ -1512,7 +1510,6 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
       dropdownButtonProps: DropdownButtonProps(
         //constraints: BoxConstraints(minHeight: 55),
         alignment: Alignment.center,
-
         icon: Icon(
           Icons.arrow_drop_down,
           color: Colors.black,

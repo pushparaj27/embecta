@@ -2,11 +2,11 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:embecta/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'user_model.dart';
-
 import '../models/home_page_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ShiftDetailsWidget extends StatefulWidget {
   HomePageModel appData;
@@ -22,16 +22,64 @@ class ShiftDetailsWidget extends StatefulWidget {
 class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
     with AutomaticKeepAliveClientMixin<ShiftDetailsWidget> {
   final _popupCustomValidationKey = GlobalKey<DropdownSearchState<String>>();
-  List<String> _selectShift = ['A', 'B', 'C', 'D', '1', '2', '3'];
-  List<String> _selectMachineId = ['NG', 'NJ', 'NK', 'NT', 'NW', 'NZ'];
-  String _shift = '';
+
+  final List<String> _selectShift = ['A', 'B', 'C', 'D', '1', '2', '3'];
+  final List<String> _selectMachineId = ['NG', 'NJ', 'NK', 'NT', 'NW', 'NZ'];
+  final String _shift = '';
   String _machineId = '';
   String _addMaterial = '';
-  String _addBatchNo = '';
+  final String _addBatchNo = '';
   String _packageSpec = '';
   String _addDesc = '';
   String itemSelected = '';
   List store = [];
+  SharedPreferences? prefs;
+  bool serachfield = false;
+  TextEditingController _datePickerTFController = TextEditingController();
+  TextEditingController _materialController = TextEditingController();
+  TextEditingController _batchNumberController = TextEditingController();
+  TextEditingController _packageSpecController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      prefs = await SharedPreferences.getInstance();
+      setState(() {});
+      _materialController.text =
+          prefs!.getString("material").toString().isEmpty ||
+                  prefs!.getString("material").toString() == 'null'
+              ?_materialController.text
+              : prefs!.getString("material").toString();
+      _batchNumberController.text =
+          prefs!.getString("batchNumberController").toString().isEmpty||
+                  prefs!.getString("batchNumberController").toString() == 'null'
+              ? _batchNumberController.text
+              : prefs!.getString("batchNumberController").toString();
+      _packageSpecController.text =
+          prefs!.getString("packageSpecController").toString().isEmpty||
+                  prefs!.getString("packageSpecController").toString() == 'null'
+              ? _packageSpecController.text
+              : prefs!.getString("packageSpecController").toString();
+      widget.appData.HSShift =
+          prefs!.getString("selectshift").toString().isEmpty||
+                  prefs!.getString("selectshift").toString() == 'null'
+              ? widget.appData.HSShift
+              : prefs!.getString("selectshift").toString();
+      _datePickerTFController.text = prefs!.getString("datePickerTF").toString().isEmpty||
+          prefs!.getString("datePickerTF").toString()=='null'
+              ? _datePickerTFController.text
+              : prefs!.getString("datePickerTF").toString();
+      itemSelected = prefs!.getString("selectMachineId").toString().isEmpty|| 
+      prefs!.getString("selectMachineId").toString()=='null'
+          ? itemSelected
+          : prefs!.getString("selectMachineId").toString();
+      _addDesc = prefs!.getString("description").toString().isEmpty||
+      prefs!.getString("description").toString()=='null'
+          ? _addDesc
+          : prefs!.getString("description").toString();
+    });
+  }
 
   DateTime selectedDate = DateTime.now();
 
@@ -56,15 +104,14 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
           ),
         ),
       );
+      func() async {
+        prefs = await SharedPreferences.getInstance();
+        prefs!.setString("datePickerTF", widget.appData.HSDate.toString());
+      }
+      func();
     }
   }
 
-  bool serachfield = false;
-  TextEditingController _datePickerTFController = new TextEditingController();
-  TextEditingController _materialController = new TextEditingController();
-  TextEditingController _batchNumberController = new TextEditingController();
-  TextEditingController _packageSpecController = new TextEditingController();
-  TextEditingController _descriptionController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     final _border = const OutlineInputBorder(
@@ -144,6 +191,12 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                         DropdownSearch<String>(
                           onChanged: (value) {
                             widget.appData.HSShift = value ?? "";
+                            func() async {
+                              prefs = await SharedPreferences.getInstance();
+                              prefs!.setString("selectshift", value.toString());
+                            }
+
+                            func();
                           },
                           items: _selectShift,
                           popupProps: const PopupProps.menu(
@@ -157,6 +210,7 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                                 color: Colors.black,
                                 size: 15,
                               )),
+                          selectedItem: widget.appData.HSShift,
                         )
                       ],
                     )),
@@ -203,6 +257,15 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                           height: 50,
                           child: TextField(
                             controller: _datePickerTFController,
+                            onChanged: (value) {
+                              func() async {
+                                prefs = await SharedPreferences.getInstance();
+                                prefs!.setString(
+                                    "datePickerTF", value.toString());
+                              }
+
+                              func();
+                            },
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderSide:
@@ -265,6 +328,12 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                               errorMaxLines: 3),
                           onChanged: (value) {
                             widget.appData.HSMaterial = value;
+                            func() async {
+                              prefs = await SharedPreferences.getInstance();
+                              prefs!.setString("material", value.toString());
+                            }
+
+                            func();
                           },
                           validator: (value) {
                             final currentLength = value!.length;
@@ -315,6 +384,13 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                           onChanged: (value) {
                             _addMaterial = value;
                             widget.appData.HSBatchNumber = value;
+                            func() async {
+                              prefs = await SharedPreferences.getInstance();
+                              prefs!.setString(
+                                  "batchNumberController", value.toString());
+                            }
+
+                            func();
                           },
                           validator: (value) {
                             final currentLength = value!.length;
@@ -350,83 +426,88 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                             const SizedBox(
                               height: 10,
                             ),
-                               DropdownSearch<String>(
-        items:_selectMachineId ,
-        popupProps: const PopupProps.menu(
-          showSearchBox: true,
-          constraints: BoxConstraints(
-                                  minHeight: 50, maxHeight: 200),
-        ),
-       dropdownButtonProps: const DropdownButtonProps(
+                            DropdownSearch<String>(
+                              items: _selectMachineId,
+                              popupProps: const PopupProps.menu(
+                                showSearchBox: true,
+                                constraints: BoxConstraints(
+                                    minHeight: 50, maxHeight: 200),
+                              ),
+                              dropdownButtonProps: const DropdownButtonProps(
                                   constraints: BoxConstraints(minHeight: 50),
-                                   
                                   icon: Icon(
                                     Icons.arrow_drop_down,
                                     color: Colors.black,
                                     size: 15,
                                   )),
-        dropdownDecoratorProps: DropDownDecoratorProps(
-          textAlignVertical: TextAlignVertical.center,
-          dropdownSearchDecoration: InputDecoration(
-              border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
-          )),
-        ),
-        onChanged: (value) {
-          setState(() {
-            itemSelected = value.toString();
-          });
-        },
-        selectedItem: itemSelected,
-      ),
-   
-        //                      DropdownSearch<String>(
-        //                       items: _selectMachineId,
-        //                       popupProps: const PopupProps.menu(
-        //                         showSearchBox: true,
-        //                         constraints: BoxConstraints(
-        //                             minHeight: 50, maxHeight: 200),
-        //                       ),
-        //                               onChanged: (value) {
-        //   setState(() {
-        //     itemSelected = value.toString();
-        //   });
-        // },
-        // selectedItem: itemSelected,
-        //                       filterFn: (item, filter) {
-        //                         item = _selectMachineId
-        //                             .where((element) => element
-        //                                 .toString()
-        //                                 .toLowerCase()
-        //                                 .contains(
-        //                                     filter.toString().toLowerCase()))
-        //                             .toString();
-                               
-        //                         item = filter;
-        //                         return true;
-        //                       },
-        //                       // onChanged: (value) {
-        //                       //   store = [];
-        //                       //   store = _selectMachineId
-        //                       //       .where((element) => element
-        //                       //           .toString()
-        //                       //           .toLowerCase()
-        //                       //           .contains(
-        //                       //               value.toString().toLowerCase()))
-        //                       //       .toList();
-        //                       //   setState(() {});
-        //                       //    print('filter ${store}');
-                               
-        //                       // },
-        //                       dropdownButtonProps: const DropdownButtonProps(
-        //                           constraints: BoxConstraints(minHeight: 50),
-        //                           icon: Icon(
-        //                             Icons.arrow_drop_down,
-        //                             color: Colors.black,
-        //                             size: 15,
-        //                           )),
-        //                     )
-                          
+                              dropdownDecoratorProps: DropDownDecoratorProps(
+                                textAlignVertical: TextAlignVertical.center,
+                                dropdownSearchDecoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                )),
+                              ),
+                              onChanged: (value) {
+                                setState(() {
+                                  itemSelected = value.toString();
+                                });
+                                func() async {
+                                  prefs = await SharedPreferences.getInstance();
+                                  prefs!.setString("selectMachineId",
+                                      itemSelected.toString());
+                                }
+
+                                func();
+                              },
+                              selectedItem: itemSelected,
+                            ),
+
+                            //                      DropdownSearch<String>(
+                            //                       items: _selectMachineId,
+                            //                       popupProps: const PopupProps.menu(
+                            //                         showSearchBox: true,
+                            //                         constraints: BoxConstraints(
+                            //                             minHeight: 50, maxHeight: 200),
+                            //                       ),
+                            //                               onChanged: (value) {
+                            //   setState(() {
+                            //     itemSelected = value.toString();
+                            //   });
+                            // },
+                            // selectedItem: itemSelected,
+                            //                       filterFn: (item, filter) {
+                            //                         item = _selectMachineId
+                            //                             .where((element) => element
+                            //                                 .toString()
+                            //                                 .toLowerCase()
+                            //                                 .contains(
+                            //                                     filter.toString().toLowerCase()))
+                            //                             .toString();
+
+                            //                         item = filter;
+                            //                         return true;
+                            //                       },
+                            //                       // onChanged: (value) {
+                            //                       //   store = [];
+                            //                       //   store = _selectMachineId
+                            //                       //       .where((element) => element
+                            //                       //           .toString()
+                            //                       //           .toLowerCase()
+                            //                       //           .contains(
+                            //                       //               value.toString().toLowerCase()))
+                            //                       //       .toList();
+                            //                       //   setState(() {});
+                            //                       //    print('filter ${store}');
+
+                            //                       // },
+                            //                       dropdownButtonProps: const DropdownButtonProps(
+                            //                           constraints: BoxConstraints(minHeight: 50),
+                            //                           icon: Icon(
+                            //                             Icons.arrow_drop_down,
+                            //                             color: Colors.black,
+                            //                             size: 15,
+                            //                           )),
+                            //                     )
                           ],
                         )),
                     const SizedBox(
@@ -464,6 +545,13 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                               onChanged: (value) {
                                 _packageSpec = value;
                                 widget.appData.HSPackageSpec = value;
+                                func() async {
+                                  prefs = await SharedPreferences.getInstance();
+                                  prefs!.setString("packageSpecController",
+                                      value.toString());
+                                }
+
+                                func();
                               },
                               validator: (value) {
                                 final currentLength = value!.length;
@@ -554,6 +642,13 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                           onChanged: (value) {
                             _addDesc = value;
                             widget.appData.HSDescription = value;
+                            func() async {
+                              prefs = await SharedPreferences.getInstance();
+                              prefs!.setString("description",
+                                  widget.appData.HSDescription.toString());
+                            }
+
+                            func();
                           },
                         ))
                   ],

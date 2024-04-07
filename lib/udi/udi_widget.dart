@@ -1,7 +1,9 @@
 import 'package:embecta/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UDIWidget extends StatefulWidget {
   const UDIWidget({Key? key}) : super(key: key);
@@ -27,6 +29,7 @@ class _UDIWidgetState extends State<UDIWidget>
   late FocusNode myFocusNode4;
   late FocusNode myFocusNode5;
   late FocusNode myFocusNode6;
+  SharedPreferences? prefs;
   bool valiid1 = false;
   @override
   void initState() {
@@ -37,21 +40,60 @@ class _UDIWidgetState extends State<UDIWidget>
     myFocusNode4 = FocusNode();
     myFocusNode5 = FocusNode();
     myFocusNode6 = FocusNode();
+     SchedulerBinding.instance.addPostFrameCallback((_) async {
+ prefs = await SharedPreferences.getInstance();
+     _printerSpeed1 =
+          prefs!.getString("ps1").toString().isEmpty ||
+                  prefs!.getString("ps1").toString() == 'null'
+              ?_printerSpeed1
+              : prefs!.getString("ps1").toString();
+
+                _printerDelay1 =
+          prefs!.getString("ps2").toString().isEmpty ||
+                  prefs!.getString("ps2").toString() == 'null'
+              ?_printerDelay1
+              : prefs!.getString("ps2").toString();
+
+                _printerSpeed2 =
+          prefs!.getString("ps3").toString().isEmpty ||
+                  prefs!.getString("ps3").toString() == 'null'
+              ?_printerSpeed2
+              : prefs!.getString("ps3").toString();
+
+                _printerDelay2 =
+          prefs!.getString("ps4").toString().isEmpty ||
+                  prefs!.getString("ps4").toString() == 'null'
+              ?_printerDelay2
+              : prefs!.getString("ps4").toString();
+
+                _printerSpeed3 =
+          prefs!.getString("ps5").toString().isEmpty ||
+                  prefs!.getString("ps5").toString() == 'null'
+              ?_printerSpeed3
+              : prefs!.getString("ps5").toString();
+
+                _printerDelay3 =
+          prefs!.getString("ps6").toString().isEmpty ||
+                  prefs!.getString("ps6").toString() == 'null'
+              ?_printerDelay3
+              : prefs!.getString("ps6").toString();
+     });
+   
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return SingleChildScrollView(
-        physics: AlwaysScrollableScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(),
         child: Padding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Column(children: [
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                   child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,30 +104,30 @@ class _UDIWidgetState extends State<UDIWidget>
                             decoration: BoxDecoration(
                                 border: Border.all(color: Colors.black12),
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
+                                    const BorderRadius.all(Radius.circular(10))),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.only(left: 10, top: 10),
+                                  padding: const EdgeInsets.only(left: 10, top: 10),
                                   child: Text('REF.MD700753',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: Constants.fontSize_18)),
                                 ),
-                                Padding(
+                                const Padding(
                                   padding: EdgeInsets.only(left: 10, top: 5),
                                   child: Text('Line 6 only'),
                                 ),
-                                Divider(),
+                                const Divider(),
                                 Padding(
-                                  padding: EdgeInsets.only(left: 10, right: 20),
+                                  padding: const EdgeInsets.only(left: 10, right: 20),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
+                                      const Padding(
                                         padding: EdgeInsets.only(
                                             left: 5, top: 10, bottom: 5),
                                         child: Text(
@@ -95,7 +137,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.only(
+                                        padding: const EdgeInsets.only(
                                             left: 0, top: 5, bottom: 5),
                                         child: TextFormField(
                                           focusNode: myFocusNode1,
@@ -112,7 +154,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                             ..text = _printerSpeed1,
                                           autovalidateMode: AutovalidateMode
                                               .onUserInteraction,
-                                          decoration: InputDecoration(
+                                          decoration: const InputDecoration(
                                               border: OutlineInputBorder(
                                                   borderRadius:
                                                       BorderRadius.all(
@@ -121,6 +163,11 @@ class _UDIWidgetState extends State<UDIWidget>
                                               errorMaxLines: 3),
                                           onChanged: (val) {
                                             _printerSpeed1 = val;
+                                            func() async {
+                                              prefs = await SharedPreferences.getInstance();
+                                              prefs!.setString("ps1",_printerSpeed1.toString());
+                                              }
+                                                  func();
                                           },
                                           validator: (value) {
                                             if (value != '') {
@@ -138,7 +185,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                       Row(
                                         children: [
                                           Padding(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 5, top: 5, bottom: 5),
                                             child: Text('Range',
                                                 style: TextStyle(
@@ -146,7 +193,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                     fontSize:
                                                         Constants.fontSize_12)),
                                           ),
-                                          Padding(
+                                          const Padding(
                                               padding: EdgeInsets.only(
                                                   left: 5, top: 5, bottom: 5),
                                               child: Icon(
@@ -155,7 +202,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                 size: 13,
                                               )),
                                           Padding(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 5, top: 5, bottom: 5),
                                             child: Text('80',
                                                 style: TextStyle(
@@ -165,7 +212,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                     fontWeight:
                                                         FontWeight.w600)),
                                           ),
-                                          Padding(
+                                          const Padding(
                                               padding: EdgeInsets.only(
                                                   left: 5, top: 5, bottom: 5),
                                               child: Icon(
@@ -174,7 +221,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                 size: 13,
                                               )),
                                           Padding(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 5, top: 5, bottom: 5),
                                             child: Text('200',
                                                 style: TextStyle(
@@ -190,12 +237,12 @@ class _UDIWidgetState extends State<UDIWidget>
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(left: 10, right: 20),
+                                  padding: const EdgeInsets.only(left: 10, right: 20),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
+                                      const Padding(
                                         padding: EdgeInsets.only(
                                             left: 5, top: 10, bottom: 5),
                                         child: Text(
@@ -205,7 +252,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.only(
+                                        padding: const EdgeInsets.only(
                                             left: 0, top: 5, bottom: 5),
                                         child: TextFormField(
                                           focusNode: myFocusNode2,
@@ -222,7 +269,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                             ..text = _printerDelay1,
                                           autovalidateMode: AutovalidateMode
                                               .onUserInteraction,
-                                          decoration: InputDecoration(
+                                          decoration: const InputDecoration(
                                               border: OutlineInputBorder(
                                                   borderRadius:
                                                       BorderRadius.all(
@@ -231,6 +278,12 @@ class _UDIWidgetState extends State<UDIWidget>
                                               errorMaxLines: 3),
                                           onChanged: (val) {
                                             _printerDelay1 = val;
+                                             func() async {
+                                              prefs = await SharedPreferences.getInstance();
+                                              prefs!.setString("ps2",_printerDelay1.toString());
+                                              }
+                                              func();
+
                                           },
                                           validator: (value) {
                                             if (value != '') {
@@ -249,7 +302,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                       Row(
                                         children: [
                                           Padding(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 5, top: 5, bottom: 5),
                                             child: Text('Range',
                                                 style: TextStyle(
@@ -257,7 +310,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                     fontSize:
                                                         Constants.fontSize_12)),
                                           ),
-                                          Padding(
+                                          const Padding(
                                               padding: EdgeInsets.only(
                                                   left: 5, top: 5, bottom: 5),
                                               child: Icon(
@@ -266,7 +319,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                 size: 13,
                                               )),
                                           Padding(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 5, top: 5, bottom: 5),
                                             child: Text('15',
                                                 style: TextStyle(
@@ -276,7 +329,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                     fontWeight:
                                                         FontWeight.w600)),
                                           ),
-                                          Padding(
+                                          const Padding(
                                               padding: EdgeInsets.only(
                                                   left: 5, top: 5, bottom: 5),
                                               child: Icon(
@@ -285,7 +338,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                 size: 13,
                                               )),
                                           Padding(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 5, top: 5, bottom: 5),
                                             child: Text('25',
                                                 style: TextStyle(
@@ -304,7 +357,7 @@ class _UDIWidgetState extends State<UDIWidget>
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
                         Expanded(
@@ -312,30 +365,30 @@ class _UDIWidgetState extends State<UDIWidget>
                             decoration: BoxDecoration(
                                 border: Border.all(color: Colors.black12),
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
+                                    const BorderRadius.all(Radius.circular(10))),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.only(left: 10, top: 10),
+                                  padding: const EdgeInsets.only(left: 10, top: 10),
                                   child: Text('REF.MD700753',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: Constants.fontSize_18)),
                                 ),
-                                Padding(
+                                const Padding(
                                   padding: EdgeInsets.only(left: 10, top: 5),
                                   child: Text('Line 8 only'),
                                 ),
-                                Divider(),
+                                const Divider(),
                                 Padding(
-                                  padding: EdgeInsets.only(left: 10, right: 20),
+                                  padding: const EdgeInsets.only(left: 10, right: 20),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
+                                      const Padding(
                                         padding: EdgeInsets.only(
                                             left: 5, top: 10, bottom: 5),
                                         child: Text(
@@ -345,7 +398,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.only(
+                                        padding: const EdgeInsets.only(
                                             left: 0, top: 5, bottom: 5),
                                         child: TextFormField(
                                           focusNode: myFocusNode3,
@@ -362,7 +415,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                               .onUserInteraction,
                                           controller: TextEditingController()
                                             ..text = _printerSpeed2,
-                                          decoration: InputDecoration(
+                                          decoration: const InputDecoration(
                                               border: OutlineInputBorder(
                                                   borderRadius:
                                                       BorderRadius.all(
@@ -371,6 +424,11 @@ class _UDIWidgetState extends State<UDIWidget>
                                               errorMaxLines: 3),
                                           onChanged: (val) {
                                             _printerSpeed2 = val;
+                                            func() async {
+                                              prefs = await SharedPreferences.getInstance();
+                                              prefs!.setString("ps3",_printerSpeed2.toString());
+                                              }
+                                              func();
                                           },
                                           validator: (value) {
                                             if (value != '') {
@@ -389,7 +447,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                       Row(
                                         children: [
                                           Padding(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 5, top: 5, bottom: 5),
                                             child: Text('Range',
                                                 style: TextStyle(
@@ -397,7 +455,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                     fontSize:
                                                         Constants.fontSize_12)),
                                           ),
-                                          Padding(
+                                          const Padding(
                                               padding: EdgeInsets.only(
                                                   left: 5, top: 5, bottom: 5),
                                               child: Icon(
@@ -406,7 +464,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                 size: 13,
                                               )),
                                           Padding(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 5, top: 5, bottom: 5),
                                             child: Text('80',
                                                 style: TextStyle(
@@ -416,7 +474,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                     fontWeight:
                                                         FontWeight.w600)),
                                           ),
-                                          Padding(
+                                          const Padding(
                                               padding: EdgeInsets.only(
                                                   left: 5, top: 5, bottom: 5),
                                               child: Icon(
@@ -425,7 +483,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                 size: 13,
                                               )),
                                           Padding(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 5, top: 5, bottom: 5),
                                             child: Text('200',
                                                 style: TextStyle(
@@ -441,12 +499,12 @@ class _UDIWidgetState extends State<UDIWidget>
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(left: 10, right: 20),
+                                  padding: const EdgeInsets.only(left: 10, right: 20),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
+                                      const Padding(
                                         padding: EdgeInsets.only(
                                             left: 5, top: 10, bottom: 5),
                                         child: Text(
@@ -456,7 +514,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.only(
+                                        padding: const EdgeInsets.only(
                                             left: 0, top: 5, bottom: 5),
                                         child: TextFormField(
                                           focusNode: myFocusNode4,
@@ -473,7 +531,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                           ],
                                           controller: TextEditingController()
                                             ..text = _printerDelay2,
-                                          decoration: InputDecoration(
+                                          decoration: const InputDecoration(
                                               border: OutlineInputBorder(
                                                   borderRadius:
                                                       BorderRadius.all(
@@ -482,6 +540,11 @@ class _UDIWidgetState extends State<UDIWidget>
                                               errorMaxLines: 3),
                                           onChanged: (val) {
                                             _printerDelay2 = val;
+                                            func() async {
+                                              prefs = await SharedPreferences.getInstance();
+                                              prefs!.setString("ps4",_printerDelay2.toString());
+                                              }
+                                              func();
                                           },
                                           validator: (value) {
                                             if (value != '') {
@@ -500,7 +563,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                       Row(
                                         children: [
                                           Padding(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 5, top: 5, bottom: 5),
                                             child: Text('Range',
                                                 style: TextStyle(
@@ -508,7 +571,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                     fontSize:
                                                         Constants.fontSize_12)),
                                           ),
-                                          Padding(
+                                          const Padding(
                                               padding: EdgeInsets.only(
                                                   left: 5, top: 5, bottom: 5),
                                               child: Icon(
@@ -517,7 +580,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                 size: 13,
                                               )),
                                           Padding(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 5, top: 5, bottom: 5),
                                             child: Text('15',
                                                 style: TextStyle(
@@ -527,7 +590,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                     fontWeight:
                                                         FontWeight.w600)),
                                           ),
-                                          Padding(
+                                          const Padding(
                                               padding: EdgeInsets.only(
                                                   left: 5, top: 5, bottom: 5),
                                               child: Icon(
@@ -536,7 +599,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                 size: 13,
                                               )),
                                           Padding(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 5, top: 5, bottom: 5),
                                             child: Text('25',
                                                 style: TextStyle(
@@ -555,7 +618,7 @@ class _UDIWidgetState extends State<UDIWidget>
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
                         Expanded(
@@ -563,30 +626,30 @@ class _UDIWidgetState extends State<UDIWidget>
                             decoration: BoxDecoration(
                                 border: Border.all(color: Colors.black12),
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
+                                    const BorderRadius.all(Radius.circular(10))),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.only(left: 10, top: 10),
+                                  padding: const EdgeInsets.only(left: 10, top: 10),
                                   child: Text('MD700335/MD700599',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: Constants.fontSize_18)),
                                 ),
-                                Padding(
+                                const Padding(
                                   padding: EdgeInsets.only(left: 10, top: 5),
                                   child: Text('0.3ML only'),
                                 ),
-                                Divider(),
+                                const Divider(),
                                 Padding(
-                                  padding: EdgeInsets.only(left: 10, right: 20),
+                                  padding: const EdgeInsets.only(left: 10, right: 20),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
+                                      const Padding(
                                         padding: EdgeInsets.only(
                                             left: 5, top: 10, bottom: 5),
                                         child: Text(
@@ -596,7 +659,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.only(
+                                        padding: const EdgeInsets.only(
                                             left: 0, top: 5, bottom: 5),
                                         child: TextFormField(
                                             focusNode: myFocusNode5,
@@ -614,7 +677,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                             ],
                                             controller: TextEditingController()
                                               ..text = _printerSpeed3,
-                                            decoration: InputDecoration(
+                                            decoration: const InputDecoration(
                                                 border: OutlineInputBorder(
                                                     borderRadius:
                                                         BorderRadius.all(
@@ -623,6 +686,11 @@ class _UDIWidgetState extends State<UDIWidget>
                                                 errorMaxLines: 3),
                                             onChanged: (val) {
                                               _printerSpeed3 = val;
+                                              func() async {
+                                              prefs = await SharedPreferences.getInstance();
+                                              prefs!.setString("ps5",_printerSpeed3.toString());
+                                              }
+                                              func();
                                             },
                                             validator: (value) {
                                               if (value != '') {
@@ -640,7 +708,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                       Row(
                                         children: [
                                           Padding(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 5, top: 5, bottom: 5),
                                             child: Text('Range',
                                                 style: TextStyle(
@@ -648,7 +716,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                     fontSize:
                                                         Constants.fontSize_12)),
                                           ),
-                                          Padding(
+                                          const Padding(
                                               padding: EdgeInsets.only(
                                                   left: 5, top: 5, bottom: 5),
                                               child: Icon(
@@ -657,7 +725,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                 size: 13,
                                               )),
                                           Padding(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 5, top: 5, bottom: 5),
                                             child: Text('80',
                                                 style: TextStyle(
@@ -667,7 +735,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                     fontWeight:
                                                         FontWeight.w600)),
                                           ),
-                                          Padding(
+                                          const Padding(
                                               padding: EdgeInsets.only(
                                                   left: 5, top: 5, bottom: 5),
                                               child: Icon(
@@ -676,7 +744,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                 size: 13,
                                               )),
                                           Padding(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 5, top: 5, bottom: 5),
                                             child: Text('200',
                                                 style: TextStyle(
@@ -692,12 +760,12 @@ class _UDIWidgetState extends State<UDIWidget>
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(left: 10, right: 20),
+                                  padding: const EdgeInsets.only(left: 10, right: 20),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
+                                      const Padding(
                                         padding: EdgeInsets.only(
                                             left: 5, top: 10, bottom: 5),
                                         child: Text(
@@ -707,7 +775,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.only(
+                                        padding: const EdgeInsets.only(
                                             left: 0, top: 5, bottom: 5),
                                         child: TextFormField(
                                             focusNode: myFocusNode6,
@@ -725,7 +793,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                             ],
                                             controller: TextEditingController()
                                               ..text = _printerDelay3,
-                                            decoration: InputDecoration(
+                                            decoration: const InputDecoration(
                                                 border: OutlineInputBorder(
                                                     borderRadius:
                                                         BorderRadius.all(
@@ -734,6 +802,11 @@ class _UDIWidgetState extends State<UDIWidget>
                                                 errorMaxLines: 3),
                                             onChanged: (val) {
                                               _printerDelay3 = val;
+                                              func() async {
+                                              prefs = await SharedPreferences.getInstance();
+                                              prefs!.setString("ps6",_printerDelay3.toString());
+                                              }
+                                              func();
                                             },
                                             validator: (value) {
                                               if (value != '') {
@@ -751,7 +824,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                       Row(
                                         children: [
                                           Padding(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 5, top: 5, bottom: 5),
                                             child: Text('Range',
                                                 style: TextStyle(
@@ -759,7 +832,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                     fontSize:
                                                         Constants.fontSize_12)),
                                           ),
-                                          Padding(
+                                          const Padding(
                                               padding: EdgeInsets.only(
                                                   left: 5, top: 5, bottom: 5),
                                               child: Icon(
@@ -768,7 +841,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                 size: 13,
                                               )),
                                           Padding(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 5, top: 5, bottom: 5),
                                             child: Text('15',
                                                 style: TextStyle(
@@ -778,7 +851,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                     fontWeight:
                                                         FontWeight.w600)),
                                           ),
-                                          Padding(
+                                          const Padding(
                                               padding: EdgeInsets.only(
                                                   left: 5, top: 5, bottom: 5),
                                               child: Icon(
@@ -787,7 +860,7 @@ class _UDIWidgetState extends State<UDIWidget>
                                                 size: 13,
                                               )),
                                           Padding(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 5, top: 5, bottom: 5),
                                             child: Text('25',
                                                 style: TextStyle(

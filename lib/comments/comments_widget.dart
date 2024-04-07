@@ -4,37 +4,68 @@ import 'package:embecta/utils/constants.dart';
 import 'package:embecta/utils/custom_functions.dart';
 import 'package:embecta/utils/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CommentsWidget extends StatefulWidget {
   const CommentsWidget({Key? key}) : super(key: key);
 
   @override
-  _CommentsWidgetState createState() =>
-      _CommentsWidgetState();
+  _CommentsWidgetState createState() => _CommentsWidgetState();
 }
 
-class _CommentsWidgetState
-    extends State<CommentsWidget> with AutomaticKeepAliveClientMixin<CommentsWidget> {
-
+class _CommentsWidgetState extends State<CommentsWidget>
+    with AutomaticKeepAliveClientMixin<CommentsWidget> {
   List<String> _made = [
     'Replace/adjust FF&S jaws',
     'Adjust FF&S jaw temperatures',
     'Adjust webs/printer ensure 1/4" vertical seal overlap',
     'Adjust registration marks of webs'
   ];
+  SharedPreferences? prefs;
   List<String> _result = ['Pass', 'Fail', 'Machine Down', 'Changeover'];
   List<String> _firstDrop = ['Pass', 'Fail', 'Machine Down', 'Changeover'];
   List<String> _secondDrop = ['Pass', 'Fail', 'Machine Down', 'Changeover'];
   List<String> _thirdDrop = ['Pass', 'Fail', 'Machine Down', 'Changeover'];
   List<bool> _resultCheck = [true, false];
   List<MachineAdjustmentModel> _machineAdjustmentList = [];
+
+    TextEditingController _tf1 = TextEditingController();
+  TextEditingController _tf2 = TextEditingController();
+  TextEditingController _tf3 = TextEditingController();
+  TextEditingController _tf4 = TextEditingController();
   bool _checkValue = false;
 
   @override
   void initState() {
     super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      prefs = await SharedPreferences.getInstance();
+      setState(() {});
+      _tf1.text =
+          prefs!.getString("tf1").toString().isEmpty ||
+                  prefs!.getString("tf1").toString() == 'null'
+              ?_tf1.text
+              : prefs!.getString("tf1").toString();
+                _tf2.text =
+          prefs!.getString("tf2").toString().isEmpty ||
+                  prefs!.getString("tf2").toString() == 'null'
+              ?_tf2.text
+              : prefs!.getString("tf2").toString();
+                _tf3.text =
+          prefs!.getString("tf3").toString().isEmpty ||
+                  prefs!.getString("tf3").toString() == 'null'
+              ?_tf3.text
+              : prefs!.getString("tf3").toString();
+                _tf4.text =
+          prefs!.getString("tf4").toString().isEmpty ||
+                  prefs!.getString("tf4").toString() == 'null'
+              ?_tf4.text
+              : prefs!.getString("tf4").toString();
+
+    });
   }
 
   @override
@@ -43,202 +74,320 @@ class _CommentsWidgetState
     super.build(context);
     return SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
-        child:Padding(padding: EdgeInsets.all(20),child: Column(
-            children: [
+        child: Padding(
+            padding: EdgeInsets.all(20),
+            child: Column(children: [
               SizedBox(
                 height: 10,
               ),
-              Padding(padding: EdgeInsets.all(20),child:
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding:
-                    EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
-                    child: Theme(
-                      data: ThemeData(
-                        checkboxTheme: CheckboxThemeData(
-                          visualDensity: VisualDensity.compact,
-                          materialTapTargetSize:
-                          MaterialTapTargetSize.shrinkWrap,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4.0),
+              Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                        child: Theme(
+                          data: ThemeData(
+                            checkboxTheme: CheckboxThemeData(
+                              visualDensity: VisualDensity.compact,
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4.0),
+                              ),
+                            ),
+                            unselectedWidgetColor:
+                                FlutterFlowTheme.of(context).accent2,
+                          ),
+                          child: Checkbox(
+                            value: _checkValue ??= false,
+                            onChanged: (newValue) async {
+                              setState(() => _checkValue = newValue!);
+                            },
+                            activeColor: FlutterFlowTheme.of(context).primary,
                           ),
                         ),
-                        unselectedWidgetColor:
-                        FlutterFlowTheme.of(context).accent2,
                       ),
-                      child: Checkbox(
-                        value: _checkValue ??= false,
-                        onChanged: (newValue) async {
-                          setState(() => _checkValue = newValue!);
-                        },
-                        activeColor:
-                        FlutterFlowTheme.of(context).primary,
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                        child: Text(
+                          'NA',
+                          style: TextStyle(fontSize: Constants.fontSize_16),
+                        ),
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                    EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
-                    child: Text(
-                      'NA',
-                      style: TextStyle(
-                          fontSize: Constants.fontSize_16
-                      ),
-                    ),
-                  ),
-                  Expanded(child: Padding(
-                    padding:
-                    EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 16.0),
-                    child: Text(
-                      'if N/A remaining fields may be left blank',
-                      style: TextStyle(
-                          fontSize: Constants.fontSize_16,
-                          color: Colors.black26
-                      ),
-                    ),
-                  ),)
-                ],
-
-              )
-              ),
-              Padding(padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),child: Row(
-                  mainAxisSize:MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(child: Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'QN notification number',
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  fontSize: Constants.fontSize_14,
-                                  fontFamily: Constants.fontFamily,
-                                  fontWeight: FontWeight.w700
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 0.0, 0.0, 16.0),
+                          child: Text(
+                            'if N/A remaining fields may be left blank',
+                            style: TextStyle(
+                                fontSize: Constants.fontSize_16,
+                                color: Colors.black26),
+                          ),
+                        ),
+                      )
+                    ],
+                  )),
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Container(
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'QN notification number',
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    fontSize: Constants.fontSize_14,
+                                    fontFamily: Constants.fontFamily,
+                                    fontWeight: FontWeight.w700),
                               ),
-                            ),
-                            SizedBox(height: 10,),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                      child: Container(
+                                          padding: EdgeInsets.only(
+                                              left: 10,
+                                              top: 5,
+                                              right: 10,
+                                              bottom: 5),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.black38),
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: TextField(
+                                            controller: _tf1,
+                                            enabled: _checkValue ? false : true,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle2,
+                                            keyboardType: TextInputType.text,
+                                            textInputAction:
+                                                TextInputAction.next,
+                                            decoration: InputDecoration(
+                                              hintText:
+                                                  'Enter QN notification number',
+                                              constraints: BoxConstraints(
+                                                minHeight: 200,
+                                              ),
+                                              border: InputBorder.none,
+                                            ),
+                                            onChanged: (value) {
+
+                                              func() async {
+                                prefs = await SharedPreferences.getInstance();
+                                prefs!
+                                    .setString("tf1", value.toString());
+                              }
+
+                              func();
+                              
+                                            },
+                                          )))
+                                ],
+                              )
+                            ],
+                          )),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Container(
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Add Comments',
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    fontSize: Constants.fontSize_14,
+                                    fontFamily: Constants.fontFamily,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                      child: Container(
+                                          padding: EdgeInsets.only(
+                                              left: 10,
+                                              top: 5,
+                                              right: 10,
+                                              bottom: 5),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.black38),
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: TextField(
+                                            controller: _tf2,
+                                            enabled: _checkValue ? false : true,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle2,
+                                            keyboardType: TextInputType.text,
+                                            textInputAction:
+                                                TextInputAction.next,
+                                            decoration: InputDecoration(
+                                              hintText: 'Enter Comments',
+                                              constraints: BoxConstraints(
+                                                minHeight: 200,
+                                              ),
+                                              border: InputBorder.none,
+                                            ),
+                                            onChanged: (value) {
+                                               func() async {
+                                prefs = await SharedPreferences.getInstance();
+                                prefs!
+                                    .setString("tf2", value.toString());
+                              }
+
+                              func();
+                                            },
+                                          )))
+                                ],
+                              )
+                            ],
+                          )),
+                        )
+                      ])),
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                            width: 300,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Expanded(child:                  Container(
-                                    padding: EdgeInsets.only(left: 10,top: 5,right: 10,bottom: 5),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: Colors.black38
-                                        ),
-                                        borderRadius: BorderRadius.circular(10)
-                                    ),
-                                    child:TextField(
+                                Text(
+                                  'Signature',
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                      fontSize: Constants.fontSize_14,
+                                      fontFamily: Constants.fontFamily,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Expanded(
+                                        child: Container(
+                                            padding: EdgeInsets.only(
+                                                left: 10,
+                                                top: 5,
+                                                right: 10,
+                                                bottom: 5),
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.black38),
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: TextField(
+                                              controller: _tf3,
+                                              // canRequestFocus: false,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subtitle2,
+                                              keyboardType: TextInputType.text,
+                                              textInputAction:
+                                                  TextInputAction.next,
+                                              decoration: InputDecoration(
+                                                hintText: 'Peter Murphy',
+                                                constraints: BoxConstraints(
+                                                  minWidth: 100,
+                                                ),
+                                                border: InputBorder.none,
+                                              ),
 
-                                      enabled: _checkValue?false:true,
-                                      style: Theme.of(context).textTheme.subtitle2,
-                                      keyboardType: TextInputType.text,
-                                      textInputAction: TextInputAction.next,
-                                      decoration: InputDecoration(
-                                        hintText: 'Enter QN notification number',
-                                        constraints: BoxConstraints(
-                                          minHeight: 200,
-                                        ),
-                                        border: InputBorder.none,
-                                      ),
+                                              onChanged: (value) {
+                                                 func() async {
+                                prefs = await SharedPreferences.getInstance();
+                                prefs!
+                                    .setString("tf3", value.toString());
+                              }
 
-                                      onChanged: (value) {
-                                      },
-                                    ))
+                              func();
+                                              },
+                                            )))
+                                  ],
                                 )
                               ],
-                            )
-                          ],)
-                    ),),
-                    SizedBox(width: 10,),
-                    Expanded(child: Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Add Comments',
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  fontSize: Constants.fontSize_14,
-                                  fontFamily: Constants.fontFamily,
-                                  fontWeight: FontWeight.w700
-                              ),
-                            ),
-                            SizedBox(height: 10,),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
+                            )),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                            width: 300,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Expanded(child:
+                                Text(
+                                  'Select Date',
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                      fontSize: Constants.fontSize_14,
+                                      fontFamily: Constants.fontFamily,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 Container(
-                                    padding: EdgeInsets.only(left: 10,top: 5,right: 10,bottom: 5),
+                                    padding: EdgeInsets.only(
+                                        left: 10, top: 0, right: 10, bottom: 0),
                                     decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: Colors.black38
-                                        ),
-                                        borderRadius: BorderRadius.circular(10)
-                                    ),
-                                    child:TextField(
-                                      enabled: _checkValue?false:true,
-                                      style: Theme.of(context).textTheme.subtitle2,
-                                      keyboardType: TextInputType.text,
-                                      textInputAction: TextInputAction.next,
-                                      decoration: InputDecoration(
-                                        hintText: 'Enter Comments',
-                                        constraints: BoxConstraints(
-                                          minHeight: 200,
-                                        ),
-                                        border: InputBorder.none,
-                                      ),
-                                      onChanged: (value) {
-                                      },
-                                    ))
-                                )
-                              ],
-                            )
-                          ],)
-                    ),)])),
-              Padding(padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),child: Row(
-                  mainAxisSize:MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      width:300,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Signature',
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  fontSize: Constants.fontSize_14,
-                                  fontFamily: Constants.fontFamily,
-                                  fontWeight: FontWeight.w700
-                              ),
-                            ),
-                            SizedBox(height: 10,),
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Expanded(child:
-                                Container(
-                                    padding: EdgeInsets.only(left: 10,top: 5,right: 10,bottom: 5),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: Colors.black38
-                                        ),
-                                        borderRadius: BorderRadius.circular(10)
-                                    ),
-                                    child:TextField(
+                                        border:
+                                            Border.all(color: Colors.black38),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: TextField(
+                                      controller: _tf4,
                                       // canRequestFocus: false,
-                                      style: Theme.of(context).textTheme.subtitle2,
+                                      style:
+                                          Theme.of(context).textTheme.subtitle2,
                                       keyboardType: TextInputType.text,
                                       textInputAction: TextInputAction.next,
                                       decoration: InputDecoration(
-                                        hintText: 'Peter Murphy',
+                                        suffixIcon: Icon(
+                                          Icons.date_range,
+                                        ),
+                                        suffix: GestureDetector(
+                                          onTap: () {
+                                            print('click');
+                                          },
+                                          child: Padding(
+                                            padding: EdgeInsets.all(0),
+                                            child: Icon(
+                                              Icons.date_range,
+                                            ),
+                                          ),
+                                        ),
+                                        label: Text('05/03/2024',
+                                            textAlign: TextAlign.center),
                                         constraints: BoxConstraints(
                                           minWidth: 100,
                                         ),
@@ -246,65 +395,19 @@ class _CommentsWidgetState
                                       ),
 
                                       onChanged: (value) {
+                                         func() async {
+                                prefs = await SharedPreferences.getInstance();
+                                prefs!
+                                    .setString("tf4", value.toString());
+                              }
+
+                              func();
                                       },
                                     ))
-                                )
                               ],
-                            )
-                          ],)
-                    ),
-                    SizedBox(width: 10,),
-                    Container(
-                        width:300,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Select Date',
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  fontSize: Constants.fontSize_14,
-                                  fontFamily: Constants.fontFamily,
-                                  fontWeight: FontWeight.w700
-                              ),
-                            ),
-                            SizedBox(height: 10,),
-                            Container(
-                                padding: EdgeInsets.only(left: 10,top: 0,right: 10,bottom: 0),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.black38
-                                    ),
-                                    borderRadius: BorderRadius.circular(10)
-                                ),
-                                child:TextField(
-                                  // canRequestFocus: false,
-                                  style: Theme.of(context).textTheme.subtitle2,
-                                  keyboardType: TextInputType.text,
-                                  textInputAction: TextInputAction.next,
-                                  decoration: InputDecoration(
-                                    suffixIcon: Icon(Icons.date_range,
-                                    ),
-                                    suffix: GestureDetector(onTap: (){
-                                      print('click');
-                                    },child: Padding(padding: EdgeInsets.all(0),child: Icon(Icons.date_range,
-                                    ),),),
-                                    label: Text('05/03/2024',textAlign: TextAlign.center),
-                                    constraints: BoxConstraints(
-                                      minWidth: 100,
-                                    ),
-                                    border: InputBorder.none,
-                                  ),
-
-                                  onChanged: (value) {
-                                  },
-                                ))
-                          ],)
-                    ),])),
-            ]
-        )
-        )
-    );
+                            )),
+                      ])),
+            ])));
   }
 
   @override

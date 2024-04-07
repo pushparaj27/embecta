@@ -14,6 +14,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -31,7 +32,7 @@ class _HomePageState extends State<HomePage>
   String _currentDT = "";
   bool isCheckIn = true;
   HomePageModel homePageModel = HomePageModel();
-
+  late SharedPreferences prefs;
   @override
   void initState() {
     _controller = TabController(length: 6, vsync: this, initialIndex: 0);
@@ -64,7 +65,6 @@ class _HomePageState extends State<HomePage>
                 children: [
                   SizedBox(
                     width: 120,
-
                     child: Image.asset("assets/images/embecta.png"),
                   ),
                   Spacer(),
@@ -78,8 +78,7 @@ class _HomePageState extends State<HomePage>
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
                               builder: (context) {
-                                return FaceIdWidget(
-                                );
+                                return FaceIdWidget();
                               },
                             ));
                           },
@@ -177,127 +176,136 @@ class _HomePageState extends State<HomePage>
                     ),
                     //const Spacer(),
                     if (isCheckIn) ...[
-                      Row(children: [
-                        SizedBox(
-                          /*height: _deviceSize.height * 0.04,
+                      Row(
+                        children: [
+                          SizedBox(
+                            /*height: _deviceSize.height * 0.04,
                         width: _deviceSize.width * 0.12,*/
-                          child: ElevatedButton(
-                              onPressed: () {},
-                              style: ButtonStyle(
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      10.0,
+                            child: ElevatedButton(
+                                onPressed: () {},
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        10.0,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                backgroundColor:
-                                MaterialStateProperty.resolveWith(
-                                      (states) {
-                                    return _purpleColor.withOpacity(0.6);
-                                  },
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Cancel",
-                                    style: GoogleFonts.roboto(
-                                      color: Colors.white,
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                  backgroundColor:
+                                      MaterialStateProperty.resolveWith(
+                                    (states) {
+                                      return _purpleColor.withOpacity(0.6);
+                                    },
                                   ),
-                                ],
-                              )),
-                        ),
-                        SizedBox(width: 5,),
-                        SizedBox(
-                          /*height: _deviceSize.height * 0.04,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Cancel",
+                                      style: GoogleFonts.roboto(
+                                        color: Colors.white,
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          SizedBox(
+                            /*height: _deviceSize.height * 0.04,
                         width: _deviceSize.width * 0.15,*/
-                          child: ElevatedButton(
-                              onPressed: () {},
-                              style: ButtonStyle(
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      10.0,
+                            child: ElevatedButton(
+                                onPressed: () {
+                                 
+                                },
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        10.0,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                backgroundColor:
-                                MaterialStateProperty.resolveWith(
-                                      (states) {
-                                    return _purpleColor;
-                                  },
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Save as Draft",
-                                    style: GoogleFonts.roboto(
-                                      color: Colors.white,
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                  backgroundColor:
+                                      MaterialStateProperty.resolveWith(
+                                    (states) {
+                                      return _purpleColor;
+                                    },
                                   ),
-                                ],
-                              )),
-                        ),
-                        SizedBox(width: 5,),
-                        SizedBox(
-                          /*height: _deviceSize.height * 0.04,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Save as Draft",
+                                      style: GoogleFonts.roboto(
+                                        color: Colors.white,
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          SizedBox(
+                            /*height: _deviceSize.height * 0.04,
                         width: _deviceSize.width * 0.15,*/
-                          child: ElevatedButton(
-                              onPressed: () {
-                                CustomFunctions().showAlertDialog(context, 'PDF will be generated shortly',true);
-                              },
-                              style: ButtonStyle(
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      10.0,
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  CustomFunctions().showAlertDialog(context,
+                                      'PDF will be generated shortly', true);
+                                },
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        10.0,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                backgroundColor:
-                                MaterialStateProperty.resolveWith(
-                                      (states) {
-                                    return _purpleColor;
-                                  },
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Submit",
-                                    style: GoogleFonts.roboto(
-                                      color: Colors.white,
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                  backgroundColor:
+                                      MaterialStateProperty.resolveWith(
+                                    (states) {
+                                      return _purpleColor;
+                                    },
                                   ),
-                                ],
-                              )),
-                        ),
-                        SizedBox(width: 5,),
-                        Icon(
-                          Icons.more_vert,
-                          color: _purpleColor,
-                        )
-                      ],),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Submit",
+                                      style: GoogleFonts.roboto(
+                                        color: Colors.white,
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Icon(
+                            Icons.more_vert,
+                            color: _purpleColor,
+                          )
+                        ],
+                      ),
                       /*const SizedBox(
                         width: 10,
                       ),*/
-
                     ],
                     if (!isCheckIn)
                       SizedBox(
-
                         child: ElevatedButton(
                             onPressed: () {
                               setState(() {
@@ -389,8 +397,7 @@ class _HomePageState extends State<HomePage>
                           textAlign: TextAlign.start,
                           style: TextStyle(
                               fontFamily: Constants.fontFamily,
-                              color:
-                                  Colors.black,
+                              color: Colors.black,
                               fontSize: Constants.tabsize,
                               fontWeight: FontWeight.w600),
                         ),
@@ -399,8 +406,7 @@ class _HomePageState extends State<HomePage>
                           textAlign: TextAlign.end,
                           style: TextStyle(
                               fontFamily: Constants.fontFamily,
-                              color:
-                                  Colors.black,
+                              color: Colors.black,
                               fontSize: Constants.tabsize,
                               fontWeight: FontWeight.w600),
                         ),
@@ -409,8 +415,7 @@ class _HomePageState extends State<HomePage>
                           textAlign: TextAlign.end,
                           style: TextStyle(
                               fontFamily: Constants.fontFamily,
-                              color:
-                                  Colors.black,
+                              color: Colors.black,
                               fontSize: Constants.tabsize,
                               fontWeight: FontWeight.w600),
                         ),
@@ -419,8 +424,7 @@ class _HomePageState extends State<HomePage>
                           textAlign: TextAlign.end,
                           style: TextStyle(
                               fontFamily: Constants.fontFamily,
-                              color:
-                                  Colors.black,
+                              color: Colors.black,
                               fontSize: Constants.tabsize,
                               fontWeight: FontWeight.w600),
                         ),
@@ -429,8 +433,7 @@ class _HomePageState extends State<HomePage>
                           textAlign: TextAlign.end,
                           style: TextStyle(
                               fontFamily: Constants.fontFamily,
-                              color:
-                                  Colors.black,
+                              color: Colors.black,
                               fontSize: Constants.tabsize,
                               fontWeight: FontWeight.w600),
                         ),
@@ -439,8 +442,7 @@ class _HomePageState extends State<HomePage>
                           textAlign: TextAlign.end,
                           style: TextStyle(
                               fontFamily: Constants.fontFamily,
-                              color:
-                                  Colors.black,
+                              color: Colors.black,
                               fontSize: Constants.tabsize,
                               fontWeight: FontWeight.w600),
                         ),
@@ -448,7 +450,7 @@ class _HomePageState extends State<HomePage>
 
                       onTap: (value) {
                         setState(() {
-                            homePageModel.selectedTab = value;
+                          homePageModel.selectedTab = value;
                         });
                       },
                     ),
@@ -468,7 +470,10 @@ class _HomePageState extends State<HomePage>
                             child: UDIWidget()),
                         Container(
                             height: MediaQuery.of(context).size.height - 50,
-                            child: QualityCheckWidget(controller: _controller,homePageModel: homePageModel,)),
+                            child: QualityCheckWidget(
+                              controller: _controller,
+                              homePageModel: homePageModel,
+                            )),
                         Container(
                             height: MediaQuery.of(context).size.height - 50,
                             child: CommentsWidget()),

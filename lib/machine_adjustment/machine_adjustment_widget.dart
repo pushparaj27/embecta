@@ -56,101 +56,101 @@ class _MachineAdjustmentWidgetState extends State<MachineAdjustmentWidget>
         
         if (_machineAdjustmentList[0].firstTime ==
             machineAdjustmentModel.firstTime) {
-          
-          
-          machineAdjustmentModel.firstTime =
+
+
+          _machineAdjustmentList[0].firstTime =
               prefs!.getString("firstTime").toString().isEmpty ||
                       prefs!.getString("firstTime").toString() == 'null'
-                  ? machineAdjustmentModel.firstTime
+                  ? ''
                   : prefs!.getString("firstTime").toString();
                  
         }
         if (_machineAdjustmentList[1].firstTime ==
             machineAdjustmentModel.firstTime) {
-          machineAdjustmentModel.firstTime =
+          _machineAdjustmentList[1].firstTime =
               prefs!.getString("firstTimeS").toString().isEmpty ||
                       prefs!.getString("firstTimeS").toString() == 'null'
-                  ? machineAdjustmentModel.firstTime
+                  ? ''
                   : prefs!.getString("firstTimeS").toString();
         }
         if (_machineAdjustmentList[2].firstTime ==
             machineAdjustmentModel.firstTime) {
-          machineAdjustmentModel.firstTime =
+          _machineAdjustmentList[2].firstTime =
               prefs!.getString("firstTimeT").toString().isEmpty ||
                       prefs!.getString("firstTimeT").toString() == 'null'
-                  ? machineAdjustmentModel.firstTime
+                  ? ''
                   : prefs!.getString("firstTimeT").toString();
         }
         if (_machineAdjustmentList[3].firstTime ==
             machineAdjustmentModel.firstTime) {
-          machineAdjustmentModel.firstTime =
+          _machineAdjustmentList[3].firstTime =
               prefs!.getString("firstTimeF").toString().isEmpty ||
                       prefs!.getString("firstTimeF").toString() == 'null'
-                  ? machineAdjustmentModel.firstTime
+                  ? ''
                   : prefs!.getString("firstTimeF").toString();
         }
         if (_machineAdjustmentList[0].secondTime ==
             machineAdjustmentModel.secondTime) {
-          machineAdjustmentModel.secondTime =
+          _machineAdjustmentList[0].secondTime =
               prefs!.getString("secondTime").toString().isEmpty ||
                       prefs!.getString("secondTime").toString() == 'null'
-                  ? machineAdjustmentModel.secondTime
+                  ? ''
                   : prefs!.getString("secondTime").toString();
         }
         if (_machineAdjustmentList[1].secondTime ==
             machineAdjustmentModel.secondTime) {
-          machineAdjustmentModel.secondTime =
+          _machineAdjustmentList[1].secondTime =
               prefs!.getString("secondTimeS").toString().isEmpty ||
                       prefs!.getString("secondTimeS").toString() == 'null'
-                  ? machineAdjustmentModel.secondTime
+                  ? ''
                   : prefs!.getString("secondTimeS").toString();
         }
         if (_machineAdjustmentList[2].secondTime ==
             machineAdjustmentModel.secondTime) {
-          machineAdjustmentModel.secondTime =
+          _machineAdjustmentList[2].secondTime =
               prefs!.getString("secondTimeT").toString().isEmpty ||
                       prefs!.getString("secondTimeT").toString() == 'null'
-                  ? machineAdjustmentModel.secondTime
+                  ? ''
                   : prefs!.getString("secondTimeT").toString();
         }
         if (_machineAdjustmentList[3].secondTime ==
             machineAdjustmentModel.secondTime) {
-          machineAdjustmentModel.secondTime =
+          _machineAdjustmentList[3].secondTime =
               prefs!.getString("secondTimeF").toString().isEmpty ||
                       prefs!.getString("secondTimeF").toString() == 'null'
-                  ? machineAdjustmentModel.secondTime
+                  ? ''
                   : prefs!.getString("secondTimeF").toString();
         }
         if (_machineAdjustmentList[0].thirdTime ==
             machineAdjustmentModel.thirdTime) {
-          machineAdjustmentModel.thirdTime =
+          _machineAdjustmentList[0].thirdTime =
               prefs!.getString("thirdTime").toString().isEmpty ||
                       prefs!.getString("thirdTime").toString() == 'null'
-                  ? machineAdjustmentModel.secondTime
+                  ? ''
                   : prefs!.getString("thirdTime").toString();
         }
         if (_machineAdjustmentList[1].thirdTime ==
             machineAdjustmentModel.thirdTime) {
-          machineAdjustmentModel.thirdTime =
+          _machineAdjustmentList[1].thirdTime =
               prefs!.getString("thirdTimeS").toString().isEmpty ||
                       prefs!.getString("thirdTimeS").toString() == 'null'
-                  ? machineAdjustmentModel.thirdTime
-                  : prefs!.getString("sthirdTimeS").toString();
+                  ? ''
+                  : prefs!.getString("thirdTimeS").toString();
         }
         if (_machineAdjustmentList[2].thirdTime ==
             machineAdjustmentModel.thirdTime) {
-          machineAdjustmentModel.thirdTime =
+          _machineAdjustmentList[2].thirdTime =
               prefs!.getString("thirdTimeT").toString().isEmpty ||
                       prefs!.getString("thirdTimeT").toString() == 'null'
-                  ? machineAdjustmentModel.thirdTime
+                  ? ''
                   : prefs!.getString("thirdTimeT").toString();
         }
         if (_machineAdjustmentList[3].thirdTime ==
             machineAdjustmentModel.thirdTime) {
-          machineAdjustmentModel.thirdTime =
+          _machineAdjustmentList[3].thirdTime =
               prefs!.getString("thirdTimeF").toString().isEmpty ||
                       prefs!.getString("thirdTimeF").toString() == 'null'
-                  ? machineAdjustmentModel.thirdTime
+                  ? ''
                   : prefs!.getString("thirdTimeF").toString();
         }
 // -----------------------------------------------------------------
@@ -158,43 +158,145 @@ debugPrint(
             'machineliest ml 1 ${_machineAdjustmentList[0].firstResult}');
         debugPrint(
             'machineliest mo 2 ${prefs!.getString("firstResult").toString()}');
-        if (_machineAdjustmentList[0].firstResult ==
-            prefs!.getString("firstResult").toString()) {
-            
-          machineAdjustmentModel.firstResult =
+        /*if (_machineAdjustmentList[0].firstResult ==
+            prefs!.getString("firstResult").toString()) {*/
+
+          _machineAdjustmentList[0].firstResult =
               prefs!.getString("firstResult").toString().isEmpty ||
                       prefs!.getString("firstResult").toString() == 'null'
-                  ? machineAdjustmentModel.firstResult
+                  ? ''
                   : prefs!.getString("firstResult").toString();
                    setState(() {
-            
-          });
-        }
 
-        if (_machineAdjustmentList[1].firstResult ==
-            machineAdjustmentModel.firstResult) {
-          machineAdjustmentModel.firstResult =
+          });
+        //}
+        /*if (_machineAdjustmentList[1].firstResult ==
+            machineAdjustmentModel.firstResult) {*/
+          _machineAdjustmentList[1].firstResult =
               prefs!.getString("firstResultS").toString().isEmpty ||
                       prefs!.getString("firstResultS").toString() == 'null'
-                  ? machineAdjustmentModel.firstResult
+                  ? ''
                   : prefs!.getString("firstResultS").toString();
-        }
-        if (_machineAdjustmentList[2].firstResult ==
-            machineAdjustmentModel.firstResult) {
-          machineAdjustmentModel.firstResult =
+        //}
+        /*if (_machineAdjustmentList[2].firstResult ==
+            machineAdjustmentModel.firstResult) {*/
+          _machineAdjustmentList[2].firstResult =
               prefs!.getString("firstResultT").toString().isEmpty ||
                       prefs!.getString("firstResultT").toString() == 'null'
-                  ? machineAdjustmentModel.firstResult
+                  ? ''
                   : prefs!.getString("firstResultT").toString();
-        }
-        if (_machineAdjustmentList[3].firstResult ==
-            machineAdjustmentModel.firstResult) {
-          machineAdjustmentModel.firstResult =
+        //}
+        /*if (_machineAdjustmentList[3].firstResult ==
+            machineAdjustmentModel.firstResult) {*/
+          _machineAdjustmentList[3].firstResult =
               prefs!.getString("firstResultF").toString().isEmpty ||
                       prefs!.getString("firstResultF").toString() == 'null'
-                  ? machineAdjustmentModel.firstResult
+                  ? ''
                   : prefs!.getString("firstResultF").toString();
-        }
+        //}
+
+        /*if (_machineAdjustmentList[0].firstResult ==
+            prefs!.getString("firstResult").toString()) {*/
+
+        _machineAdjustmentList[0].secondResult =
+        prefs!.getString("secondResult").toString().isEmpty ||
+            prefs!.getString("secondResult").toString() == 'null'
+            ? ''
+            : prefs!.getString("secondResult").toString();
+        setState(() {
+
+        });
+        //}
+        /*if (_machineAdjustmentList[1].firstResult ==
+            machineAdjustmentModel.firstResult) {*/
+        _machineAdjustmentList[1].secondResult =
+        prefs!.getString("secondResultS").toString().isEmpty ||
+            prefs!.getString("secondResultS").toString() == 'null'
+            ? ''
+            : prefs!.getString("secondResultS").toString();
+        //}
+        /*if (_machineAdjustmentList[2].firstResult ==
+            machineAdjustmentModel.firstResult) {*/
+        _machineAdjustmentList[2].secondResult =
+        prefs!.getString("secondResultT").toString().isEmpty ||
+            prefs!.getString("secondResultT").toString() == 'null'
+            ? ''
+            : prefs!.getString("secondResultT").toString();
+        //}
+        /*if (_machineAdjustmentList[3].firstResult ==
+            machineAdjustmentModel.firstResult) {*/
+        _machineAdjustmentList[3].secondResult =
+        prefs!.getString("secondResultF").toString().isEmpty ||
+            prefs!.getString("secondResultF").toString() == 'null'
+            ? ''
+            : prefs!.getString("secondResultF").toString();
+        //}
+
+/*if (_machineAdjustmentList[0].firstResult ==
+            prefs!.getString("firstResult").toString()) {*/
+
+          _machineAdjustmentList[0].thirdResult =
+              prefs!.getString("thirdResult").toString().isEmpty ||
+                      prefs!.getString("thirdResult").toString() == 'null'
+                  ? ''
+                  : prefs!.getString("thirdResult").toString();
+                   setState(() {
+
+          });
+        //}
+        /*if (_machineAdjustmentList[1].firstResult ==
+            machineAdjustmentModel.firstResult) {*/
+          _machineAdjustmentList[1].thirdResult =
+              prefs!.getString("thirdResultS").toString().isEmpty ||
+                      prefs!.getString("thirdResultS").toString() == 'null'
+                  ? ''
+                  : prefs!.getString("thirdResultS").toString();
+        //}
+        /*if (_machineAdjustmentList[2].firstResult ==
+            machineAdjustmentModel.firstResult) {*/
+          _machineAdjustmentList[2].thirdResult =
+              prefs!.getString("thirdResultT").toString().isEmpty ||
+                      prefs!.getString("thirdResultT").toString() == 'null'
+                  ? ''
+                  : prefs!.getString("thirdResultT").toString();
+        //}
+        /*if (_machineAdjustmentList[3].firstResult ==
+            machineAdjustmentModel.firstResult) {*/
+          _machineAdjustmentList[3].thirdResult =
+              prefs!.getString("thirdResultF").toString().isEmpty ||
+                      prefs!.getString("thirdResultF").toString() == 'null'
+                  ? ''
+                  : prefs!.getString("thirdResultF").toString();
+        //}
+
+        _machineAdjustmentList[0].checkBox =
+        bool.parse(prefs!.getString("check").toString().isEmpty ||
+            prefs!.getString("check").toString() == 'null'
+            ? false.toString()
+            : prefs!.getString("check").toString());
+
+        _machineAdjustmentList[1].checkBox =
+        bool.parse(prefs!.getString("checkS").toString().isEmpty ||
+            prefs!.getString("checkS").toString() == 'null'
+            ? false.toString()
+            : prefs!.getString("checkS").toString());
+
+        _machineAdjustmentList[2].checkBox =
+        bool.parse(prefs!.getString("checkT").toString().isEmpty ||
+            prefs!.getString("checkT").toString() == 'null'
+            ? false.toString()
+            : prefs!.getString("checkT").toString());
+
+        _machineAdjustmentList[3].checkBox =
+        bool.parse(prefs!.getString("checkF").toString().isEmpty ||
+            prefs!.getString("checkF").toString() == 'null'
+            ? false.toString()
+            : prefs!.getString("checkF").toString());
+        setState(() {
+
+        });
+
+        print("machinga  ${machineAdjustmentModel.firstResult}");
       });
     }
     setState(() {});
@@ -566,6 +668,99 @@ debugPrint(
                             onChanged: (newValue) async {
                               setState(() =>
                                   machineAdjustmentModel.checkBox = newValue!);
+                              if (index == 0) {
+                                func() async {
+                                  prefs =
+                                  await SharedPreferences.getInstance();
+                                  prefs!.setString("check",
+                                      machineAdjustmentModel.checkBox.toString());
+
+                                  machineAdjustmentModel.firstTime = '';
+                                  prefs!.setString("firstTime", '');
+                                  machineAdjustmentModel.firstResult = '';
+                                  prefs!.setString("firstResult", '');
+                                  machineAdjustmentModel.secondTime = '';
+                                  prefs!.setString("secondTime", '');
+                                  machineAdjustmentModel.secondResult = '';
+                                  prefs!.setString("secondResult", '');
+                                  machineAdjustmentModel.thirdTime = '';
+                                  prefs!.setString("thirdTime", '');
+                                  machineAdjustmentModel.thirdResult = '';
+                                  prefs!.setString("thirdResult", '');
+                                }
+
+
+                                func();
+                              }
+                              if (index == 1) {
+                                func() async {
+                                  prefs =
+                                  await SharedPreferences.getInstance();
+                                  prefs!.setString("checkS",
+                                      machineAdjustmentModel.checkBox.toString());
+
+                                  machineAdjustmentModel.firstTime = '';
+                                  prefs!.setString("firstTimeS", '');
+                                  machineAdjustmentModel.firstResult = '';
+                                  prefs!.setString("firstResultS", '');
+                                  machineAdjustmentModel.secondTime = '';
+                                  prefs!.setString("secondTimeS", '');
+                                  machineAdjustmentModel.secondResult = '';
+                                  prefs!.setString("secondResultS", '');
+                                  machineAdjustmentModel.thirdTime = '';
+                                  prefs!.setString("thirdTimeS", '');
+                                  machineAdjustmentModel.thirdResult = '';
+                                  prefs!.setString("thirdResultS", '');
+                                }
+
+                                func();
+                              }
+                              if (index == 2) {
+                                func() async {
+                                  prefs =
+                                  await SharedPreferences.getInstance();
+                                  prefs!.setString("checkT",
+                                      machineAdjustmentModel.checkBox.toString());
+
+                                  machineAdjustmentModel.firstTime = '';
+                                  prefs!.setString("firstTimeT", '');
+                                  machineAdjustmentModel.firstResult = '';
+                                  prefs!.setString("firstResultT", '');
+                                  machineAdjustmentModel.secondTime = '';
+                                  prefs!.setString("secondTimeT", '');
+                                  machineAdjustmentModel.secondResult = '';
+                                  prefs!.setString("secondResultT", '');
+                                  machineAdjustmentModel.thirdTime = '';
+                                  prefs!.setString("thirdTimeT", '');
+                                  machineAdjustmentModel.thirdResult = '';
+                                  prefs!.setString("thirdResultT", '');
+                                }
+
+                                func();
+                              }
+                              if (index == 3) {
+                                func() async {
+                                  prefs =
+                                  await SharedPreferences.getInstance();
+                                  prefs!.setString("checkF",
+                                      machineAdjustmentModel.checkBox.toString());
+
+                                  machineAdjustmentModel.firstTime = '';
+                                  prefs!.setString("firstTimeF", '');
+                                  machineAdjustmentModel.firstResult = '';
+                                  prefs!.setString("firstResultF", '');
+                                  machineAdjustmentModel.secondTime = '';
+                                  prefs!.setString("secondTimeF", '');
+                                  machineAdjustmentModel.secondResult = '';
+                                  prefs!.setString("secondResultF", '');
+                                  machineAdjustmentModel.thirdTime = '';
+                                  prefs!.setString("thirdTimeF", '');
+                                  machineAdjustmentModel.thirdResult = '';
+                                  prefs!.setString("thirdResultF", '');
+                                }
+
+                                func();
+                              }
                             },
                             activeColor: FlutterFlowTheme.of(context).primary,
                           ),
@@ -773,11 +968,11 @@ debugPrint(
                                   if (index == 0) {
                                     func() async {
                                     
-                                  prefs = await SharedPreferences.getInstance();
-                                  prefs!.setString("firstResult",
-                                       machineAdjustmentModel.firstResult.toString());
+                                    prefs = await SharedPreferences.getInstance();
+                                    prefs!.setString("firstResult",
+                                         val.toString());
                                   }
-                                func();
+                                  func();
                                   }
 
                                   if (index == 1) {
@@ -785,7 +980,7 @@ debugPrint(
                                       prefs =
                                           await SharedPreferences.getInstance();
                                       prefs!.setString("firstResultS",
-                                          machineAdjustmentModel.firstResult);
+                                          val.toString());
                                     }
 
                                     func();
@@ -795,7 +990,7 @@ debugPrint(
                                       prefs =
                                           await SharedPreferences.getInstance();
                                       prefs!.setString("firstResultT",
-                                          machineAdjustmentModel.firstResult);
+                                          val.toString());
                                     }
 
                                     func();
@@ -805,7 +1000,7 @@ debugPrint(
                                       prefs =
                                           await SharedPreferences.getInstance();
                                       prefs!.setString("firstResultF",
-                                          machineAdjustmentModel.firstResult);
+                                          val.toString());
                                     }
 
                                     func();

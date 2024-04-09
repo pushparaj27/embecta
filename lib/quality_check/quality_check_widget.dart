@@ -304,7 +304,7 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
 
       _qualityCheckModel!.case20!.text =
           prefs!.getString("case20").toString().isEmpty ||
-                  prefs!.getString("case120").toString() == 'null'
+                  prefs!.getString("case20").toString() == 'null'
               ? _qualityCheckModel!.case20!.text
               : prefs!.getString("case20").toString();
 
@@ -354,7 +354,7 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
 
                _qualityCheckModel!.halfDrop5=  prefs!.getString("halfDrop5").toString().isEmpty ||
                   prefs!.getString("halfDrop5").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop1
+              ?  _qualityCheckModel!.halfDrop5
               : prefs!.getString("halfDrop5").toString();
 
                _qualityCheckModel!.halfDrop6=  prefs!.getString("halfDrop6").toString().isEmpty ||
@@ -446,6 +446,11 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
                   prefs!.getString("halfDrop23").toString() == 'null'
               ?  _qualityCheckModel!.halfDrop23
               : prefs!.getString("halfDrop23").toString();
+
+                 _qualityCheckModel!.halfDrop24=  prefs!.getString("halfDrop24").toString().isEmpty ||
+                  prefs!.getString("halfDrop24").toString() == 'null'
+              ?  _qualityCheckModel!.halfDrop24
+              : prefs!.getString("halfDrop24").toString();
 
                
               //  --------------------------------------------
@@ -2016,6 +2021,16 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
             _qualityCheckModel?.setDrop(context, 'halfDrop8', val);
             _qualityCheckModel?.setDrop(context, 'twohoursDrop1', val);
             _qualityCheckModel?.setDrop(context, 'twohoursDrop2', val);
+            switchcase('halfDrop1');
+            switchcase('halfDrop2');
+            switchcase('halfDrop3');
+            switchcase('halfDrop4');
+            switchcase('halfDrop5');
+            switchcase('halfDrop6');
+            switchcase('halfDrop7');
+            switchcase('halfDrop8');
+            switchcase('twohoursDrop1');
+            switchcase('twohoursDrop2');
           });
         }
         if (dropDown.toString().toLowerCase().contains('fourhoursdrop2') &&
@@ -2035,6 +2050,16 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
             _qualityCheckModel?.setDrop(context, 'halfDrop16', val);
             _qualityCheckModel?.setDrop(context, 'twohoursDrop3', val);
             _qualityCheckModel?.setDrop(context, 'twohoursDrop4', val);
+            switchcase('halfDrop9');
+            switchcase('halfDrop10');
+            switchcase('halfDrop11');
+            switchcase('halfDrop12');
+            switchcase('halfDrop13');
+            switchcase('halfDrop14');
+            switchcase('halfDrop15');
+            switchcase('halfDrop16');
+            switchcase('twohoursDrop3');
+            switchcase('twohoursDrop4');
           });
         }
         if (dropDown.toString().toLowerCase().contains('fourhoursdrop3') &&
@@ -2052,8 +2077,18 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
             _qualityCheckModel?.setDrop(context, 'halfDrop22', val);
             _qualityCheckModel?.setDrop(context, 'halfDrop23', val);
             _qualityCheckModel?.setDrop(context, 'halfDrop24', val);
-            _qualityCheckModel?.setDrop(context, 'twohoursDrop3', val);
-            _qualityCheckModel?.setDrop(context, 'twohoursDrop4', val);
+            _qualityCheckModel?.setDrop(context, 'twohoursDrop5', val);
+            _qualityCheckModel?.setDrop(context, 'twohoursDrop6', val);
+            switchcase('halfDrop17');
+            switchcase('halfDrop18');
+            switchcase('halfDrop19');
+            switchcase('halfDrop20');
+            switchcase('halfDrop21');
+            switchcase('halfDrop22');
+            switchcase('halfDrop23');
+            switchcase('halfDrop24');
+            switchcase('twohoursDrop5');
+            switchcase('twohoursDrop6');
           });
         }
         //}
@@ -2594,7 +2629,7 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
         func2() async {
           prefs = await SharedPreferences.getInstance();
           prefs!.setString(
-              "halfDrop5", _qualityCheckModel!.selectTextEditor(textField)!.text);
+              "halfDrop5", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;
@@ -2806,6 +2841,22 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
           prefs = await SharedPreferences.getInstance();
           prefs!.setString(
               "fourHoursDrop1", _qualityCheckModel!.getDrop(textField));
+        }
+        func2();
+        break;
+      case 'fourHoursDrop2':
+        func2() async {
+          prefs = await SharedPreferences.getInstance();
+          prefs!.setString(
+              "fourHoursDrop2", _qualityCheckModel!.getDrop(textField));
+        }
+        func2();
+        break;
+      case 'fourHoursDrop3':
+        func2() async {
+          prefs = await SharedPreferences.getInstance();
+          prefs!.setString(
+              "fourHoursDrop3", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;

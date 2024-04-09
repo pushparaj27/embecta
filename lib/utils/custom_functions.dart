@@ -5,6 +5,11 @@ import 'package:intl/intl.dart';
 
 class CustomFunctions{
 
+  String currentDate(){
+    final now = new DateTime.now();
+    String formatter = DateFormat('dd-MM-yyyy').format(now);
+    return formatter;
+  }
   String currentTime(){
     DateTime now = DateTime.now();
     String formattedTime = DateFormat.jm().format(now);
@@ -45,13 +50,15 @@ class CustomFunctions{
                 {
                   Navigator.pop(
                       alertDialogContext);
-                  Navigator.of(context)
-                      .pushReplacement(MaterialPageRoute(
-                    builder: (context) {
-                      return FaceIdWidget(
-                      );
-                    },
-                  ));
+                  if(type){
+                    Navigator.of(context)
+                        .pushReplacement(MaterialPageRoute(
+                      builder: (context) {
+                        return FaceIdWidget(
+                        );
+                      },
+                    ));
+                  }
                 },
                 child: Text('Ok'),
               ),

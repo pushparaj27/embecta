@@ -44,26 +44,28 @@ class _CommentsWidgetState extends State<CommentsWidget>
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       prefs = await SharedPreferences.getInstance();
       setState(() {});
+      _tf4.text = CustomFunctions().currentDate();
+      prefs!.setString("selectdate",_tf4.text).toString();
       _tf1.text =
-          prefs!.getString("tf1").toString().isEmpty ||
-                  prefs!.getString("tf1").toString() == 'null'
+          prefs!.getString("QNnotno").toString().isEmpty ||
+                  prefs!.getString("QNnotno").toString() == 'null'
               ?_tf1.text
-              : prefs!.getString("tf1").toString();
+              : prefs!.getString("QNnotno").toString();
                 _tf2.text =
-          prefs!.getString("tf2").toString().isEmpty ||
-                  prefs!.getString("tf2").toString() == 'null'
+          prefs!.getString("addcomm").toString().isEmpty ||
+                  prefs!.getString("addcomm").toString() == 'null'
               ?_tf2.text
-              : prefs!.getString("tf2").toString();
+              : prefs!.getString("addcomm").toString();
                 _tf3.text =
-          prefs!.getString("tf3").toString().isEmpty ||
-                  prefs!.getString("tf3").toString() == 'null'
+          prefs!.getString("signature").toString().isEmpty ||
+                  prefs!.getString("signature").toString() == 'null'
               ?_tf3.text
-              : prefs!.getString("tf3").toString();
+              : prefs!.getString("signature").toString();
                 _tf4.text =
-          prefs!.getString("tf4").toString().isEmpty ||
-                  prefs!.getString("tf4").toString() == 'null'
+          prefs!.getString("selectdate").toString().isEmpty ||
+                  prefs!.getString("selectdate").toString() == 'null'
               ?_tf4.text
-              : prefs!.getString("tf4").toString();
+              : prefs!.getString("selectdate").toString();
 
     });
   }
@@ -191,7 +193,7 @@ class _CommentsWidgetState extends State<CommentsWidget>
                                               func() async {
                                 prefs = await SharedPreferences.getInstance();
                                 prefs!
-                                    .setString("tf1", value.toString());
+                                    .setString("QNnotno", value.toString());
                               }
 
                               func();
@@ -257,7 +259,7 @@ class _CommentsWidgetState extends State<CommentsWidget>
                                                func() async {
                                 prefs = await SharedPreferences.getInstance();
                                 prefs!
-                                    .setString("tf2", value.toString());
+                                    .setString("addcomm", value.toString());
                               }
 
                               func();
@@ -327,7 +329,7 @@ class _CommentsWidgetState extends State<CommentsWidget>
                                                  func() async {
                                 prefs = await SharedPreferences.getInstance();
                                 prefs!
-                                    .setString("tf3", value.toString());
+                                    .setString("signature", value.toString());
                               }
 
                               func();
@@ -336,7 +338,8 @@ class _CommentsWidgetState extends State<CommentsWidget>
                                   ],
                                 )
                               ],
-                            )),
+                            )
+                        ),
                         SizedBox(
                           width: 10,
                         ),
@@ -358,7 +361,7 @@ class _CommentsWidgetState extends State<CommentsWidget>
                                 ),
                                 Container(
                                     padding: EdgeInsets.only(
-                                        left: 10, top: 0, right: 10, bottom: 0),
+                                        left: 10, top: 5, right: 10, bottom: 5),
                                     decoration: BoxDecoration(
                                         border:
                                             Border.all(color: Colors.black38),
@@ -366,16 +369,19 @@ class _CommentsWidgetState extends State<CommentsWidget>
                                             BorderRadius.circular(10)),
                                     child: TextField(
                                       controller: _tf4,
-                                      // canRequestFocus: false,
+                                      canRequestFocus: false,
                                       style:
                                           Theme.of(context).textTheme.subtitle2,
                                       keyboardType: TextInputType.text,
                                       textInputAction: TextInputAction.next,
                                       decoration: InputDecoration(
+                                        constraints: BoxConstraints(
+                                          minWidth: 100,
+                                        ),
                                         suffixIcon: Icon(
                                           Icons.date_range,
                                         ),
-                                        suffix: GestureDetector(
+                                        /*suffix: GestureDetector(
                                           onTap: () {
                                             print('click');
                                           },
@@ -385,12 +391,9 @@ class _CommentsWidgetState extends State<CommentsWidget>
                                               Icons.date_range,
                                             ),
                                           ),
-                                        ),
-                                        label: Text('05/03/2024',
-                                            textAlign: TextAlign.center),
-                                        constraints: BoxConstraints(
-                                          minWidth: 100,
-                                        ),
+                                        ),*/
+                                        /*label: Text(CustomFunctions().currentDate(),
+                                            textAlign: TextAlign.center),*/
                                         border: InputBorder.none,
                                       ),
 
@@ -398,7 +401,7 @@ class _CommentsWidgetState extends State<CommentsWidget>
                                          func() async {
                                 prefs = await SharedPreferences.getInstance();
                                 prefs!
-                                    .setString("tf4", value.toString());
+                                    .setString("selectdate", value.toString());
                               }
 
                               func();
@@ -406,7 +409,9 @@ class _CommentsWidgetState extends State<CommentsWidget>
                                     ))
                               ],
                             )),
-                      ])),
+                      ]
+                  )
+              ),
             ])));
   }
 

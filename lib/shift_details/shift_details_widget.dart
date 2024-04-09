@@ -329,8 +329,15 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                           onChanged: (value) {
                             widget.appData.HSMaterial = value;
                             func() async {
-                              prefs = await SharedPreferences.getInstance();
-                              prefs!.setString("material", value.toString());
+                              final currentLength = value!.length;
+                              if ((currentLength >= 7 && currentLength <= 10)) {
+                                prefs = await SharedPreferences.getInstance();
+                                prefs!.setString("material", value.toString());
+                              }
+                              else{
+                                prefs = await SharedPreferences.getInstance();
+                                prefs!.setString("material", '');
+                              }
                             }
 
                             func();
@@ -385,9 +392,16 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                             _addMaterial = value;
                             widget.appData.HSBatchNumber = value;
                             func() async {
-                              prefs = await SharedPreferences.getInstance();
-                              prefs!.setString(
-                                  "batchNumberController", value.toString());
+                              final currentLength = value!.length;
+                              if ((currentLength >= 7)) {
+                                prefs = await SharedPreferences.getInstance();
+                                prefs!.setString(
+                                    "batchNumberController", value.toString());
+                              }
+                              else{
+                                prefs = await SharedPreferences.getInstance();
+                                prefs!.setString("batchNumberController", '');
+                              }
                             }
 
                             func();
@@ -546,9 +560,16 @@ class _ShiftDetailsWidgetState extends State<ShiftDetailsWidget>
                                 _packageSpec = value;
                                 widget.appData.HSPackageSpec = value;
                                 func() async {
-                                  prefs = await SharedPreferences.getInstance();
-                                  prefs!.setString("packageSpecController",
-                                      value.toString());
+                                  final currentLength = value.length;
+                                  if ((currentLength >= 7)) {
+                                    prefs = await SharedPreferences.getInstance();
+                                    prefs!.setString("packageSpecController",
+                                        value.toString());
+                                  }
+                                  else{
+                                    prefs = await SharedPreferences.getInstance();
+                                    prefs!.setString("packageSpecController", '');
+                                  }
                                 }
 
                                 func();

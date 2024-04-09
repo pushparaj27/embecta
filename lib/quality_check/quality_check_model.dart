@@ -506,7 +506,6 @@ class QualityCheckModel {
       if (valDrop.contains('timeTF') || valDrop.contains('case')) {
         for (int i = 1; i < 9; i++) {
           if (valDrop == ('timeTF${i}') || valDrop == ('case$i')) {
-            print('adasdasdasd');
             return false;
           }
         }

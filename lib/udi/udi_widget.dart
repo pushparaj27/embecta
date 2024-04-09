@@ -49,34 +49,34 @@ class _UDIWidgetState extends State<UDIWidget>
               : prefs!.getString("ps1").toString();
 
                 _printerDelay1 =
-          prefs!.getString("ps2").toString().isEmpty ||
-                  prefs!.getString("ps2").toString() == 'null'
+          prefs!.getString("pd1").toString().isEmpty ||
+                  prefs!.getString("pd1").toString() == 'null'
               ?_printerDelay1
-              : prefs!.getString("ps2").toString();
+              : prefs!.getString("pd1").toString();
 
                 _printerSpeed2 =
-          prefs!.getString("ps3").toString().isEmpty ||
-                  prefs!.getString("ps3").toString() == 'null'
+          prefs!.getString("ps2").toString().isEmpty ||
+                  prefs!.getString("ps2").toString() == 'null'
               ?_printerSpeed2
-              : prefs!.getString("ps3").toString();
+              : prefs!.getString("ps2").toString();
 
                 _printerDelay2 =
-          prefs!.getString("ps4").toString().isEmpty ||
-                  prefs!.getString("ps4").toString() == 'null'
+          prefs!.getString("pd2").toString().isEmpty ||
+                  prefs!.getString("pd2").toString() == 'null'
               ?_printerDelay2
-              : prefs!.getString("ps4").toString();
+              : prefs!.getString("pd2").toString();
 
                 _printerSpeed3 =
-          prefs!.getString("ps5").toString().isEmpty ||
-                  prefs!.getString("ps5").toString() == 'null'
+          prefs!.getString("ps3").toString().isEmpty ||
+                  prefs!.getString("ps3").toString() == 'null'
               ?_printerSpeed3
-              : prefs!.getString("ps5").toString();
+              : prefs!.getString("ps3").toString();
 
                 _printerDelay3 =
-          prefs!.getString("ps6").toString().isEmpty ||
-                  prefs!.getString("ps6").toString() == 'null'
+          prefs!.getString("pd3").toString().isEmpty ||
+                  prefs!.getString("pd3").toString() == 'null'
               ?_printerDelay3
-              : prefs!.getString("ps6").toString();
+              : prefs!.getString("pd3").toString();
      });
    
   }
@@ -164,8 +164,20 @@ class _UDIWidgetState extends State<UDIWidget>
                                           onChanged: (val) {
                                             _printerSpeed1 = val;
                                             func() async {
-                                              prefs = await SharedPreferences.getInstance();
-                                              prefs!.setString("ps1",_printerSpeed1.toString());
+                                              if (val != '') {
+                                                final currentLength =
+                                                int.parse(val);
+                                                if ((currentLength >= 80 &&
+                                                    currentLength <= 200)) {
+                                                  prefs = await SharedPreferences.getInstance();
+                                                  prefs!.setString("ps1",_printerSpeed1.toString());
+                                                }
+                                                else{
+                                                  prefs = await SharedPreferences.getInstance();
+                                                  prefs!.setString("ps1",'');
+                                                }
+                                              }
+
                                               }
                                                   func();
                                           },
@@ -279,8 +291,20 @@ class _UDIWidgetState extends State<UDIWidget>
                                           onChanged: (val) {
                                             _printerDelay1 = val;
                                              func() async {
-                                              prefs = await SharedPreferences.getInstance();
-                                              prefs!.setString("ps2",_printerDelay1.toString());
+                                               if (val != '') {
+                                                 final currentLength =
+                                                 int.parse(val);
+                                                 if ((currentLength >= 15 &&
+                                                     currentLength <= 25)) {
+                                                   prefs = await SharedPreferences.getInstance();
+                                                   prefs!.setString("pd1",_printerDelay1.toString());
+                                                 }
+                                                 else{
+                                                   prefs = await SharedPreferences.getInstance();
+                                                   prefs!.setString("pd1",'');
+                                                 }
+                                               }
+
                                               }
                                               func();
 
@@ -425,8 +449,19 @@ class _UDIWidgetState extends State<UDIWidget>
                                           onChanged: (val) {
                                             _printerSpeed2 = val;
                                             func() async {
-                                              prefs = await SharedPreferences.getInstance();
-                                              prefs!.setString("ps3",_printerSpeed2.toString());
+                                              if (val != '') {
+                                                final currentLength =
+                                                int.parse(val);
+                                                if ((currentLength >= 80 &&
+                                                    currentLength <= 200)) {
+                                                  prefs = await SharedPreferences.getInstance();
+                                                  prefs!.setString("ps2",_printerSpeed2.toString());
+                                                }
+                                                else{
+                                                  prefs = await SharedPreferences.getInstance();
+                                                  prefs!.setString("ps2",'');
+                                                }
+                                              }
                                               }
                                               func();
                                           },
@@ -541,8 +576,20 @@ class _UDIWidgetState extends State<UDIWidget>
                                           onChanged: (val) {
                                             _printerDelay2 = val;
                                             func() async {
-                                              prefs = await SharedPreferences.getInstance();
-                                              prefs!.setString("ps4",_printerDelay2.toString());
+                                              if (val != '') {
+                                                final currentLength =
+                                                int.parse(val);
+                                                if ((currentLength >= 15 &&
+                                                    currentLength <= 25)) {
+                                                  prefs = await SharedPreferences.getInstance();
+                                                  prefs!.setString("pd2",_printerDelay2.toString());
+                                                }
+                                                else{
+                                                  prefs = await SharedPreferences.getInstance();
+                                                  prefs!.setString("pd2",'');
+                                                }
+                                              }
+
                                               }
                                               func();
                                           },
@@ -687,8 +734,20 @@ class _UDIWidgetState extends State<UDIWidget>
                                             onChanged: (val) {
                                               _printerSpeed3 = val;
                                               func() async {
-                                              prefs = await SharedPreferences.getInstance();
-                                              prefs!.setString("ps5",_printerSpeed3.toString());
+                                                if (val != '') {
+                                                  final currentLength =
+                                                  int.parse(val);
+                                                  if ((currentLength >= 80 &&
+                                                      currentLength <= 200)) {
+                                                    prefs = await SharedPreferences.getInstance();
+                                                    prefs!.setString("ps3",_printerSpeed3.toString());
+                                                  }
+                                                  else{
+                                                    prefs = await SharedPreferences.getInstance();
+                                                    prefs!.setString("ps3",'');
+                                                  }
+                                                }
+
                                               }
                                               func();
                                             },
@@ -803,8 +862,20 @@ class _UDIWidgetState extends State<UDIWidget>
                                             onChanged: (val) {
                                               _printerDelay3 = val;
                                               func() async {
-                                              prefs = await SharedPreferences.getInstance();
-                                              prefs!.setString("ps6",_printerDelay3.toString());
+                                                if (val != '') {
+                                                  final currentLength =
+                                                  int.parse(val);
+                                                  if ((currentLength >= 15 &&
+                                                      currentLength <= 25)) {
+                                                    prefs = await SharedPreferences.getInstance();
+                                                    prefs!.setString("pd3",_printerDelay3.toString());
+                                                  }
+                                                  else{
+                                                    prefs = await SharedPreferences.getInstance();
+                                                    prefs!.setString("pd3",'');
+                                                  }
+                                                }
+
                                               }
                                               func();
                                             },

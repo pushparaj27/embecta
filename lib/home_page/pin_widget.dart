@@ -32,6 +32,8 @@ class _PinWidgetState extends State<PinWidget> {
   @override
   Widget build(BuildContext context) {
     return Pinput(
+  obscureText: true,
+  obscuringCharacter: '*',
       controller: pinController,
       focusNode: focusNode,
       androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,

@@ -28,7 +28,7 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
   List<String> _result = ['Pass', 'Fail', 'Machine Down', 'Changeover'];
   String _firstResult = '';
   SharedPreferences? prefs;
-
+  bool? check1 = false;
   QualityCheckModel? _qualityCheckModel;
 
   @override
@@ -182,12 +182,12 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
               ? _qualityCheckModel!.timeTF24!.text
               : prefs!.getString("tf24").toString();
 // ==================================tf--------------------------
-  _qualityCheckModel!.MSTF1!.text =
+      _qualityCheckModel!.MSTF1!.text =
           prefs!.getString("MSTF1").toString().isEmpty ||
                   prefs!.getString("MSTF1").toString() == 'null'
               ? _qualityCheckModel!.MSTF1!.text
               : prefs!.getString("MSTF1").toString();
- // -------------------------------------------------------
+      // -------------------------------------------------------
       _qualityCheckModel!.case1!.text =
           prefs!.getString("case1").toString().isEmpty ||
                   prefs!.getString("case1").toString() == 'null'
@@ -331,171 +331,200 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
                   prefs!.getString("case24").toString() == 'null'
               ? _qualityCheckModel!.case24!.text
               : prefs!.getString("case24").toString();
-               // -------------------------------------------
-               _qualityCheckModel!.halfDrop1=  prefs!.getString("halfDrop1").toString().isEmpty ||
+      // -------------------------------------------
+      _qualityCheckModel!.halfDrop1 =
+          prefs!.getString("halfDrop1").toString().isEmpty ||
                   prefs!.getString("halfDrop1").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop1
+              ? _qualityCheckModel!.halfDrop1
               : prefs!.getString("halfDrop1").toString();
-              
-               _qualityCheckModel!.halfDrop2=  prefs!.getString("halfDrop2").toString().isEmpty ||
+
+      _qualityCheckModel!.halfDrop2 =
+          prefs!.getString("halfDrop2").toString().isEmpty ||
                   prefs!.getString("halfDrop2").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop2
+              ? _qualityCheckModel!.halfDrop2
               : prefs!.getString("halfDrop2").toString();
 
-               _qualityCheckModel!.halfDrop3=  prefs!.getString("halfDrop3").toString().isEmpty ||
+      _qualityCheckModel!.halfDrop3 =
+          prefs!.getString("halfDrop3").toString().isEmpty ||
                   prefs!.getString("halfDrop3").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop3
+              ? _qualityCheckModel!.halfDrop3
               : prefs!.getString("halfDrop3").toString();
 
-               _qualityCheckModel!.halfDrop4=  prefs!.getString("halfDrop4").toString().isEmpty ||
+      _qualityCheckModel!.halfDrop4 =
+          prefs!.getString("halfDrop4").toString().isEmpty ||
                   prefs!.getString("halfDrop4").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop4
+              ? _qualityCheckModel!.halfDrop4
               : prefs!.getString("halfDrop4").toString();
 
-               _qualityCheckModel!.halfDrop5=  prefs!.getString("halfDrop5").toString().isEmpty ||
+      _qualityCheckModel!.halfDrop5 =
+          prefs!.getString("halfDrop5").toString().isEmpty ||
                   prefs!.getString("halfDrop5").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop1
+              ? _qualityCheckModel!.halfDrop1
               : prefs!.getString("halfDrop5").toString();
 
-               _qualityCheckModel!.halfDrop6=  prefs!.getString("halfDrop6").toString().isEmpty ||
+      _qualityCheckModel!.halfDrop6 =
+          prefs!.getString("halfDrop6").toString().isEmpty ||
                   prefs!.getString("halfDrop6").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop6
+              ? _qualityCheckModel!.halfDrop6
               : prefs!.getString("halfDrop6").toString();
 
-               _qualityCheckModel!.halfDrop7=  prefs!.getString("halfDrop7").toString().isEmpty ||
+      _qualityCheckModel!.halfDrop7 =
+          prefs!.getString("halfDrop7").toString().isEmpty ||
                   prefs!.getString("halfDrop7").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop7
+              ? _qualityCheckModel!.halfDrop7
               : prefs!.getString("halfDrop7").toString();
 
-               _qualityCheckModel!.halfDrop8=  prefs!.getString("halfDrop8").toString().isEmpty ||
+      _qualityCheckModel!.halfDrop8 =
+          prefs!.getString("halfDrop8").toString().isEmpty ||
                   prefs!.getString("halfDrop8").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop8
+              ? _qualityCheckModel!.halfDrop8
               : prefs!.getString("halfDrop8").toString();
 
-               _qualityCheckModel!.halfDrop9=  prefs!.getString("halfDrop9").toString().isEmpty ||
+      _qualityCheckModel!.halfDrop9 =
+          prefs!.getString("halfDrop9").toString().isEmpty ||
                   prefs!.getString("halfDrop9").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop9
+              ? _qualityCheckModel!.halfDrop9
               : prefs!.getString("halfDrop9").toString();
 
-               _qualityCheckModel!.halfDrop10=  prefs!.getString("halfDrop10").toString().isEmpty ||
+      _qualityCheckModel!.halfDrop10 =
+          prefs!.getString("halfDrop10").toString().isEmpty ||
                   prefs!.getString("halfDrop10").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop10
+              ? _qualityCheckModel!.halfDrop10
               : prefs!.getString("halfDrop10").toString();
 
-               _qualityCheckModel!.halfDrop11=  prefs!.getString("halfDrop11").toString().isEmpty ||
+      _qualityCheckModel!.halfDrop11 =
+          prefs!.getString("halfDrop11").toString().isEmpty ||
                   prefs!.getString("halfDrop11").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop11
+              ? _qualityCheckModel!.halfDrop11
               : prefs!.getString("halfDrop11").toString();
 
-               _qualityCheckModel!.halfDrop12=  prefs!.getString("halfDrop12").toString().isEmpty ||
+      _qualityCheckModel!.halfDrop12 =
+          prefs!.getString("halfDrop12").toString().isEmpty ||
                   prefs!.getString("halfDrop12").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop12
+              ? _qualityCheckModel!.halfDrop12
               : prefs!.getString("halfDrop12").toString();
 
-               _qualityCheckModel!.halfDrop13=  prefs!.getString("halfDrop13").toString().isEmpty ||
+      _qualityCheckModel!.halfDrop13 =
+          prefs!.getString("halfDrop13").toString().isEmpty ||
                   prefs!.getString("halfDrop13").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop13
+              ? _qualityCheckModel!.halfDrop13
               : prefs!.getString("halfDrop13").toString();
 
-               _qualityCheckModel!.halfDrop14=  prefs!.getString("halfDrop14").toString().isEmpty ||
+      _qualityCheckModel!.halfDrop14 =
+          prefs!.getString("halfDrop14").toString().isEmpty ||
                   prefs!.getString("halfDrop14").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop14
+              ? _qualityCheckModel!.halfDrop14
               : prefs!.getString("halfDrop14").toString();
 
-               _qualityCheckModel!.halfDrop15=  prefs!.getString("halfDrop15").toString().isEmpty ||
+      _qualityCheckModel!.halfDrop15 =
+          prefs!.getString("halfDrop15").toString().isEmpty ||
                   prefs!.getString("halfDrop15").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop15
+              ? _qualityCheckModel!.halfDrop15
               : prefs!.getString("halfDrop15").toString();
 
-               _qualityCheckModel!.halfDrop16=  prefs!.getString("halfDrop16").toString().isEmpty ||
+      _qualityCheckModel!.halfDrop16 =
+          prefs!.getString("halfDrop16").toString().isEmpty ||
                   prefs!.getString("halfDrop16").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop16
-              : prefs!.getString("halfDrop16").toString(); 
-              
-              _qualityCheckModel!.halfDrop17=  prefs!.getString("halfDrop17").toString().isEmpty ||
+              ? _qualityCheckModel!.halfDrop16
+              : prefs!.getString("halfDrop16").toString();
+
+      _qualityCheckModel!.halfDrop17 =
+          prefs!.getString("halfDrop17").toString().isEmpty ||
                   prefs!.getString("halfDrop17").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop17
+              ? _qualityCheckModel!.halfDrop17
               : prefs!.getString("halfDrop17").toString();
 
-                 _qualityCheckModel!.halfDrop18=  prefs!.getString("halfDrop18").toString().isEmpty ||
+      _qualityCheckModel!.halfDrop18 =
+          prefs!.getString("halfDrop18").toString().isEmpty ||
                   prefs!.getString("halfDrop18").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop18
+              ? _qualityCheckModel!.halfDrop18
               : prefs!.getString("halfDrop18").toString();
 
-                 _qualityCheckModel!.halfDrop19=  prefs!.getString("halfDrop19").toString().isEmpty ||
+      _qualityCheckModel!.halfDrop19 =
+          prefs!.getString("halfDrop19").toString().isEmpty ||
                   prefs!.getString("halfDrop19").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop19
+              ? _qualityCheckModel!.halfDrop19
               : prefs!.getString("halfDrop19").toString();
 
-                 _qualityCheckModel!.halfDrop20=  prefs!.getString("halfDrop20").toString().isEmpty ||
+      _qualityCheckModel!.halfDrop20 =
+          prefs!.getString("halfDrop20").toString().isEmpty ||
                   prefs!.getString("halfDrop20").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop20
+              ? _qualityCheckModel!.halfDrop20
               : prefs!.getString("halfDrop20").toString();
 
-                 _qualityCheckModel!.halfDrop21=  prefs!.getString("halfDrop21").toString().isEmpty ||
+      _qualityCheckModel!.halfDrop21 =
+          prefs!.getString("halfDrop21").toString().isEmpty ||
                   prefs!.getString("halfDrop21").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop21
+              ? _qualityCheckModel!.halfDrop21
               : prefs!.getString("halfDrop21").toString();
 
-                 _qualityCheckModel!.halfDrop22=  prefs!.getString("halfDrop22").toString().isEmpty ||
+      _qualityCheckModel!.halfDrop22 =
+          prefs!.getString("halfDrop22").toString().isEmpty ||
                   prefs!.getString("halfDrop22").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop22
+              ? _qualityCheckModel!.halfDrop22
               : prefs!.getString("halfDrop22").toString();
 
-                 _qualityCheckModel!.halfDrop23=  prefs!.getString("halfDrop23").toString().isEmpty ||
+      _qualityCheckModel!.halfDrop23 =
+          prefs!.getString("halfDrop23").toString().isEmpty ||
                   prefs!.getString("halfDrop23").toString() == 'null'
-              ?  _qualityCheckModel!.halfDrop23
+              ? _qualityCheckModel!.halfDrop23
               : prefs!.getString("halfDrop23").toString();
 
-               
-              //  --------------------------------------------
-                _qualityCheckModel!.twohoursDrop1=  prefs!.getString("twohoursDrop1").toString().isEmpty ||
+      //  --------------------------------------------
+      _qualityCheckModel!.twohoursDrop1 =
+          prefs!.getString("twohoursDrop1").toString().isEmpty ||
                   prefs!.getString("twohoursDrop1").toString() == 'null'
-              ?  _qualityCheckModel!.twohoursDrop1
+              ? _qualityCheckModel!.twohoursDrop1
               : prefs!.getString("twohoursDrop1").toString();
 
-               _qualityCheckModel!.twohoursDrop2=  prefs!.getString("twohoursDrop2").toString().isEmpty ||
+      _qualityCheckModel!.twohoursDrop2 =
+          prefs!.getString("twohoursDrop2").toString().isEmpty ||
                   prefs!.getString("twohoursDrop2").toString() == 'null'
-              ?  _qualityCheckModel!.twohoursDrop2
+              ? _qualityCheckModel!.twohoursDrop2
               : prefs!.getString("twohoursDrop2").toString();
 
-               _qualityCheckModel!.twohoursDrop3=  prefs!.getString("twohoursDrop3").toString().isEmpty ||
+      _qualityCheckModel!.twohoursDrop3 =
+          prefs!.getString("twohoursDrop3").toString().isEmpty ||
                   prefs!.getString("twohoursDrop3").toString() == 'null'
-              ?  _qualityCheckModel!.twohoursDrop3
+              ? _qualityCheckModel!.twohoursDrop3
               : prefs!.getString("twohoursDrop3").toString();
 
-               _qualityCheckModel!.twohoursDrop4=  prefs!.getString("twohoursDrop4").toString().isEmpty ||
+      _qualityCheckModel!.twohoursDrop4 =
+          prefs!.getString("twohoursDrop4").toString().isEmpty ||
                   prefs!.getString("twohoursDrop4").toString() == 'null'
-              ?  _qualityCheckModel!.twohoursDrop4
+              ? _qualityCheckModel!.twohoursDrop4
               : prefs!.getString("twohoursDrop4").toString();
 
-               _qualityCheckModel!.twohoursDrop5=  prefs!.getString("twohoursDrop5").toString().isEmpty ||
+      _qualityCheckModel!.twohoursDrop5 =
+          prefs!.getString("twohoursDrop5").toString().isEmpty ||
                   prefs!.getString("twohoursDrop5").toString() == 'null'
-              ?  _qualityCheckModel!.twohoursDrop5
+              ? _qualityCheckModel!.twohoursDrop5
               : prefs!.getString("twohoursDrop5").toString();
 
-               _qualityCheckModel!.twohoursDrop6=  prefs!.getString("twohoursDrop6").toString().isEmpty ||
+      _qualityCheckModel!.twohoursDrop6 =
+          prefs!.getString("twohoursDrop6").toString().isEmpty ||
                   prefs!.getString("twohoursDrop6").toString() == 'null'
-              ?  _qualityCheckModel!.twohoursDrop6
+              ? _qualityCheckModel!.twohoursDrop6
               : prefs!.getString("twohoursDrop6").toString();
-              // ---------------------------------------------------------------------
-               _qualityCheckModel!.fourHoursDrop1=  prefs!.getString("fourHoursDrop1").toString().isEmpty ||
+      // ---------------------------------------------------------------------
+      _qualityCheckModel!.fourHoursDrop1 =
+          prefs!.getString("fourHoursDrop1").toString().isEmpty ||
                   prefs!.getString("fourHoursDrop1").toString() == 'null'
-              ?  _qualityCheckModel!.fourHoursDrop1
+              ? _qualityCheckModel!.fourHoursDrop1
               : prefs!.getString("fourHoursDrop1").toString();
 
-               _qualityCheckModel!.fourHoursDrop2=  prefs!.getString("fourHoursDrop2").toString().isEmpty ||
+      _qualityCheckModel!.fourHoursDrop2 =
+          prefs!.getString("fourHoursDrop2").toString().isEmpty ||
                   prefs!.getString("fourHoursDrop2").toString() == 'null'
-              ?  _qualityCheckModel!.fourHoursDrop2
+              ? _qualityCheckModel!.fourHoursDrop2
               : prefs!.getString("fourHoursDrop2").toString();
 
-               _qualityCheckModel!.fourHoursDrop3=  prefs!.getString("fourHoursDrop3").toString().isEmpty ||
+      _qualityCheckModel!.fourHoursDrop3 =
+          prefs!.getString("fourHoursDrop3").toString().isEmpty ||
                   prefs!.getString("fourHoursDrop3").toString() == 'null'
-              ?  _qualityCheckModel!.fourHoursDrop3
+              ? _qualityCheckModel!.fourHoursDrop3
               : prefs!.getString("fourHoursDrop3").toString();
-
     });
-   
   }
 
   @override
@@ -619,7 +648,24 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
                                                                           Container(
                                                                               alignment: Alignment.center,
                                                                               height: 55,
-                                                                              child: textView(context, 'CASE'))
+                                                                              child: Row(
+                                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                children: [
+                                                                                  Checkbox(
+                                                                                      activeColor: Colors.green,
+                                                                                      value: check1,
+                                                                                      onChanged: (bool? value) {
+                                                                                        //value returned when checkbox is clicked
+                                                                                        setState(() {
+                                                                                          check1 = value;
+                                                                                          print('changed ${check1}');
+                                                                                        });
+                                                                                      }),
+                                                                                  Text('N/A'),
+                                                                                  textView(context, 'CASE')
+                                                                                ],
+                                                                              ))
                                                                         ]),
                                                                   ]),
                                                               Table(
@@ -2094,7 +2140,9 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
             style: Theme.of(context).textTheme.subtitle2,
             keyboardType: TextInputType.text,
             textInputAction: TextInputAction.next,
-            enabled: _qualityCheckModel!.canRequestFocus(textField),
+            enabled: check1!?
+            _qualityCheckModel!.canRequestFocusCASE(textField,check1!)
+            :_qualityCheckModel!.canRequestFocus(textField),
             controller: _qualityCheckModel!.selectTextEditor(textField),
             decoration: InputDecoration(
               constraints: BoxConstraints(
@@ -2120,22 +2168,22 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
                   print(
                       'adasssssssss2 ${_qualityCheckModel!.selectTextEditor('timeTF' + (no - 1).toString())!.text.toString()}');
 
-                  if (no > 1) {
-                    if (_qualityCheckModel!
-                            .selectTextEditor('timeTF' + (no - 1).toString())!
-                            .text
-                            .toString() !=
-                        '') {
-                      print(
-                          'adasssssssss ${_qualityCheckModel!.selectTextEditor('timeTF' + (no - 1).toString())!.text.toString()}');
-                      _qualityCheckModel!.selectTextEditor(textField)!.text =
-                          CustomFunctions().getHalfandHour(_qualityCheckModel!
-                              .selectTextEditor('timeTF' + (no - 1).toString())!
-                              .text
-                              .toString());
-                    }
-                  }
-                } else {
+                  // if (no > 1) {
+                  //   if (_qualityCheckModel!
+                  //           .selectTextEditor('timeTF' + (no - 1).toString())!
+                  //           .text
+                  //           .toString() !=
+                  //       '') {
+                  //     print(
+                  //         'adasssssssss ${_qualityCheckModel!.selectTextEditor('timeTF' + (no - 1).toString())!.text.toString()}');
+                  //     _qualityCheckModel!.selectTextEditor(textField)!.text =
+                  //         CustomFunctions().getHalfandHour(_qualityCheckModel!
+                  //             .selectTextEditor('timeTF' + (no - 1).toString())!
+                  //             .text
+                  //             .toString());
+                  //   }
+                  // }
+                // } else {
                   if (textField == 'timeTF1') {
                     _qualityCheckModel!.selectTextEditor('timeTF1')!.text =
                         CustomFunctions().clockInTime();
@@ -2362,9 +2410,9 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
               "MSTF1", _qualityCheckModel!.selectTextEditor(textField)!.text);
         }
         func1();
-         break;
-        // ----------------------------------ms-------------------------------------------------------
-       
+        break;
+      // ----------------------------------ms-------------------------------------------------------
+
       case 'case1':
         func1() async {
           prefs = await SharedPreferences.getInstance();
@@ -2557,201 +2605,193 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
         }
         func2();
         break;
-        // ----------------------------------case24----------------------------------
-              case 'halfDrop1':
+      // ----------------------------------case24----------------------------------
+      case 'halfDrop1':
         func1() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop1",_qualityCheckModel!.getDrop(textField) );
+          prefs!.setString("halfDrop1", _qualityCheckModel!.getDrop(textField));
         }
         func1();
         break;
       case 'halfDrop2':
         func2() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop2", _qualityCheckModel!.getDrop(textField));
+          prefs!.setString("halfDrop2", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;
       case 'halfDrop3':
         func2() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop3", _qualityCheckModel!.getDrop(textField));
+          prefs!.setString("halfDrop3", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;
       case 'halfDrop4':
         func2() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop4", _qualityCheckModel!.getDrop(textField));
+          prefs!.setString("halfDrop4", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;
       case 'halfDrop5':
         func2() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop5", _qualityCheckModel!.selectTextEditor(textField)!.text);
+          prefs!.setString("halfDrop5",
+              _qualityCheckModel!.selectTextEditor(textField)!.text);
         }
         func2();
         break;
       case 'halfDrop6':
         func2() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop6", _qualityCheckModel!.getDrop(textField));
+          prefs!.setString("halfDrop6", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;
       case 'halfDrop7':
         func2() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop7", _qualityCheckModel!.getDrop(textField));
+          prefs!.setString("halfDrop7", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;
       case 'halfDrop8':
         func2() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop8", _qualityCheckModel!.getDrop(textField));
+          prefs!.setString("halfDrop8", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;
       case 'halfDrop9':
         func2() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop9", _qualityCheckModel!.getDrop(textField));
+          prefs!.setString("halfDrop9", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;
       case 'halfDrop10':
         func2() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop10", _qualityCheckModel!.getDrop(textField));
+          prefs!
+              .setString("halfDrop10", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;
       case 'halfDrop11':
         func2() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop11", _qualityCheckModel!.getDrop(textField));
+          prefs!
+              .setString("halfDrop11", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;
       case 'halfDrop12':
         func2() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop12", _qualityCheckModel!.getDrop(textField));
+          prefs!
+              .setString("halfDrop12", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;
       case 'halfDrop13':
         func2() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop13", _qualityCheckModel!.getDrop(textField));
+          prefs!
+              .setString("halfDrop13", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;
       case 'halfDrop14':
         func14() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop14", _qualityCheckModel!.getDrop(textField));
+          prefs!
+              .setString("halfDrop14", _qualityCheckModel!.getDrop(textField));
         }
         func14();
         break;
       case 'halfDrop15':
         func2() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop15", _qualityCheckModel!.getDrop(textField));
+          prefs!
+              .setString("halfDrop15", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;
       case 'halfDrop16':
         func2() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop16", _qualityCheckModel!.getDrop(textField));
+          prefs!
+              .setString("halfDrop16", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;
       case 'halfDrop17':
         func2() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop17", _qualityCheckModel!.getDrop(textField));
+          prefs!
+              .setString("halfDrop17", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;
       case 'halfDrop18':
         func2() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop18", _qualityCheckModel!.getDrop(textField));
+          prefs!
+              .setString("halfDrop18", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;
       case 'halfDrop19':
         func2() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop19", _qualityCheckModel!.getDrop(textField));
+          prefs!
+              .setString("halfDrop19", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;
       case 'halfDrop20':
         func2() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop20", _qualityCheckModel!.getDrop(textField));
+          prefs!
+              .setString("halfDrop20", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;
       case 'halfDrop21':
         func2() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop21", _qualityCheckModel!.getDrop(textField));
+          prefs!
+              .setString("halfDrop21", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;
       case 'halfDrop22':
         func2() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop22", _qualityCheckModel!.getDrop(textField));
+          prefs!
+              .setString("halfDrop22", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;
       case 'halfDrop23':
         func2() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop23", _qualityCheckModel!.getDrop(textField));
+          prefs!
+              .setString("halfDrop23", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;
       case 'halfDrop24':
         func2() async {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              "halfDrop24", _qualityCheckModel!.getDrop(textField));
+          prefs!
+              .setString("halfDrop24", _qualityCheckModel!.getDrop(textField));
         }
         func2();
         break;
-        // --------------------------------------------------------------
-         case 'twohoursDrop1':
+      // --------------------------------------------------------------
+      case 'twohoursDrop1':
         func2() async {
           prefs = await SharedPreferences.getInstance();
           prefs!.setString(
@@ -2799,7 +2839,7 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
         }
         func2();
         break;
-        // --------------------------------------
+      // --------------------------------------
 
       case 'fourHoursDrop1':
         func2() async {
@@ -2809,7 +2849,6 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
         }
         func2();
         break;
-
     }
   }
 }

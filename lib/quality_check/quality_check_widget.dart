@@ -2198,22 +2198,22 @@ class _QualityCheckWidgetState extends State<QualityCheckWidget>
                   print(
                       'adasssssssss2 ${_qualityCheckModel!.selectTextEditor('timeTF' + (no - 1).toString())!.text.toString()}');
 
-                  // if (no > 1) {
-                  //   if (_qualityCheckModel!
-                  //           .selectTextEditor('timeTF' + (no - 1).toString())!
-                  //           .text
-                  //           .toString() !=
-                  //       '') {
-                  //     print(
-                  //         'adasssssssss ${_qualityCheckModel!.selectTextEditor('timeTF' + (no - 1).toString())!.text.toString()}');
-                  //     _qualityCheckModel!.selectTextEditor(textField)!.text =
-                  //         CustomFunctions().getHalfandHour(_qualityCheckModel!
-                  //             .selectTextEditor('timeTF' + (no - 1).toString())!
-                  //             .text
-                  //             .toString());
-                  //   }
-                  // }
-                // } else {
+                  if (no > 1) {
+                    if (_qualityCheckModel!
+                            .selectTextEditor('timeTF' + (no - 1).toString())!
+                            .text
+                            .toString() !=
+                        '') {
+                      print(
+                          'adasssssssss ${_qualityCheckModel!.selectTextEditor('timeTF' + (no - 1).toString())!.text.toString()}');
+                      _qualityCheckModel!.selectTextEditor(textField)!.text =
+                          CustomFunctions().getHalfandHour(_qualityCheckModel!
+                              .selectTextEditor('timeTF' + (no - 1).toString())!
+                              .text
+                              .toString());
+                    }
+                  }
+                } else {
                   if (textField == 'timeTF1') {
                     _qualityCheckModel!.selectTextEditor('timeTF1')!.text =
                         CustomFunctions().clockInTime();
